@@ -1,17 +1,19 @@
 
+const { StringDecoder } = require('string_decoder');
 const core = require('../core/core');
 
-const ItemSchema = new core.Schema({
+const JobSchema = new core.Schema({
   vacancyTitle: String,
   companyName: String,
   salary: String,
   street: String,
   town: String,
   city: String,
-  postcode: String
+  postcode: String,
+  description: String
 });
+const JobModel = core.mongoose.model("jobs", JobSchema);
 
-const JobModel = core.mongoose.model("jobs", ItemSchema);
 
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
@@ -24,11 +26,24 @@ core.app.get('/api/jobs', async function (req, resp) {
   }
 });
 
+// Get a single job
+core.app.get('/api/job/:uid', async function (req, resp) {
+  try {
+    const job = await JobModel.findById(req.params.uid)
+    resp.status(200).json(job);
+  }
+  catch {
+    resp.status('200').json('error')
+  }
+});
+
+
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
   JobModel.create(req.body)
     .then(result => {
-      resp.status(200).json(req.body);
+      console.log(result);
+      resp.status(200).json(result);
     })
     .catch(error => {
       resp.status('200').json('error');
@@ -38,16 +53,15 @@ core.app.post('/api/job', async function (req, resp) {
 
 // TODO
 // Update Job
-core.app.put('/api/job', async function (req, resp) {
-  let idToUpdate = req.body._id;
-
+core.app.put('/api/job/:uid', async function (req, resp) {
+  let idToUpdate = req.params.uid;
   resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
 });
 
 
 // TODO
-core.app.delete('api/job/', async function (req, resp) {
-  let idToUpdate = req.body._id;
+core.app.delete('api/job/:uid', async function (req, resp) {
+  let idToUpdate = req.params.uid;
 
   resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
 });

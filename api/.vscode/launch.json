@@ -5,17 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
+            "type": "pwa-node",
             "request": "launch",
-            "type": "node",
-            "program": "${workspaceRoot}/api/index.js",
-            "cwd": "${workspaceRoos}"
-        },
-        {
-            "name": "Attach to process",
-            "type": "node",
-            "request": "attach",
-            "port": 9229
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\index.js"
         }
     ]
 }

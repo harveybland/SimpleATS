@@ -1,6 +1,6 @@
 
 const core = require('./core/core');
 require('./controllers/jobs-listings');
-
+const port = process.env.PORT || 4000
 // start server from core import
-core.app.listen(4000, () => { console.log('server started') })
+core.app.listen(port, () => { console.log('server started') })

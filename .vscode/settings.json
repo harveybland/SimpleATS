@@ -12,5 +12,9 @@
         "production": {
             "baseUrl": "productionUrl"
         }
-    }
+    },
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
 }

@@ -14,7 +14,7 @@ const ItemSchema = new core.Schema({
 const JobModel = core.mongoose.model("jobs", ItemSchema);
 
 // Get all jobs
-core.app.get('/', async function (req, resp) {
+core.app.get('/api/jobs', async function (req, resp) {
   try {
     const jobs = await JobModel.find();
     resp.status(200).json(jobs);
@@ -25,7 +25,7 @@ core.app.get('/', async function (req, resp) {
 });
 
 // Create Job
-core.app.post('/', async function (req, resp) {
+core.app.post('/api/job', async function (req, resp) {
   JobModel.create(req.body)
     .then(result => {
       resp.status(200).json(req.body);
@@ -38,7 +38,7 @@ core.app.post('/', async function (req, resp) {
 
 // TODO
 // Update Job
-core.app.put('/', async function (req, resp) {
+core.app.put('/api/job', async function (req, resp) {
   let idToUpdate = req.body._id;
 
   resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
@@ -46,7 +46,7 @@ core.app.put('/', async function (req, resp) {
 
 
 // TODO
-core.app.delete('/', async function (req, resp) {
+core.app.delete('api/job/', async function (req, resp) {
   let idToUpdate = req.body._id;
 
   resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');

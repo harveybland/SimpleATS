@@ -1,10 +1,12 @@
 {
   "name": "MongoDBTest",
   "version": "1.0.0",
-  "description": "",
+  "description": "//To Run install",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "index": "nodemon index.js --ignore 'ats/'",
+    "ats": "npm run serve --prefix ats",
+    "dev": "concurrently \"npm run index\" \"npm run ats\""
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,14 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.11.10"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://harveybland@bitbucket.org/basismediadevs/simpleats.git"
+  },
+  "homepage": "https://bitbucket.org/basismediadevs/simpleats#readme"
 }

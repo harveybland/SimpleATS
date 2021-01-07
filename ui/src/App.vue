@@ -16,6 +16,7 @@ var jobArray = [
     vacancyTitle: "test",
   },
 ];
+
 import HelloWorld from "./components/HelloWorld.vue";
 import { getJobListing } from "./services/jobs.service";
 

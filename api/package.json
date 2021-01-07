@@ -4,9 +4,7 @@
   "description": "//To Run install",
   "main": "index.js",
   "scripts": {
-    "index": "nodemon index.js --ignore 'ats/'",
-    "ats": "npm run serve --prefix ats",
-    "dev": "concurrently \"npm run index\" \"npm run ats\""
+    "test": "echo \"Error: no test specified\" && exit 1" 
   },
   "keywords": [],
   "author": "",

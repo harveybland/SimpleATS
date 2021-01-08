@@ -19,14 +19,20 @@ steps:
     cd api
     npm install
   displayName: 'npm install'
-- task: PublishPipelineArtifact@0
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
   inputs:
-    artifactName: 'angular'
-    targetPath: 'api'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/api'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+  artifact: drop
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Basis Media Ltd (ce619a5d-05a0-4c7e-bf25-25f5f8ef7dc6)'
     appType: 'webApp'
     appName: 'simpleats'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
     deploymentMethod: 'auto'

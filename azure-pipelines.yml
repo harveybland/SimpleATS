@@ -9,7 +9,7 @@ variables:
  vmImageName: 'ubuntu-latest'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
   environmentName: 'simpleats-api'
   vmImageName: 'windows-latest'
 

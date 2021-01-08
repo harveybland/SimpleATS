@@ -5,9 +5,13 @@
 
 trigger:
 - main
+variables:
+ vmImageName: 'ubuntu-latest'
 
 pool:
   vmImage: 'ubuntu-latest'
+  environmentName: 'simpleats-api'
+  vmImageName: 'windows-latest'
 
 stages:
 - stage: Build

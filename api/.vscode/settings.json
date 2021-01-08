@@ -1,4 +1,3 @@
 {
-    "appService.defaultWebAppToDeploy": "/subscriptions/ce619a5d-05a0-4c7e-bf25-25f5f8ef7dc6/resourceGroups/simpleATS/providers/Microsoft.Web/sites/simpleats-api",
     "appService.deploySubpath": "."
 }

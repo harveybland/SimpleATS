@@ -1,5 +1,5 @@
 {
-  "name": "MongoDBTest",
+  "name": "simpleatsapi",
   "version": "1.0.0",
   "description": "//To Run install",
   "main": "index.js",

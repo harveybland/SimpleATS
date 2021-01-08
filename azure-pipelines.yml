@@ -18,8 +18,7 @@ steps:
 - script: |
     cd api
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install'
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: 'angular'

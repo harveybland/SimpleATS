@@ -1,83 +1,76 @@
 
-const { StringDecoder } = require('string_decoder');
 const core = require('../core/core');
+const schemas = require('../core/schemas/schemas');
 
-const JobSchema = new core.Schema({
-  vacancyTitle: String,
-  companyName: String,
-  salary: String,
-  street: String,
-  town: String,
-  city: String,
-  postcode: String,
-  description: String,
-  isDeleted: false
-});
-const JobModel = core.mongoose.model("jobs", JobSchema);
 
 
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
-    const jobs = await JobModel.find({isDeleted: true});
+    const jobs = await schemas.JobModel.find();
     resp.status(200).json(jobs);
   }
   catch {
-    resp.status('404').json('error')
+    resp.status('200').json('error')
   }
 });
 
-// Get a single job
+
+
+// Gets a job with all of the applications
 core.app.get('/api/job/:uid', async function (req, resp) {
   try {
-    const job = await JobModel.findById(req.params.uid)
-    resp.status(200).json(job);
+    const jobwithApplicants = await schemas.JobModel.aggregate([
+      {
+        $match:
+        {
+          _id: core.mongoose.Types.ObjectId(req.params.uid)
+        }
+      },
+      {
+        $lookup:
+        {
+          from: "applicants",
+          localField: "_id",
+          foreignField: "jobid",
+          as: "applicants"
+        }
+      }
+    ]);
+    resp.status(200).json(jobwithApplicants);
   }
   catch {
-    resp.status('404').json('error')
+    resp.status('200').json('error')
   }
 });
+
 
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
-  JobModel.create(req.body)
+  schemas.JobModel.create(req.body)
     .then(result => {
       console.log(result);
       resp.status(200).json(result);
     })
     .catch(error => {
-      resp.status('404').json('error');
+      resp.status('200').json('error');
     })
 });
 
 
 // TODO
-
 // Update Job
 core.app.put('/api/job/:uid', async function (req, resp) {
-  try {
-    const idToUpdate = JobModel.updateOne( 
-      {_id: req.params.uid },
-      {$set: { vacancyTitle: req.body.vacancyTitle } },
-      {$set: { companyName: req.body.companyName } }
-    );
-    resp.json(idToUpdate);
-  } 
-  catch {
-    resp.status('404').json('error');
-  } 
+  let idToUpdate = req.params.uid;
+  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
 });
 
 
-// Delete job
-core.app.delete('/api/job/:uid', async function (req, resp) {
-  try {
-    const deleteJob = await JobModel.remove({_id: req.params.uid});
-    resp.json(deleteJob);
-  }
-  catch {
-    resp.status('404').json('error');
-  }
+// TODO
+core.app.delete('api/job/:uid', async function (req, resp) {
+  let idToUpdate = req.params.uid;
+  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
 });
+
 
 

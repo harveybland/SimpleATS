@@ -10,7 +10,8 @@ const JobSchema = new core.Schema({
   town: String,
   city: String,
   postcode: String,
-  description: String
+  description: String,
+  isDeleted: false
 });
 const JobModel = core.mongoose.model("jobs", JobSchema);
 
@@ -18,11 +19,11 @@ const JobModel = core.mongoose.model("jobs", JobSchema);
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
-    const jobs = await JobModel.find();
+    const jobs = await JobModel.find({isDeleted: true});
     resp.status(200).json(jobs);
   }
   catch {
-    resp.status('200').json('error')
+    resp.status('404').json('error')
   }
 });
 
@@ -33,10 +34,9 @@ core.app.get('/api/job/:uid', async function (req, resp) {
     resp.status(200).json(job);
   }
   catch {
-    resp.status('200').json('error')
+    resp.status('404').json('error')
   }
 });
-
 
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
@@ -46,25 +46,38 @@ core.app.post('/api/job', async function (req, resp) {
       resp.status(200).json(result);
     })
     .catch(error => {
-      resp.status('200').json('error');
+      resp.status('404').json('error');
     })
 });
 
 
 // TODO
+
 // Update Job
 core.app.put('/api/job/:uid', async function (req, resp) {
-  let idToUpdate = req.params.uid;
-  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
+  try {
+    const idToUpdate = JobModel.updateOne( 
+      {_id: req.params.uid },
+      {$set: { vacancyTitle: req.body.vacancyTitle } },
+      {$set: { companyName: req.body.companyName } }
+    );
+    resp.json(idToUpdate);
+  } 
+  catch {
+    resp.status('404').json('error');
+  } 
 });
 
 
-// TODO
-core.app.delete('api/job/:uid', async function (req, resp) {
-  let idToUpdate = req.params.uid;
-
-  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
+// Delete job
+core.app.delete('/api/job/:uid', async function (req, resp) {
+  try {
+    const deleteJob = await JobModel.remove({_id: req.params.uid});
+    resp.json(deleteJob);
+  }
+  catch {
+    resp.status('404').json('error');
+  }
 });
-
 
 

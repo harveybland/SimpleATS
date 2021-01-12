@@ -3,18 +3,16 @@ const core = require('../core/core');
 const schemas = require('../core/schemas/schemas');
 
 
-
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
-    const jobs = await schemas.JobModel.find();
+    const jobs = await schemas.JobModel.find({isDeleted: true});
     resp.status(200).json(jobs);
   }
   catch {
     resp.status('200').json('error')
   }
 });
-
 
 
 // Gets a job with all of the applications
@@ -61,15 +59,27 @@ core.app.post('/api/job', async function (req, resp) {
 // TODO
 // Update Job
 core.app.put('/api/job/:uid', async function (req, resp) {
-  let idToUpdate = req.params.uid;
-  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
+  try {
+    const idToUpdate = await schemas.JobModel.updateOne( 
+      {_id: req.params.uid },
+      {$set: { vacancyTitle: req.body.vacancyTitle }}
+    );
+    resp.json(idToUpdate);
+  } 
+  catch {
+    resp.status('404').json('error');
+  } 
 });
 
-
-// TODO
-core.app.delete('api/job/:uid', async function (req, resp) {
-  let idToUpdate = req.params.uid;
-  resp.status('200').json(idToUpdate + ' NOT IMPLEMENTED');
+// Delete job
+core.app.delete('/api/job/:uid', async function (req, resp) {
+  try {
+    const deleteJob = await schemas.JobModel.remove({_id: req.params.uid}, {isDeleted: true});
+    resp.json(deleteJob);
+  }
+  catch {
+    resp.status('404').json('error');
+  }
 });
 
 

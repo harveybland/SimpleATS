@@ -20,6 +20,7 @@ const JobSchema = new core.Schema({
     city: String,
     postcode: String,
     description: String,
+    isDeleted: { type: Boolean, default: false },
     applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
 });
 const JobModel = core.mongoose.model("jobs", JobSchema);

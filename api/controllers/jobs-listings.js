@@ -1,12 +1,13 @@
 
 const core = require('../core/core');
 const schemas = require('../core/schemas/schemas');
+const { authenticateToken } = require('../core/authentication/authentication');
 
 
 // Get all jobs
-core.app.get('/api/jobs', async function (req, resp) {
+core.app.get('/api/jobs', authenticateToken, async function (req, resp) {
   try {
-    const jobs = await schemas.JobModel.find({isDeleted: false || null});
+    const jobs = await schemas.JobModel.find({ isDeleted: false || null });
     resp.status(200).json(jobs);
   }
   catch {
@@ -52,7 +53,7 @@ core.app.post('/api/job', async function (req, resp) {
     })
     .catch(error => {
       resp.status('200').json('error');
-    })
+    });
 });
 
 
@@ -60,21 +61,21 @@ core.app.post('/api/job', async function (req, resp) {
 // Update Job
 core.app.put('/api/job/:uid', async function (req, resp) {
   try {
-    const idToUpdate = await schemas.JobModel.updateOne( 
-      {_id: req.params.uid },
-      {$set: { vacancyTitle: req.body.vacancyTitle }}
+    const idToUpdate = await schemas.JobModel.updateOne(
+      { _id: req.params.uid },
+      { $set: { vacancyTitle: req.body.vacancyTitle } }
     );
     resp.status(200).resp.json(idToUpdate);
-  } 
+  }
   catch {
     resp.status('404').json('error');
-  } 
+  }
 });
 
 // Delete job
 core.app.delete('/api/job/:uid', async function (req, resp) {
   try {
-    const deleteJob = await schemas.JobModel.findByIdAndUpdate((resp.params.uid, {isDeleted: true}));
+    const deleteJob = await schemas.JobModel.findByIdAndUpdate((resp.params.uid, { isDeleted: true }));
     resp.status(204).json(deleteJob)
   }
   catch {

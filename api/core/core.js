@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }));
 
 var mongoDB = 'mongodb+srv://dev:re1VqBVDudd37dMq@cluster0.tbrfk.mongodb.net/MyTest?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
+mongoose.set('useCreateIndex', true);
 // export all
 module.exports.app = app;
 module.exports.mongoose = mongoose;

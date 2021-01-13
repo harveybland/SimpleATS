@@ -21,7 +21,7 @@ var jobArray = [
 ];
 import { getJobListing } from "../services/jobs.service";
 export default {
-    name: 'Vacancies',
+    name: 'VacanciesComponent',
       data() {
     return {
       arrayItem: jobArray,

@@ -1,7 +1,6 @@
 
 const core = require('../core/core');
 const schemas = require('../core/schemas/schemas');
-const { authenticateToken } = require('../core/authentication/authentication');
 
 
 // Get all jobs

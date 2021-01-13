@@ -5,7 +5,7 @@ const { authenticateToken } = require('../core/authentication/authentication');
 
 
 // Get all jobs
-core.app.get('/api/jobs', authenticateToken, async function (req, resp) {
+core.app.get('/api/jobs', async function (req, resp) {
   try {
     const jobs = await schemas.JobModel.find({ isDeleted: false || null });
     resp.status(200).json(jobs);

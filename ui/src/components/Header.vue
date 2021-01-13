@@ -1,5 +1,5 @@
 <template>
-        <div>
+  <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand href="#">Simple ATS</b-navbar-brand>
 
@@ -7,8 +7,8 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Home</b-nav-item>
-        <b-nav-item href="#">Vacancies</b-nav-item>
+        <b-nav-item><router-link to="/">Home</router-link></b-nav-item>
+        <b-nav-item><router-link to="/Vacancies">Vacancies</router-link></b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">

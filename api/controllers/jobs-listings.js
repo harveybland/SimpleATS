@@ -6,7 +6,7 @@ const schemas = require('../core/schemas/schemas');
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
-    const jobs = await schemas.JobModel.find({isDeleted: true});
+    const jobs = await schemas.JobModel.find({isDeleted: false || null});
     resp.status(200).json(jobs);
   }
   catch {
@@ -64,7 +64,7 @@ core.app.put('/api/job/:uid', async function (req, resp) {
       {_id: req.params.uid },
       {$set: { vacancyTitle: req.body.vacancyTitle }}
     );
-    resp.json(idToUpdate);
+    resp.status(200).resp.json(idToUpdate);
   } 
   catch {
     resp.status('404').json('error');
@@ -74,8 +74,8 @@ core.app.put('/api/job/:uid', async function (req, resp) {
 // Delete job
 core.app.delete('/api/job/:uid', async function (req, resp) {
   try {
-    const deleteJob = await schemas.JobModel.remove({_id: req.params.uid}, {isDeleted: true});
-    resp.json(deleteJob);
+    const deleteJob = await schemas.JobModel.findByIdAndUpdate((resp.params.uid, {isDeleted: true}));
+    resp.status(204).json(deleteJob)
   }
   catch {
     resp.status('404').json('error');

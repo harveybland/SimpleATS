@@ -10,14 +10,14 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, secret, (err, user) => {
     console.log(err);
-    if (err) return res.sendStatus(403);
+    if (err) return res.status(403).json(err);
     req.user = user;
     next();
   });
 }
 
-function generateAccessToken(username) {
-  return jwt.sign(username, secret, { expiresIn: '1800s' });
+async function generateAccessToken(username) {
+  return jwt.sign({ username: username }, secret, { expiresIn: '1800s' });
 }
 
 

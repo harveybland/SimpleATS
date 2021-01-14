@@ -5,13 +5,13 @@ const { generateAccessToken } = require('../core/authentication/authentication')
 
 
 // login
-core.app.get('/api/login', async function (req, resp) {
+core.app.post('/api/login', async function (req, resp) {
     const username = req.body.username;
     try {
         const user = await schemas.UserModel.findOne({ username: username });
         const isValid = await user.comparePassword(req.body.password);
         if (isValid) {
-            const token = generateAccessToken({ username: req.body.username });
+            const token = await generateAccessToken(req.body.username );
             resp.status(200).json(token);
         } else {
             resp.status(401).json('Invalid username or password');

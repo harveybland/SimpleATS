@@ -34,6 +34,13 @@ export default {
 }
 </script>
 
-<style scroped>
-    
+<style scoped>
+  a {
+    color: rgba(255, 255, 255, 0.5)!important;
+    text-decoration: none;
+  }
+  a:hover {
+    color: rgba(255, 255, 255, 0.75) !important;
+    text-decoration: none;
+  }
 </style>

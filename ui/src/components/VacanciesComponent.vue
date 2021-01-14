@@ -1,16 +1,12 @@
 <template>
 <div class="background">
     <div class="container">
-        <b-card bg-variant="dark" text-variant="white">
-        <b-card-text>
-            <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
-            {{ item.vacancyTitle }}<br />
-            {{ item.companyName }}<br />
-            {{ item.city }}</li>
-        </b-card-text>
-        </b-card>
+          <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
+          <h5>{{ item.vacancyTitle }}</h5>
+          <p>{{ item.street }} {{ item.city }} {{ item.town }}</p>
+          </li>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -42,12 +38,21 @@ export default {
 </script>
 
 <style scoped>
+
 .background {
     background: grey;
 }
-
 li {
   display: block;
-  border-bottom: solid 1px #fff;
+  padding-bottom: 25px;
+   background: #343a40 ;
+   padding: 25px 25px 20px 25px;
+   margin-top: 20px;
 }
+  h5 {
+    color: #e5e5e5;
+  }
+  p {
+    color: rgba(255, 255, 255, 0.5);
+  }
 </style>

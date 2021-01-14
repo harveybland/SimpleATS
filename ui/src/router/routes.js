@@ -3,27 +3,27 @@ import VueRouter from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import VacanciesView from '../views/VacanciesView.vue'
-import VacanciesComponent from '../components/VacanciesComponent.vue'
+import VacanciesComponent from '../components/VacanciesComponent'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
       path: "/",
-      name: "Home",
       component: HomeView
     },
     {
-        path: "/vacanciesView",
-        name: "Vacancies",
-        component: VacanciesView,
+        path: "/Vacancies",
+        component: VacanciesView  ,
         children: [{
-            path: "/VacanciesComponent",
+            path: "VacanciesComponent",
             name: "VacanciesComponent",
             component: VacanciesComponent
         }]
     }
   ];
+
+
   
   const router = new VueRouter({
     mode: "history",

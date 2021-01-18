@@ -1,5 +1,7 @@
 <template>
-  <div>
+    
+
+<div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand href="#">Simple ATS</b-navbar-brand>
 
@@ -7,21 +9,15 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item><router-link to="/">Home</router-link></b-nav-item>
-        <b-nav-item><router-link to="/Vacancies">Vacancies</router-link></b-nav-item>
+        <b-nav-item><router-link to="/" class="nav">Home</router-link></b-nav-item>
+        <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
       </b-navbar-nav>
-      <!-- Right aligned nav items -->
+
       <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-        </b-nav-form>
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>User</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+      <b-navbar-nav>
+        <b-nav-item><router-link to="/LoginView" class="nav">Login</router-link></b-nav-item>
+        <b-nav-item><router-link to="/AccountView" class="nav">Sign up</router-link></b-nav-item>
+      </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -35,11 +31,11 @@ export default {
 </script>
 
 <style scoped>
-  a {
+  .nav {
     color: rgba(255, 255, 255, 0.5)!important;
     text-decoration: none;
   }
-  a:hover {
+  .nav:hover {
     color: rgba(255, 255, 255, 0.75) !important;
     text-decoration: none;
   }

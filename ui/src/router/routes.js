@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import VacanciesView from '../views/VacanciesView.vue'
-import VacanciesComponent from '../components/VacanciesComponent'
+import LoginView from '../views/LoginView.vue'
+import AccountView from '../views/AccountView.vue'
+
 
 Vue.use(VueRouter)
 
@@ -14,16 +16,17 @@ const routes = [
     },
     {
         path: "/Vacancies",
-        component: VacanciesView  ,
-        children: [{
-            path: "VacanciesComponent",
-            name: "VacanciesComponent",
-            component: VacanciesComponent
-        }]
-    }
+        component: VacanciesView 
+    },
+    {
+      path:  '/LoginView',
+      component: LoginView
+    },
+     {
+       path: '/AccountView',
+       component: AccountView
+     }
   ];
-
-
   
   const router = new VueRouter({
     mode: "history",

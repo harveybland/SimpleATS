@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <h2>Home Page</h2>
+    <div class="container home">
+           <div class="text-center mt-5">
+            <h2>Simple ATS</h2>
+        </div>
     </div>
 </template>
 
@@ -11,5 +13,7 @@
 </script>
 
 <style scoped>
-
+     h2 {
+        height: 86vh;
+    }
 </style>

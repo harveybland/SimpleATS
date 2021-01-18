@@ -4,6 +4,19 @@ const { generateAccessToken } = require('../core/authentication/authentication')
 // main account controller
 
 
+// create account
+core.app.post('/api/user/create', async function (req, resp) {
+    schemas.UserModel.create(req.body)
+        .then(result => {
+            console.log(result);
+            resp.status(200).json('User Created');
+        })
+        .catch(error => {
+            resp.status('401').json(error);
+        });
+});
+
+
 // login
 core.app.post('/api/login', async function (req, resp) {
     const username = req.body.username;
@@ -21,18 +34,4 @@ core.app.post('/api/login', async function (req, resp) {
     }
 });
 
-core.app.post('/api/user/create', async function (req, resp) {
-    schemas.UserModel.create(req.body)
-        .then(result => {
-            console.log(result);
-            resp.status(200).json('User Created');
-        })
-        .catch(error => {
-            resp.status('200').json(error);
-        });
-});
 
-
-
-
-// create account

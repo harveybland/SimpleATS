@@ -25,7 +25,10 @@ core.app.post('/api/login', async function (req, resp) {
         const isValid = await user.comparePassword(req.body.password);
         if (isValid) {
             const token = await generateAccessToken(req.body.username );
-            resp.status(200).json(token);
+            const ob = {
+                token: token
+            };
+            resp.status(200).json(ob);
         } else {
             resp.status(401).json('Invalid username or password');
         }

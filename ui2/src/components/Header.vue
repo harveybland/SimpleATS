@@ -15,8 +15,8 @@
 
       <b-navbar-nav class="ml-auto">
       <b-navbar-nav>
-        <b-nav-item><router-link to="/LoginView" class="nav">Login</router-link></b-nav-item>
-        <b-nav-item><router-link to="/AccountView" class="nav">Sign up</router-link></b-nav-item>
+        <b-nav-item><router-link to="/Login" class="nav">Login</router-link></b-nav-item>
+        <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>

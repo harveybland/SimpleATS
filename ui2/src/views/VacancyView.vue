@@ -2,7 +2,7 @@
   <div class="background">
     <div class="container">
       <div class="mb-4 pt-3">
-        <h2>Vacancies</h2>
+        <h2>Load the Vacancy</h2>
       </div>
       <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
         <h5>{{ item.vacancyTitle }}</h5>
@@ -13,32 +13,29 @@
 </template>
 
 <script>
-var jobArray = [
+let jobArray = [
   {
     vacancyTitle: "test",
   },
 ];
+let id = "";
+
 // import { getJobListing } from "../services/jobs.service";
-import { httpservice } from "../services/http.service";
+import { HttpService } from "@/services/http.service";
 
 export default {
-  name: "VacanciesView",
+  name: "Vacancy",
   data() {
     return {
       arrayItem: jobArray,
     };
   },
-  methods: {
-    async getJobs() {
-      const res = await HttpService.httpGet('/jobs');
-      // const res = await getJobListing();
-      // this.data = res;
-      // jobArray.splice(0, jobArray.length);
-      // jobArray.push(...res);
-    },
-  },
-  beforeMount() {
-    this.getJobs();
+  methods: {},
+  created() {
+    // I have got the id from the url
+    // next step is to call the get job endpoint /api/job/{id}
+    // and fill the data 
+    this.id = this.$router.currentRoute.params.id;
   },
 };
 </script>

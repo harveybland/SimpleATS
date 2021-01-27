@@ -39,7 +39,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button variant="primary" @click="submitForm">CREATE</b-button>
+        <b-button variant="primary" @click.prevent="submitForm">CREATE</b-button>
       </b-form>
     </div>
     <div v-if="submitted" class="text-center mt-5 mb-5">
@@ -64,60 +64,15 @@ export default {
     };
   },
   methods: {
-    onCreateUser() {
-      // 1. Create the body of username and password
-      // 2. Send to the create endpoint, if sucessful this automatically links to the login endpoint
-      // 3. A JWT token which is used for authorisation is returned, we need to put this into local storage
-
+    submitForm() {
       // create object to send to server
-      const body = { username: "", password: "" };
-      HttpService.httpPost("user/create", body).then(() => {
-        HttpService.httpPost("login", body).then((authToken) => {
-          // save the auth token in local storage
-          console.log(authToken);
+          const body = { username: "admin", password: "password" };
+          HttpService.httpPost("user/create", body).then(() => {
+          HttpService.httpPost("login", body).then((authToken) => {
+          localStorage.setItem('token', JSON.stringify(authToken))
         });
       });
-    },
-    // //get
-    // mounted() {
-    //   fetch("http://localhost:4000/api/user")
-    //     .then((res) => res.json())
-    //     .then((form) => {
-    //       (this.username = form), (this.password = form);
-    //     });
-    // },
-
-    // //delete
-    // deleteAccount(id) {
-    //   fetch("http://localhost:4000/api/user/create/", +id, {
-    //     method: "DELETE",
-    //   }).then(() => {
-    //     console.log("Deleted");
-    //   });
-    // },
-
-    // // post
-    // submitForm() {
-    //   const create = {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ username: "harvey", password: "password" }),
-    //   };
-    //   fetch("http://localhost:4000/api/user/create", create)
-    //     .then((res) => res.json())
-    //     .then((this.submitted = true));
-    // },
-
-    // //put
-    // updateAccount(form) {
-    //   fetch("http://localhost:4000/api/user/create/", +form.id, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(form),
-    //   }).then(() => {
-    //     this.editAccount = null;
-    //   });
-    // },
+    }
   },
 };
 </script>

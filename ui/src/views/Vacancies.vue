@@ -5,7 +5,9 @@
         <h2>Vacancies</h2>
       </div>
       <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
-        <h5>{{ item.vacancyTitle }}</h5>
+        <router-link :to="{ path: '/Vacancies/' + item._id }" class="nav">
+          <h5>{{ item.vacancyTitle }}</h5>
+        </router-link>
         <p>{{ item.street }} {{ item.city }} {{ item.town }}</p>
       </li>
     </div>
@@ -13,16 +15,15 @@
 </template>
 
 <script>
-var jobArray = [
+let jobArray = [
   {
     vacancyTitle: "test",
   },
 ];
-// import { getJobListing } from "../services/jobs.service";
-import { httpservice } from "../services/http.service";
+import { HttpService } from "@/services/http.service";
 
 export default {
-  name: "VacanciesView",
+  name: "Vacancies",
   data() {
     return {
       arrayItem: jobArray,
@@ -30,11 +31,10 @@ export default {
   },
   methods: {
     async getJobs() {
-      const res = await HttpService.httpGet('/jobs');
-      // const res = await getJobListing();
-      // this.data = res;
-      // jobArray.splice(0, jobArray.length);
-      // jobArray.push(...res);
+      const res = await HttpService.httpGet("jobs");
+      this.data = res;
+      jobArray.splice(0, jobArray.length);
+      jobArray.push(...res);
     },
   },
   beforeMount() {

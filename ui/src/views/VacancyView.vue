@@ -6,21 +6,18 @@
       </div>
       <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
         <h5>{{ item.vacancyTitle }}</h5>
-        <p>{{ item.street }} {{ item.city }} {{ item.town }}</p>
+        <p>{{ item.street }} {{ item.city }}</p>
+        <p>{{ item.town }} {{ item.postcode }}</p>
       </li>
     </div>
   </div>
 </template>
 
 <script>
-let jobArray = [
-  {
-    vacancyTitle: "test",
-  },
-];
+let jobArray = { vacancyTitle: "test" };
 let id = "";
 
-// import { getJobListing } from "../services/jobs.service";
+import axios from 'axios';
 import { HttpService } from "@/services/http.service";
 
 export default {
@@ -30,13 +27,27 @@ export default {
       arrayItem: jobArray,
     };
   },
-  methods: {},
-  created() {
+   methods: {
+    async getJob() {
+      const vac = await HttpService.httpGet("job/" + this.id);
+      this.id = this.$router.currentRoute.params.id;
+      
+    }
+
+    // async getJob(id) {
+    //   let vac = await axios.get("http://localhost:4000/api/job/" + this.id);
+    //   return vac.data;
+    // }
+  },
+  
+   beforeMount() {
+    this.getJob();
+  },
+
     // I have got the id from the url
     // next step is to call the get job endpoint /api/job/{id}
     // and fill the data 
-    this.id = this.$router.currentRoute.params.id;
-  },
+
 };
 </script>
 

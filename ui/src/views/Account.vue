@@ -39,7 +39,11 @@
             required
           ></b-form-input>
         </b-form-group>
+<<<<<<< HEAD:ui/src/views/Account.vue
         <b-button variant="primary" @click.prevent="submitForm">CREATE</b-button>
+=======
+        <b-button variant="primary" @click="onCreateUser">CREATE</b-button>
+>>>>>>> 4f814740e31a5119ed7c2e47dc75313d88e400da:ui2/src/views/Account.vue
       </b-form>
     </div>
     <div v-if="submitted" class="text-center mt-5 mb-5">
@@ -66,11 +70,24 @@ export default {
   methods: {
     submitForm() {
       // create object to send to server
+<<<<<<< HEAD:ui/src/views/Account.vue
           const body = { username: "admin", password: "password" };
           HttpService.httpPost("user/create", body).then(() => {
           HttpService.httpPost("login", body).then((authToken) => {
           localStorage.setItem('token', JSON.stringify(authToken))
         });
+=======
+      const body = { username: "", password: "" };
+      HttpService.httpPost("user/create", body).then((resp) => {
+
+        if (resp === "User Created") {
+          
+          HttpService.httpPost("login", body).then((authToken) => {
+            // save the auth token in local storage
+            console.log(authToken);
+          });
+        }
+>>>>>>> 4f814740e31a5119ed7c2e47dc75313d88e400da:ui2/src/views/Account.vue
       });
     }
   },

@@ -39,7 +39,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button variant="primary" @click="submitForm">CREATE</b-button>
+        <b-button variant="primary" @click="onCreateUser">CREATE</b-button>
       </b-form>
     </div>
     <div v-if="submitted" class="text-center mt-5 mb-5">
@@ -71,11 +71,15 @@ export default {
 
       // create object to send to server
       const body = { username: "", password: "" };
-      HttpService.httpPost("user/create", body).then(() => {
-        HttpService.httpPost("login", body).then((authToken) => {
-          // save the auth token in local storage
-          console.log(authToken);
-        });
+      HttpService.httpPost("user/create", body).then((resp) => {
+
+        if (resp === "User Created") {
+          
+          HttpService.httpPost("login", body).then((authToken) => {
+            // save the auth token in local storage
+            console.log(authToken);
+          });
+        }
       });
     },
     // //get

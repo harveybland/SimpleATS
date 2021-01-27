@@ -13,6 +13,8 @@ export class HttpService {
             } else {
                 throw Error(resp.statusText);
             }
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -28,6 +30,8 @@ export class HttpService {
             } else {
                 throw Error(resp.statusText);
             }
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -44,6 +48,8 @@ export class HttpService {
             } else {
                 throw Error(resp.statusText);
             }
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -60,6 +66,8 @@ export class HttpService {
             } else {
                 throw Error(resp.statusText);
             }
+        }).catch(err => {
+            console.log(err);
         });
     }
 }

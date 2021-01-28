@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:4000/api/';
+const baseUrl = 'https://simpleats.azurewebsites.net/api/';
 
 export class HttpService {
 
@@ -7,7 +7,15 @@ export class HttpService {
     static async httpGet(url: string) {
         return await fetch(`${baseUrl}${url}`, {
             headers: { "Content-Type": "application/json" }
-        }).then(o => o.json());
+        }).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw Error(resp.statusText);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     static async httpPost(url: string, body: object) {
@@ -16,7 +24,15 @@ export class HttpService {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: bodyAsString
-        }).then(o => o.json());
+        }).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw Error(resp.statusText);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
 
@@ -26,17 +42,33 @@ export class HttpService {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: bodyAsString
-        }).then(o => o.json());
+        }).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw Error(resp.statusText);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
-    
+
     static async httpDelete(url: string, body: object) {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: bodyAsString
-        }).then(o => o.json());
+        }).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw Error(resp.statusText);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 }
 

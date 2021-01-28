@@ -21,18 +21,18 @@
         data() {
         return {
             login: {
-                username: '',
-                password: ''
+                username: 'admin',
+                password: 'password'
             }
         }
     },
       methods: {
     async loginUser() {
       try {
-        let response = await this.$http.post("/auth/login", this.login);
-        let token = response.data.data.token;
+        let res = await this.$http.post("/api/", + this.login);
+        let token = res.data.data.token;
         localStorage.setItem("user", token);
-        // navigate
+
         this.$router.push("/me");
       } catch (err) {
         console.log(err.response);

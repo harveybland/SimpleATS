@@ -14,7 +14,7 @@
 </template>
 
 <script>
-let jobArray = { vacancyTitle: "test" };
+let job = { vacancyTitle: "test" };
 let id = "";
 
 import axios from 'axios';
@@ -24,31 +24,47 @@ export default {
   name: "Vacancy",
   data() {
     return {
-      arrayItem: jobArray,
+      arrayItem: job,
     };
   },
-   methods: {
-    async getJob() {
-      const vac = await HttpService.httpGet("job/" + this.id);
-      this.id = this.$router.currentRoute.params.id;
-      
-    }
 
-    // async getJob(id) {
-    //   let vac = await axios.get("http://localhost:4000/api/job/" + this.id);
-    //   return vac.data;
-    // }
+   methods: {
+      async getJob() {
+        this.id = this.$router.currentRoute.params.id;
+        const res = await HttpService.httpGet("job/" + this.id);
+        job = res;
+    }
   },
-  
+
    beforeMount() {
     this.getJob();
   },
 
-    // I have got the id from the url
+
+  // mounted() {
+  //   axios.get('http://localhost:4000/api/job/' + this.id)
+  //   .then((res) => {
+  //     this.job = res.data.id;
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //   })
+  // },
+
+  // created() {
+  //    axios.get("http://localhost:4000/api/job/" + this.id)
+  //    .then((res) => {
+  //      this.id = res.data;
+  //      console.log(this.id)
+  //    }).catch(error => {
+  //      console.log(error)
+  //      this.error = true
+  //    })
+  //   }
+  }
+      // I have got the id from the url
     // next step is to call the get job endpoint /api/job/{id}
     // and fill the data 
-
-};
 </script>
 
 <style scoped>

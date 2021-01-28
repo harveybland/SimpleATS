@@ -4,7 +4,7 @@
       <div class="mb-4 pt-3">
         <h2>Load the Vacancy</h2>
       </div>
-      <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
+      <li v-for="item in arrayItem" v-bind:key="item._id">
         <h5>{{ item.vacancyTitle }}</h5>
         <p>{{ item.street }} {{ item.city }}</p>
         <p>{{ item.town }} {{ item.postcode }}</p>
@@ -12,8 +12,8 @@
     </div>
   </div>
 </template>
-
 <script>
+
 let jobArray = { vacancyTitle: "test" };
 let id = "";
 

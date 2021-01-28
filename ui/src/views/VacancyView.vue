@@ -4,7 +4,7 @@
       <div class="mb-4 pt-3">
         <h2>Load the Vacancy</h2>
       </div>
-      <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
+      <li v-for="item in arrayItem" v-bind:key="item._id">
         <h5>{{ item.vacancyTitle }}</h5>
         <p>{{ item.street }} {{ item.city }}</p>
         <p>{{ item.town }} {{ item.postcode }}</p>
@@ -12,9 +12,9 @@
     </div>
   </div>
 </template>
-
 <script>
-let job = { vacancyTitle: "test" };
+
+let jobArray = { vacancyTitle: "test" };
 let id = "";
 
 import axios from 'axios';
@@ -24,47 +24,31 @@ export default {
   name: "Vacancy",
   data() {
     return {
-      arrayItem: job,
+      arrayItem: jobArray,
     };
   },
-
    methods: {
-      async getJob() {
-        this.id = this.$router.currentRoute.params.id;
-        const res = await HttpService.httpGet("job/" + this.id);
-        job = res;
+    async getJob() {
+      const vac = await HttpService.httpGet("job/" + this.id);
+      this.id = this.$router.currentRoute.params.id;
+      
     }
-  },
 
+    // async getJob(id) {
+    //   let vac = await axios.get("http://localhost:4000/api/job/" + this.id);
+    //   return vac.data;
+    // }
+  },
+  
    beforeMount() {
     this.getJob();
   },
 
-
-  // mounted() {
-  //   axios.get('http://localhost:4000/api/job/' + this.id)
-  //   .then((res) => {
-  //     this.job = res.data.id;
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //   })
-  // },
-
-  // created() {
-  //    axios.get("http://localhost:4000/api/job/" + this.id)
-  //    .then((res) => {
-  //      this.id = res.data;
-  //      console.log(this.id)
-  //    }).catch(error => {
-  //      console.log(error)
-  //      this.error = true
-  //    })
-  //   }
-  }
-      // I have got the id from the url
+    // I have got the id from the url
     // next step is to call the get job endpoint /api/job/{id}
     // and fill the data 
+
+};
 </script>
 
 <style scoped>

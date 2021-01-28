@@ -4,7 +4,7 @@
       <div class="mb-4 pt-3">
         <h2>Vacancies</h2>
       </div>
-      <li v-for="item in arrayItem" v-bind:key="item.vacancyTitle">
+      <li v-for="item in arrayItem" v-bind:key="item._id">
         <router-link :to="{ path: '/Vacancies/' + item._id }" class="nav">
           <h5>{{ item.vacancyTitle }}</h5>
         </router-link>
@@ -32,7 +32,6 @@ export default {
   methods: {
     async getJobs() {
       const res = await HttpService.httpGet("jobs");
-      this.data = res;
       jobArray.splice(0, jobArray.length);
       jobArray.push(...res);
     },

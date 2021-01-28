@@ -39,7 +39,9 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button variant="primary" @click="onCreateUser">CREATE</b-button>
+        <b-button variant="primary" @click.prevent="submitForm"
+          >CREATE</b-button
+        >
       </b-form>
     </div>
     <div v-if="submitted" class="text-center mt-5 mb-5">
@@ -65,19 +67,35 @@ export default {
   },
   methods: {
     submitForm() {
-      // create object to send to server
-      const body = { username: "admin", password: "password" };
-      HttpService.httpPost("user/create", body).then((resp) => {
+      // 1.
+      // You need to get the data from the from model and add it into the body
+      // I googled "vue get data" the first link shows you how to do it 
+      // https://stackoverflow.com/questions/46091418/vuejs-get-data-as-object
+      // this console log will print out the username into the console. 
+      console.log(this.$data.form.username);
 
-        if (resp === "User Created") {
-          
-          HttpService.httpPost("login", body).then((authToken) => {
-            localStorage.setItem('token', JSON.stringify(authToken))
-            console.log(authToken);
-          });
-        }
+      const body = { username: "admin", password: "password" };
+      HttpService.httpPost("user/create", body).then(() => {
+        HttpService.httpPost("login", body).then((authToken) => {
+          localStorage.setItem("token", JSON.stringify(authToken));
+        });
+
+        // 2.
+        // This method is close to what you need, it isn't far off from the
+        // one you currently have, it just has some error catching,
+        // you need to use this method but add your local storage bit in.
+
+        //       HttpService.httpPost("user/create", body).then((resp) => {
+
+        //         if (resp === "User Created") {
+
+        //           HttpService.httpPost("login", body).then((authToken) => {
+        //             // save the auth token in local storage
+        //             console.log(authToken);
+        //           });
+        //         }
       });
-    }
+    },
   },
 };
 </script>

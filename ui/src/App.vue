@@ -7,18 +7,34 @@
 </template>
 
 <script lang="ts">
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Vue from "vue";
 
-export default {
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
+
+
+export default Vue.extend({
   name: "App",
   components: {
+    Footer,
     Header,
-    Footer
-  }
-};
+  },
+  mounted() {
+ 
+  },
+});
 </script>
 
-<style scoped>
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 
+  .background{
+    min-height: calc(100vh - 88px);
+  }
+}
 </style>

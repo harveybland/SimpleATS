@@ -18,6 +18,9 @@
         <b-nav-item><router-link to="/Login" class="nav">Login</router-link></b-nav-item>
         <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
+      <b-navbar-nav>
+        <b-nav-item><a href="javascript:void(0)" @click="logout" class="nav">Logout</a></b-nav-item>
+      </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -26,7 +29,13 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    methods: {
+      logout() {
+        localStorage.removeItem('token');
+        this.$router.push('/');
+      }
+    }
 }
 </script>
 

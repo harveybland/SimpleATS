@@ -40,7 +40,7 @@ export class HttpService {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "test": "tes" },
             body: bodyAsString
         }).then(resp => {
             if (resp.ok) {
@@ -54,11 +54,11 @@ export class HttpService {
     }
 
 
-    static async httpDelete(url: string, body: object) {
+    static async httpDelete(url: string, body: object, skipAuthorisation = false) {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: this._getHeaders(skipAuthorisation),
             body: bodyAsString
         }).then(resp => {
             if (resp.ok) {
@@ -69,6 +69,16 @@ export class HttpService {
         }).catch(err => {
             console.log(err);
         });
+    }
+
+    static _getHeaders(skipAuth = false) {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        if (skipAuth === false) {
+            const token = localStorage.getItem('your token name');
+            headers.append("Authorization", `bearer ${token}`); 
+        }
+        return headers;
     }
 }
 

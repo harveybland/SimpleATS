@@ -14,39 +14,28 @@
 </template>
 <script>
 
-let jobArray = { vacancyTitle: "test" };
+let job = { vacancyTitle: "test" };
 let id = "";
 
-import axios from 'axios';
 import { HttpService } from "@/services/http.service";
 
 export default {
   name: "Vacancy",
   data() {
     return {
-      arrayItem: jobArray,
+      arrayItem: job,
     };
   },
    methods: {
-    async getJob() {
-      const vac = await HttpService.httpGet("job/" + this.id);
+     async getJob() {
       this.id = this.$router.currentRoute.params.id;
-      
+      const vac = await HttpService.httpGet("job/" + this.id)
+      this.arrayItem = vac;
     }
-
-    // async getJob(id) {
-    //   let vac = await axios.get("http://localhost:4000/api/job/" + this.id);
-    //   return vac.data;
-    // }
   },
-  
    beforeMount() {
     this.getJob();
   },
-
-    // I have got the id from the url
-    // next step is to call the get job endpoint /api/job/{id}
-    // and fill the data 
 
 };
 </script>

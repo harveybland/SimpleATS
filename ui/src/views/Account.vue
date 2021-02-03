@@ -4,27 +4,7 @@
       <div class="text-center mt-5 mb-5">
         <h2>Create Account</h2>
       </div>
-      <b-form>
-        <!-- <b-form-group label="First name">
-                <b-form-input v-model="form.FirstName" placeholder="Enter name" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Surname">
-                <b-form-input v-model="form.name" placeholder="Surname" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Email">
-                <b-form-input v-model="form.Email" placeholder="Email" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Street">
-                <b-form-input v-model="form.Street" placeholder="Street" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Town">
-                <b-form-input v-model="form.Town" placeholder="Town" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Postcode">
-                <b-form-input v-model="form.Postcode" placeholder="Postcode" required></b-form-input>
-            </b-form-group>
-            -->
-
+      <b-form v-if="!submitted">
         <b-form-group label="username">
           <b-form-input
             v-model="form.username"
@@ -39,12 +19,12 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button variant="primary" @click.prevent="submitForm"
+        <b-button variant="primary" type="submitted" @click.prevent="submitForm"
           >CREATE</b-button
         >
       </b-form>
     </div>
-    <div v-if="submitted" class="text-center mt-5 mb-5">
+    <div v-if="submitted" class="text-center mt-5 mb-5 alert alert-success">
       <p>Thanks for creating an account</p>
     </div>
   </div>
@@ -67,37 +47,23 @@ export default {
   },
   methods: {
     submitForm() {
-      // 1.
-      // You need to get the data from the from model and add it into the body
-      // I googled "vue get data" the first link shows you how to do it 
-      // https://stackoverflow.com/questions/46091418/vuejs-get-data-as-object
-      // this console log will print out the username into the console. 
-      console.log(this.$data.form.username);
+        const body = { username: this.$data.form.username, password: this.$data.form.password };
+        HttpService.httpPost("user/create", body).then((resp) => {
+          if (resp === "User Created") {
+            HttpService.httpPost("login", body).then((authToken) => {
+              localStorage.setItem("token", JSON.stringify(authToken));
+              console.log(body, authToken);
+              this.$router.push('/login');
+            })
+            .catch(error => {
+              console.log(error);
+            })
+          }
+      })
+    }
+  }
+}
 
-      const body = { username: "admin", password: "password" };
-      HttpService.httpPost("user/create", body).then(() => {
-        HttpService.httpPost("login", body).then((authToken) => {
-          localStorage.setItem("token", JSON.stringify(authToken));
-        });
-
-        // 2.
-        // This method is close to what you need, it isn't far off from the
-        // one you currently have, it just has some error catching,
-        // you need to use this method but add your local storage bit in.
-
-        //       HttpService.httpPost("user/create", body).then((resp) => {
-
-        //         if (resp === "User Created") {
-
-        //           HttpService.httpPost("login", body).then((authToken) => {
-        //             // save the auth token in local storage
-        //             console.log(authToken);
-        //           });
-        //         }
-      });
-    },
-  },
-};
 </script>
 
 <style scoped>
@@ -105,3 +71,5 @@ export default {
   height: 86vh;
 }
 </style>
+
+

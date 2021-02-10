@@ -11,7 +11,7 @@ core.app.get('/api/jobsAuth', authenticateToken, async function (req, resp) {
     resp.status(200).json(jobs);
   }
   catch {
-    resp.status('200').json('error')
+    resp.status('404').json('error')
   }
 });
 
@@ -25,7 +25,7 @@ core.app.get('/api/jobs', async function (req, resp) {
     resp.status(200).json(jobs);
   }
   catch {
-    resp.status('200').json('error')
+    resp.status('404').json('error')
   }
 });
 
@@ -53,7 +53,7 @@ core.app.get('/api/job/:uid', async function (req, resp) {
     resp.status(200).json(jobwithApplicants);
   }
   catch {
-    resp.status('200').json('error')
+    resp.status('404').json('error')
   }
 });
 
@@ -66,7 +66,7 @@ core.app.post('/api/job', async function (req, resp) {
       resp.status(200).json(result);
     })
     .catch(error => {
-      resp.status('200').json('error');
+      resp.status('404').json('error');
     });
 });
 

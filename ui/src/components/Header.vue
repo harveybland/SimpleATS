@@ -14,12 +14,17 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-      <b-navbar-nav>
+      <b-navbar-nav v-if="!user">
         <b-nav-item><router-link to="/Login" class="nav">Login</router-link></b-nav-item>
         <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav>
-        <b-nav-item><a href="javascript:void(0)" @click="logout" class="nav">Logout</a></b-nav-item>
+      <b-navbar-nav v-if="user">
+        <p>{{ username }}</p>
+        <b-nav-item><router-link 
+          to="/Login" 
+          class="nav"
+          @click="logoutUser"
+          >Logout</router-link></b-nav-item>
       </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
@@ -28,12 +33,34 @@
 </template>
 
 <script>
+import { HttpService } from "@/services/http.service";
 export default {
     name: 'Header',
+    data() {
+      return {
+        username: '',
+
+        user: false
+      }
+    },
+    created() {
+      if (localStorage.getItem('token') === null) {
+        this.user = false
+      } else {
+        this.user = true
+      }
+    },
+    //   mounted() {
+    //     HttpService.httpGet("/user", { headers : { token: localStorage.getItem('token')}})
+    //     .then(res => {
+    //         this.username = res.data.username;
+    //     })
+    // },
     methods: {
-      logout() {
-        localStorage.removeItem('token');
-        this.$router.push('/');
+      logoutUser() {
+        localStorage.clear();
+        this.$router.push('/login');
+        location.reload();
       }
     }
 }

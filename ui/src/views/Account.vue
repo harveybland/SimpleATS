@@ -5,14 +5,16 @@
         <h2>Create Account</h2>
       </div>
       <b-form v-if="!submitted">
-        <b-form-group label="username">
+        <b-form-group>
+          <label>Username</label>
           <b-form-input
             v-model="form.username"
             placeholder="Admin"
             required
           ></b-form-input>
         </b-form-group>
-        <b-form-group label="password">
+        <b-form-group>
+          <label>Password</label>
           <b-form-input
             v-model="form.password"
             placeholder="Password"
@@ -53,7 +55,7 @@ export default {
             HttpService.httpPost("login", body).then((authToken) => {
               localStorage.setItem("token", JSON.stringify(authToken));
               console.log(body, authToken);
-              this.$router.push('/login');
+              this.$router.push('/Login');
             })
             .catch(error => {
               console.log(error);
@@ -67,9 +69,12 @@ export default {
 </script>
 
 <style scoped>
-.account {
-  height: 86vh;
-}
+    .account {
+      height: 86vh;
+    }
+    label {
+        display: flex;
+    }
 </style>
 
 

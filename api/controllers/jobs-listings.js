@@ -33,6 +33,7 @@ core.app.get('/api/jobs', async function (req, resp) {
 // Gets a job with all of the applications
 core.app.get('/api/job/:uid', async function (req, resp) {
   try {
+
     const jobwithApplicants = await schemas.JobModel.aggregate([
       {
         $match:

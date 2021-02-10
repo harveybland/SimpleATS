@@ -4,7 +4,7 @@ export class HttpService {
 
     constructor() { }
 
-    static async httpGet(url: string) {
+    static async httpGet(url: string, skipAuthorisation = false) {
         return await fetch(`${baseUrl}${url}`, {
             headers: { "Content-Type": "application/json" }
         }).then(resp => {
@@ -17,6 +17,8 @@ export class HttpService {
             console.log(err);
         });
     }
+
+
 
     static async httpPost(url: string, body: object) {
         const bodyAsString = JSON.stringify(body);
@@ -40,7 +42,7 @@ export class HttpService {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json", "test": "tes" },
+            headers: { "Content-Type": "application/json" },
             body: bodyAsString
         }).then(resp => {
             if (resp.ok) {
@@ -75,7 +77,7 @@ export class HttpService {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         if (skipAuth === false) {
-            const token = localStorage.getItem('your token name');
+            const token = localStorage.getItem('token');
             headers.append("Authorization", `bearer ${token}`); 
         }
         return headers;

@@ -47,6 +47,8 @@ export default {
   },
   methods: {
     submitForm() {
+      
+
         const body = { username: this.$data.form.username, password: this.$data.form.password };
         HttpService.httpPost("user/create", body).then((resp) => {
           if (resp === "User Created") {

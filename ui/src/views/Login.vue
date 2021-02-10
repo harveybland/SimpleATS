@@ -45,23 +45,11 @@ export default {
         loginUser() {
            const body = { username: this.$data.login.username, password: this.$data.login.password };
            HttpService.httpPost("/login", body)
-           .then((resp) => {
-                if (resp === "login") {
-                    localStorage.setItem('token', JSON.stringify(authToken));
-                    console.log(body, authToken);
-                    this.$router.push('/');
-                }
+           .then(resp => {
+               localStorage.setItem('token', JSON.stringify(resp));
+                this.$router.push('/');
+                location.reload();
             })
-
-            //  if (resp === "Login") {
-            //      HttpService.httpPost("login", body).then((authToken) => {
-            //         localStorage.setItem("token", JSON.stringify(authToken));
-            //         this.$router.push('/');
-            //      })
-            //      .catch(error => {
-            //          console.log(error);
-            //      })
-            //  }
         }
     }
 }

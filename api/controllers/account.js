@@ -1,6 +1,6 @@
 const schemas = require('../core/schemas/schemas');
 const core = require('../core/core');
-const { generateAccessToken } = require('../core/authentication/authentication');
+const { generateAccessToken, authenticateToken } = require('../core/authentication/authentication');
 // main account controller
 
 
@@ -39,10 +39,14 @@ core.app.post('/api/login', async function (req, resp) {
 
 
 //Get user
-core.app.get('/api/user', async function(req, resp) {
+core.app.get('/api/user', authenticateToken, async function(req, resp) {
     try {
         const user = await schemas.UserModel.find();
-        resp.status(200).json(user)
+        resp.status(200).json({
+            user: {
+                user: user.username
+            }
+        })
     } catch {
         resp.status(404).json('error');
     }

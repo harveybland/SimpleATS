@@ -20,11 +20,10 @@
       </b-navbar-nav>
       <b-navbar-nav v-if="user">
         <p>{{ username }}</p>
-        <b-nav-item><router-link 
-          to="/Login" 
-          class="nav"
-          @click="logoutUser"
-          >Logout</router-link></b-nav-item>
+        <b-nav-item>
+          <a to="/Login" class="nav" @click="logoutUser">
+            <button>Logout</button>
+          </a></b-nav-item>
       </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
@@ -50,15 +49,15 @@ export default {
         this.user = true
       }
     },
-    //   mounted() {
-    //     HttpService.httpGet("/user", { headers : { token: localStorage.getItem('token')}})
-    //     .then(res => {
-    //         this.username = res.data.username;
-    //     })
-    // },
+    mounted() {
+        HttpService.httpGet("/user", { headers : { token: localStorage.getItem('token')}})
+        .then(res => {
+            console.log(res);
+        })
+    },
     methods: {
       logoutUser() {
-        localStorage.clear();
+        localStorage.removeItem('token');
         this.$router.push('/login');
         location.reload();
       }

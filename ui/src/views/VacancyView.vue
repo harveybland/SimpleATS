@@ -8,6 +8,8 @@
         <h5>{{ item.vacancyTitle }}</h5>
         <p>{{ item.street }} {{ item.city }}</p>
         <p>{{ item.town }} {{ item.postcode }}</p>
+        <b-button variant="info mr-3" @click.prevent="editVacancy">Edit</b-button>
+        <b-button variant="danger" @click.prevent="removeVacancy">Remove</b-button>
       </li>
     </div>
   </div>
@@ -18,7 +20,6 @@ let job = { vacancyTitle: "test" };
 let id = "";
 
 import { HttpService } from "@/services/http.service";
-
 export default {
   name: "Vacancy",
   data() {
@@ -31,8 +32,22 @@ export default {
       this.id = this.$router.currentRoute.params.id;
       const vac = await HttpService.httpGet("job/" + this.id)
       this.arrayItem = vac;
+    },
+    removeVacancy() {
+      HttpService.httpDelete("job/" + this.$route.params.id)
+      .then(res => {
+        this.job = res
+        // this.$router.push('/Vacancies')
+      })
+    },
+
+    editVacancy() {
+      HttpService.httpPut("job/" + this.id)
+      .then(res => {
+        
+      })
     }
-  },
+    },
    beforeMount() {
     this.getJob();
   },

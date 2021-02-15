@@ -47,8 +47,8 @@ export default {
            HttpService.httpPost("/login", body)
            .then(resp => {
                localStorage.setItem('token', JSON.stringify(resp));
-                this.$router.push('/');
-                location.reload();
+               this.$router.push('/');
+               location.reload();
             })
         }
     }

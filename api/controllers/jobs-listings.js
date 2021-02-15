@@ -17,7 +17,6 @@ core.app.get('/api/jobsAuth', authenticateToken, async function (req, resp) {
 
 
 
-
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
@@ -61,13 +60,13 @@ core.app.get('/api/job/:uid', async function (req, resp) {
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
   schemas.JobModel.create(req.body)
-    .then(result => {
+    try {
       console.log(result);
       resp.status(200).json(result);
-    })
-    .catch(error => {
+    }
+    catch {
       resp.status('404').json('error');
-    });
+    };
 });
 
 
@@ -87,10 +86,10 @@ core.app.put('/api/job/:uid', async function (req, resp) {
 });
 
 // Delete job
-core.app.delete('/api/job/:uid', async function (req, resp) {
+core.app.delete('/api/job/:uid', function (req, resp) {
   try {
-    const deleteJob = await schemas.JobModel.findByIdAndUpdate((resp.params.uid, { isDeleted: true }));
-    resp.status(204).json(deleteJob)
+    schemas.JobModel.findByIdAndRemove((resp.params.uid, { isDeleted: true }));
+    resp.status(204).json('ok')
   }
   catch {
     resp.status('404').json('error');

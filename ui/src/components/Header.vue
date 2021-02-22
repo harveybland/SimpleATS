@@ -21,7 +21,7 @@
         <!-- <p>{{ username }}</p> -->
         <b-nav-item>
           <a to="/Login" class="nav" @click="logoutUser">
-            <p class="pr-2 m-0">Hello {{ username }} </p>
+            <p class="pr-2 m-0" id="username">Hello {{ this.username }} </p>
             <b-button variant="warning" class="logout">Logout</b-button>
           </a></b-nav-item>
       </b-navbar-nav>
@@ -38,7 +38,6 @@ export default {
     data() {
       return {
         username: '',
-
         user: false
       }
     },
@@ -49,6 +48,11 @@ export default {
         this.user = false
       } else {
         this.user = true
+      };
+       if (localStorage.getItem('token') === "undefined") {
+        this.user = false
+        alert("Invalid")
+         this.$router.push('/login');
       }
     },
     methods: {

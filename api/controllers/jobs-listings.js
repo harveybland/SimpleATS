@@ -88,13 +88,42 @@ core.app.put('/api/job/:uid', async function (req, resp) {
 // Delete job
 core.app.delete('/api/job/:uid', function (req, resp) {
   try {
-    schemas.JobModel.findByIdAndRemove((resp.params.uid, { isDeleted: true }));
+    const id = resp.params.uid;
+    schemas.JobModel.findByIdAndUpdate(id, { isDeleted: true });
     resp.status(204).json('ok')
   }
   catch {
     resp.status('404').json('error');
   }
 });
+
+
+// Gets a job with all of the applications
+// core.app.delete('/api/job/:uid', async function (req, resp) {
+//   try {
+//     const deleteJob = await schemas.JobModel.aggregate([
+//       {
+//         $match:
+//         {
+//           _id: core.mongoose.Types.ObjectId(req.params.uid)
+//         }
+//       },
+//       {
+//         $lookup:
+//         {
+//           from: "applicants",
+//           localField: "_id",
+//           foreignField: "jobid",
+//           as: "applicants"
+//         }
+//       }
+//     ]);
+//     resp.status(200).json(deleteJob);
+//   }
+//   catch {
+//     resp.status('404').json('error')
+//   }
+// });
 
 
 

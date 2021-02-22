@@ -9,7 +9,7 @@
       <b-navbar-nav>
         <b-nav-item><router-link to="/" class="nav">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
-          <b-nav-item><router-link to="/NewVacancy" class="nav">Create Vacancy</router-link></b-nav-item>
+      <b-nav-item><router-link to="/NewVacancy" class="nav">Create Vacancy</router-link></b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -18,9 +18,10 @@
         <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-if="user">
-        <p>{{ username }}</p>
+        <!-- <p>{{ username }}</p> -->
         <b-nav-item>
           <a to="/Login" class="nav" @click="logoutUser">
+            <p class="pr-2 m-0">Hello {{ username }} </p>
             <b-button variant="warning" class="logout">Logout</b-button>
           </a></b-nav-item>
       </b-navbar-nav>
@@ -42,26 +43,33 @@ export default {
       }
     },
     created() {
+      const username = localStorage.getItem('username')
+      console.log(username)
       if (localStorage.getItem('token') === null) {
         this.user = false
       } else {
         this.user = true
       }
     },
+    methods: {
+      logoutUser() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        this.$router.push('/login');
+        location.reload();
+      },
+    }
+}
     // mounted() {
     //     HttpService.httpGet("/user", { headers : { token: localStorage.getItem('token')}})
     //     .then(res => {
     //         console.log(res);
     //     })
     // },
-    methods: {
-      logoutUser() {
-        localStorage.removeItem('token');
-        this.$router.push('/login');
-        location.reload();
-      }
-    }
-}
+    // mounted() {
+    //   var user = JSON.parse(localStorage.getItem('token'));
+    //   console.log(user.username);
+    // },
 </script>
 
 <style scoped>

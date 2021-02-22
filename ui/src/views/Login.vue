@@ -3,7 +3,7 @@
         <div class="text-center mt-5 mb-5">
             <h2>Login</h2>
         </div>
-        <b-form>
+        <b-form v-if="!error">
             <b-form-group>
                 <label>Username</label>
                 <b-form-input 
@@ -25,6 +25,9 @@
                 @click="loginUser">Login
             </b-button>
         </b-form>
+        <div class="alert alert-danger mt-3" v-if="error">
+            {{ error }}
+        </div>
     </div>
 </template>
 
@@ -37,20 +40,25 @@ export default {
             return {
             login: {
                 username: '',
-                password: '',
-            }
+                password: ''
+            },
+            error: null
         }
     },
     methods: {
         loginUser() {
-           const body = { username: this.$data.login.username, password: this.$data.login.password };
-           HttpService.httpPost("/login", body)
-           .then(resp => {
-               localStorage.setItem('token', JSON.stringify(resp));
-               this.$router.push('/');
-               location.reload();
+            const body = { username: this.$data.login.username, password: this.$data.login.password };
+            HttpService.httpPost("/login", body)
+            .then(resp => {
+                localStorage.setItem('token', JSON.stringify(resp));
+                this.$router.push('/');
+                location.reload();
+                localStorage.setItem('username', this.$data.login.username)
             })
-        }
+            .catch(err => {
+                this.error = 'invalid username and password'
+            })
+        },
     }
 }
 
@@ -58,7 +66,7 @@ export default {
 
 <style scoped>
    .login {
-        height: 86vh;
+        height: 85.5vh;
     }
     #error {
     color: red;

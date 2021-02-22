@@ -6,7 +6,7 @@
                 <h5>Please <router-link to="/Login">Sign in</router-link></h5>
             </div>
             <div v-if="user">
-                <h5>Hello {{ username }}</h5>
+                <!-- <h5>Hello {{ username }}</h5> -->
             </div>
         </div>
     </div>
@@ -32,15 +32,15 @@ export default {
         }
       },
       methods: {
-        async getUser() {
-          this.id = this.$router.currentRoute.params.id;
-          const user = await HttpService.httpGet("/user")
-          this.username = user;
-        }
+        // async getUser() {
+        //   this.id = this.$router.currentRoute.params.id;
+        //   const user = await HttpService.httpGet("user/" + this.id)
+        //   this.username = user;
+        // }
       },
-      beforeMount() {
-         this.getUser();
-  },
+  //     beforeMount() {
+  //        this.getUser();
+  // },
 }
 </script>
 

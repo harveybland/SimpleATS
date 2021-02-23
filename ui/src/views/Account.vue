@@ -58,6 +58,7 @@ export default {
               localStorage.setItem("token", JSON.stringify(authToken));
               console.log(body, authToken);
               this.$router.push('/Login');
+              console.log(this.username)
             })
             .catch(error => {
               console.log(error);

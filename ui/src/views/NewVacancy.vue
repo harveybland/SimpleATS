@@ -70,7 +70,7 @@ export default {
             HttpService.httpPost('/job', body)
             .then(res => {
                 console.log(res);
-                this.$router.push('/Vacancies');
+                // this.$router.push('/Vacancies');
             })
             .catch(error => {
               console.log(error);

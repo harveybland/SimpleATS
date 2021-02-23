@@ -8,6 +8,9 @@ npm install mongoose
 //to run server 
 node index.js
 
+//to run vue
+npm run serve
+
 //to test
 go to tests->test.http
 

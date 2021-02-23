@@ -6,7 +6,7 @@ export class HttpService {
 
     static async httpGet(url: string, skipAuthorisation = false) {
         return await fetch(`${baseUrl}${url}`, {
-            headers: { "Content-Type": "application/json" }
+            headers: this._getHeaders(skipAuthorisation)
         }).then(resp => {
             if (resp.ok) {
                 return resp.json();
@@ -18,13 +18,11 @@ export class HttpService {
         });
     }
 
-
-
-    static async httpPost(url: string, body: object) {
+    static async httpPost(url: string, body: object, skipAuthorisation = false) {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: this._getHeaders(skipAuthorisation),
             body: bodyAsString
         }).then(resp => {
             if (resp.ok) {
@@ -38,11 +36,11 @@ export class HttpService {
     }
 
 
-    static async httpPut(url: string, body: object) {
+    static async httpPut(url: string, body: object, skipAuthorisation = false) {
         const bodyAsString = JSON.stringify(body);
         return fetch(`${baseUrl}${url}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: this._getHeaders(skipAuthorisation),
             body: bodyAsString
         }).then(resp => {
             if (resp.ok) {

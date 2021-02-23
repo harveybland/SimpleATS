@@ -1,6 +1,4 @@
 <template>
-    
-
 <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand href="#">Simple ATS</b-navbar-brand>
@@ -11,15 +9,20 @@
       <b-navbar-nav>
         <b-nav-item><router-link to="/" class="nav">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
+          <b-nav-item><router-link to="/NewVacancy" class="nav">Create Vacancy</router-link></b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-      <b-navbar-nav>
+      <b-navbar-nav v-if="!user">
         <b-nav-item><router-link to="/Login" class="nav">Login</router-link></b-nav-item>
         <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav>
-        <b-nav-item><a href="javascript:void(0)" @click="logout" class="nav">Logout</a></b-nav-item>
+      <b-navbar-nav v-if="user">
+        <p>{{ username }}</p>
+        <b-nav-item>
+          <a to="/Login" class="nav" @click="logoutUser">
+            <b-button variant="warning" class="logout">Logout</b-button>
+          </a></b-nav-item>
       </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
@@ -28,12 +31,34 @@
 </template>
 
 <script>
+import { HttpService } from "@/services/http.service";
 export default {
     name: 'Header',
+    data() {
+      return {
+        username: '',
+
+        user: false
+      }
+    },
+    created() {
+      if (localStorage.getItem('token') === null) {
+        this.user = false
+      } else {
+        this.user = true
+      }
+    },
+    // mounted() {
+    //     HttpService.httpGet("/user", { headers : { token: localStorage.getItem('token')}})
+    //     .then(res => {
+    //         console.log(res);
+    //     })
+    // },
     methods: {
-      logout() {
+      logoutUser() {
         localStorage.removeItem('token');
-        this.$router.push('/');
+        this.$router.push('/login');
+        location.reload();
       }
     }
 }
@@ -47,5 +72,9 @@ export default {
   .nav:hover {
     color: rgba(255, 255, 255, 0.75) !important;
     text-decoration: none;
+  }
+  .logout {
+    padding: 0.2rem 0.4rem !important;
+    font-size: 0.85rem !important;
   }
 </style>

@@ -34,18 +34,16 @@ export default {
       const res = await HttpService.httpGet("jobs");
       jobArray.splice(0, jobArray.length);
       jobArray.push(...res);
+    }
     },
-  },
-  beforeMount() {
-    this.getJobs();
-  },
+      beforeMount() {
+        this.getJobs();
+    },
 };
 </script>
 
 <style scoped>
-.background {
-  background: grey;
-}
+
 li {
   display: block;
   background: #343a40;

@@ -38,3 +38,14 @@ core.app.post('/api/login', async function (req, resp) {
 });
 
 
+//Get user
+core.app.get('/api/user', async function(req, resp) {
+    try {
+        const user = await schemas.UserModel.findOne({ username: username });
+        resp.status(200).json(user)
+    } catch {
+        resp.status(404).json('error');
+    }
+})
+
+

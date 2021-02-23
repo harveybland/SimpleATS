@@ -44,15 +44,14 @@ export default {
     created() {
       const username = localStorage.getItem('username')
       console.log(username)
+
       if (localStorage.getItem('token') === null) {
         this.user = false
       } else {
         this.user = true
       };
-       if (localStorage.getItem('token') === "undefined") {
+      if (localStorage.getItem('token') === "undefined") {
         this.user = false
-        alert("Invalid")
-         this.$router.push('/login');
       }
     },
     methods: {

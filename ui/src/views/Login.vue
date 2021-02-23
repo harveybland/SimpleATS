@@ -27,17 +27,17 @@
 
 <script>
 import { HttpService } from "@/services/http.service";
- import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 export default {
-        name: 'Login',
-        data() {
-            return {
-            login: {
-                username: '',
-                password: ''
-            },
-             submitted: false
-        }
+    name: 'Login',
+    data() {
+        return {
+        login: {
+            username: '',
+            password: ''
+        },
+            submitted: false
+    }
     },
     methods: {
         loginUser() {
@@ -55,7 +55,8 @@ export default {
                 console.log(err)
                 alert("Invalid username and password")
             })
-        }
+        },
+        
     },
     validations: {
         login: {

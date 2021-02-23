@@ -32,11 +32,9 @@ export default {
         }
       },
       methods: {
-        // async getUser() {
-        //   this.id = this.$router.currentRoute.params.id;
-        //   const user = await HttpService.httpGet("user/" + this.id)
-        //   this.username = user;
-        // }
+        getUser() {
+          
+        }
       },
   //     beforeMount() {
   //        this.getUser();

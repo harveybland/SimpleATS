@@ -37,7 +37,7 @@ export default {
     //   this.id = this.$router.currentRoute.params.id;
     //   await HttpService.httpDelete("job/", this.id)
     //   this.arrayItem = await HttpService.httpGet("job/" + this.id);
-    // },  
+    // }, 
     deleteVacancy() {
       this.id = this.$router.currentRoute.params.id;
       HttpService.httpDelete("job/" + this.id)
@@ -47,7 +47,7 @@ export default {
         // this.$router.push('/Vacancies')
       })
     },
-    async editVacancy() {
+     editVacancy() {
        console.log(this.getJob())
        this.$router.push('/EditVacancy')
     }

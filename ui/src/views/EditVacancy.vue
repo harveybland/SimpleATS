@@ -40,7 +40,7 @@
             </b-form-group>
                 <b-button 
                 variant="primary" 
-                 @click="editVacancy">Submit
+                 @click="editVacancy">Uodate
             </b-button>
            </b-form>
         </div>
@@ -49,31 +49,32 @@
 </template>
 
 <script>
-    export default {
-        name: 'EditVacancy',
-        data() {
-        return {
-            vacancyTitle: '',
-            companyName: '',
-            salary: '',
-            street: '',
-            town: '',
-            city: '',
-            postcode: ''
-        }
-    },
-      methods: {
-      async editVacancy() {
-        this.id = this.$router.currentRoute.params.id;
-        HttpService.httpPut("job/" + this.id)
-        .then(res => {
-          const newVac = res.data.id;
-          console.log(newVac)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+import { HttpService } from "@/services/http.service";
+export default {
+    name: 'EditVacancy',
+    data() {
+    return {
+        vacancyTitle: '',
+        companyName: '',
+        salary: '',
+        street: '',
+        town: '',
+        city: '',
+        postcode: ''
     }
+},
+  methods: {
+  editVacancy() {
+    this.id = this.$router.currentRoute.params.id;
+    HttpService.httpPut("job/" + this.id)
+    .then(res => {
+      const newVac = res.data.id;
+      console.log(newVac)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
   }
 }
 </script>

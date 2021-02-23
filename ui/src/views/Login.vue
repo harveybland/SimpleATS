@@ -12,8 +12,8 @@
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" v-model="login.password" placeholder="password" autocomplete="on" class="form-control">
-                    <div v-if="submitted && $v.login.password.$error" class="invalid-feedback">
+                    <input type="text" v-model="login.password" placeholder="password" autocomplete="on" class="form-control">
+                    <div v-if="submitted && !$v.login.password.$error" class="invalid-feedback">
                         <span v-if="!$v.login.password.minLength">Password must be at least 6 characters</span>
                     </div>
                 </div>

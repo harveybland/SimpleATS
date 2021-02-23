@@ -47,9 +47,9 @@ export default {
         // this.$router.push('/Vacancies')
       })
     },
-     editVacancy() {
-       console.log(this.getJob())
+       editVacancy() {
        this.$router.push('/EditVacancy')
+       this.getJob();
     }
     },
    beforeMount() {

@@ -9,7 +9,6 @@
           <h5>{{ item.vacancyTitle }}</h5>
         </router-link>
         <p>{{ item.street }} {{ item.city }} {{ item.town }}</p>
-        <p>{{ item.isDeleted }}</p>
       </li>
     </div>
   </div>

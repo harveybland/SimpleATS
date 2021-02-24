@@ -6,7 +6,7 @@
                 <h5>Please <router-link to="/Login">Sign in</router-link></h5>
             </div>
             <div v-if="user">
-                <h5>Hello {{ username }}</h5>
+                <h5>Welcome user</h5>
             </div>
         </div>
     </div>
@@ -14,27 +14,14 @@
 
 <script>
 export default {
-        name: 'Home',
-        data() {
-            return {
-              username: ''
-            }
-        },
+      name: 'Home',
       created() {
         if (localStorage.getItem('token') === null) {
           this.user = false
         } else {
           this.user = true
         };
-      },
-        mounted() {
-          if(localStorage.username) this.username = localStorage.username
-        },
-        watch: {
-          username(newUsername) {
-            localStorage.username = newUsername
-        }
-    },
+      }
 }
 </script>
 

@@ -37,15 +37,3 @@ core.app.post('/api/login', async function (req, resp) {
     }
 });
 
-
-//Get user
-core.app.get('/api/user/:uid', async function(req, resp) {
-    try {
-        const user = await schemas.UserModel.findById('6005a15c4f141a59280d51ad');
-        resp.status(200).json(user)
-    } catch {
-        resp.status(404).json('error');
-    }
-})
-
-

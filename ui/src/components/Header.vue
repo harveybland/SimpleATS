@@ -9,7 +9,7 @@
       <b-navbar-nav>
         <b-nav-item><router-link to="/" class="nav">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
-      <b-nav-item><router-link to="/NewVacancy" class="nav">Create Vacancy</router-link></b-nav-item>
+        <b-nav-item><router-link to="/NewVacancy" class="nav">Create Vacancy</router-link></b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -42,7 +42,9 @@ export default {
       }
     },
     mounted() {
-      if(localStorage.username) this.username = localStorage.username
+      if (localStorage.username) {
+        this.username = localStorage.username;
+      } 
     },
     watch: {
       username(newUsername) {
@@ -57,7 +59,7 @@ export default {
       } else {
         this.user = true
       };
-       if (localStorage.getItem('token') === "undefined") {
+      if (localStorage.getItem('token') === "undefined") {
         this.user = false
       }
     },

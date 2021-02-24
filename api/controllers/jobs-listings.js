@@ -5,22 +5,22 @@ const schemas = require('../core/schemas/schemas');
 
 
 // Get all jobs
-core.app.get('/api/jobsAuth', authenticateToken, async function (req, resp) {
-  try {
-    const jobs = await schemas.JobModel.find({ isDeleted: false || null });
-    resp.status(200).json(jobs);
-  }
-  catch {
-    resp.status('404').json('error')
-  }
-});
+// core.app.get('/api/jobsAuth', authenticateToken, async function (req, resp) {
+//   try {
+//     const jobs = await schemas.JobModel.find({ isDeleted: false });
+//     resp.status(200).json(jobs);
+//   }
+//   catch {
+//     resp.status('404').json('error')
+//   }
+// });
 
 
 
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
-    const jobs = await schemas.JobModel.find({ isDeleted: false || null });
+    const jobs = await schemas.JobModel.find({ isDeleted: false });
     resp.status(200).json(jobs);
   }
   catch {
@@ -70,26 +70,29 @@ core.app.post('/api/job', async function (req, resp) {
 });
 
 
-// TODO
 // Update Job
-core.app.put('/api/job/:uid', async function (req, resp) {
+core.app.put('/api/updateJob/:uid', async function (req, resp) {
   try {
-    const idToUpdate = await schemas.JobModel.updateOne(
+    const idToUpdate = await schemas.JobModel.findByIdAndUpdate(
       { _id: req.params.uid },
-      { $set: { vacancyTitle: req.body.vacancyTitle } }
+      { vacancyTitle: req.body.vacancyTitle },
+      { companyName: req.body.companyName }
     );
-    resp.status(200).resp.json(idToUpdate);
+    resp.status(200).resp.json('success', idToUpdate);
+    console.log(idToUpdate)
   }
   catch {
-    resp.status('404').json('error');
+    resp.status('404').json('error...');
   }
 });
 
 // Delete job
-core.app.delete('/api/job/:uid', function (req, resp) {
+core.app.delete('/api/job/:uid', async function (req, resp) {
   try {
-    const id = resp.params.uid;
-    schemas.JobModel.findByIdAndUpdate(id, { isDeleted: true });
+    const id = req.params.uid;
+    let job = await schemas.JobModel.findOne({ _id: id })
+    job.isDeleted = true;
+    job.save();
     resp.status(204).json('ok')
   }
   catch {
@@ -98,32 +101,16 @@ core.app.delete('/api/job/:uid', function (req, resp) {
 });
 
 
-// Gets a job with all of the applications
-// core.app.delete('/api/job/:uid', async function (req, resp) {
-//   try {
-//     const deleteJob = await schemas.JobModel.aggregate([
-//       {
-//         $match:
-//         {
-//           _id: core.mongoose.Types.ObjectId(req.params.uid)
-//         }
-//       },
-//       {
-//         $lookup:
-//         {
-//           from: "applicants",
-//           localField: "_id",
-//           foreignField: "jobid",
-//           as: "applicants"
-//         }
-//       }
-//     ]);
-//     resp.status(200).json(deleteJob);
-//   }
-//   catch {
-//     resp.status('404').json('error')
-//   }
-// });
-
-
-
+//undelete job
+core.app.put('/api/undelete/:uid', async (req, resp) => {
+  try {
+    const isDeletedUpdate = await schemas.JobModel.findByIdAndUpdate(
+      { _id: req.params.uid },
+      { isDeleted: false }
+    );
+    resp.status(204).json(isDeletedUpdate);
+  }
+  catch {
+    resp.status('404').json('error');
+  }
+})

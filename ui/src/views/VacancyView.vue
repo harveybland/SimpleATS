@@ -8,7 +8,11 @@
         <h5>{{ item.vacancyTitle }}</h5>
         <p>{{ item.street }} {{ item.city }}</p>
         <p>{{ item.town }} {{ item.postcode }}</p>
-        <b-button class="mr-3" variant="info" @click.prevent="editVacancy">Edit</b-button>
+
+        <router-link :to="{ path: '/editVacancy/' + item._id }">
+        <b-button class="mr-3" variant="info">Edit</b-button>
+        </router-link>
+
         <b-button variant="danger" @click.prevent="deleteVacancy(item._id)">Remove</b-button>
       </li>
     </div>
@@ -33,23 +37,16 @@ export default {
       this.arrayItem = await HttpService.httpGet("job/" + this.id)
       // this.arrayItem = vac;
     },
-    // async deleteVacancy() {
-    //   this.id = this.$router.currentRoute.params.id;
-    //   await HttpService.httpDelete("job/", this.id)
-    //   this.arrayItem = await HttpService.httpGet("job/" + this.id);
-    // }, 
     deleteVacancy() {
       this.id = this.$router.currentRoute.params.id;
       HttpService.httpDelete("job/" + this.id)
       .then(res => {
-        this.arrayItem = HttpService.httpGet("job/" + this.id);
-        // this.arrayItem = res
-        // this.$router.push('/Vacancies')
+        this.arrayItem = res
+        this.$router.push('/Vacancies')
       })
     },
        editVacancy() {
        this.$router.push('/EditVacancy')
-       this.getJob();
     }
     },
    beforeMount() {

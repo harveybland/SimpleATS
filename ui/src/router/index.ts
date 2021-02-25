@@ -6,7 +6,7 @@ import Vacancy from '@/views/VacancyView.vue'
 import Login from '@/views/Login.vue'
 import Account from '@/views/Account.vue'
 import NewVacancy from '@/views/NewVacancy.vue'
-import EditVacancy from '@/views/EditVacancy.vue'
+import editVacancy from '@/views/editVacancy.vue'
 
 Vue.use(VueRouter);
 
@@ -37,8 +37,8 @@ const routes: RouteConfig[] = [
     component: NewVacancy
   },
   {
-    path: '/EditVacancy',
-    component: EditVacancy
+    path: '/editVacancy/:id',
+    component: editVacancy
   }
 ];
 

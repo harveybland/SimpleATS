@@ -6,39 +6,22 @@
                 <h5>Please <router-link to="/Login">Sign in</router-link></h5>
             </div>
             <div v-if="user">
-                <!-- <h5>Hello {{ username }}</h5> -->
+                <h5>Welcome user</h5>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-let username = { username: "test" };
-let id = "";
-
-import { HttpService } from "@/services/http.service";
 export default {
-        name: 'Home',
-        data() {
-            return {
-                user: username
-            }
-        },
+      name: 'Home',
       created() {
         if (localStorage.getItem('token') === null) {
           this.user = false
         } else {
           this.user = true
-        }
-      },
-      methods: {
-        getUser() {
-          
-        }
-      },
-  //     beforeMount() {
-  //        this.getUser();
-  // },
+        };
+      }
 }
 </script>
 

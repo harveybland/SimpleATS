@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors({ origin: '*' }));
 
 var mongoDB = 'mongodb+srv://dev:re1VqBVDudd37dMq@cluster0.tbrfk.mongodb.net/MyTest?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 mongoose.set('useCreateIndex', true);
 
 // export all

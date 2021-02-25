@@ -57,8 +57,11 @@ export default {
             HttpService.httpPost("login", body).then((authToken) => {
               localStorage.setItem("token", JSON.stringify(authToken));
               console.log(body, authToken);
-              this.$router.push('/Login');
-              console.log(this.username)
+              this.$router.push('/');
+              // location.reload();
+            })
+            .then(res => {
+              localStorage.getItem('username', this.$data.login.username)
             })
             .catch(error => {
               console.log(error);

@@ -61,13 +61,13 @@ core.app.get('/api/job/:uid', async function (req, resp) {
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
   schemas.JobModel.create(req.body)
-    try {
-      console.log(result);
-      resp.status(200).json(result);
-    }
-    catch {
-      resp.status('404').json('error');
-    };
+  try {
+    console.log(result);
+    resp.status(200).json(result);
+  }
+  catch {
+    resp.status('404').json('error');
+  };
 });
 
 
@@ -79,23 +79,29 @@ core.app.put('/api/job/:uid', async function (req, resp) {
       { _id: req.params.uid },
       { $set: { vacancyTitle: req.body.vacancyTitle } }
     );
-    resp.status(200).resp.json(idToUpdate);
+    resp.status(200).json(idToUpdate);
   }
   catch {
     resp.status('404').json('error');
   }
 });
 
+
 // Delete job
-core.app.delete('/api/job/:uid', function (req, resp) {
+core.app.delete('/api/job/:uid', async function (req, resp) {
   try {
-    const id = resp.params.uid;
-    schemas.JobModel.findByIdAndUpdate(id, { isDeleted: true });
-    resp.status(204).json('ok')
+    const id = req.params.uid;
+
+    let job = await schemas.JobModel.findById(id);
+    job.isDeleted = true;
+    job.save();
+    
+    resp.status(204).json();
   }
   catch {
     resp.status('404').json('error');
   }
+
 });
 
 

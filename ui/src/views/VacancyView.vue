@@ -1,16 +1,15 @@
 <template>
-  <div class="background">
+  <div>
+    <div class="header pt-3 pb-3 mb-5">
+      <h2>Details</h2>
+    </div>
     <div class="container">
-      <div class="mb-4 pt-3">
-        <h2>Load the Vacancy</h2>
-      </div>
       <li v-for="item in arrayItem" v-bind:key="item._id">
         <h5>{{ item.vacancyTitle }}</h5>
         <p>{{ item.street }} {{ item.city }}</p>
         <p>{{ item.town }} {{ item.postcode }}</p>
-
         <router-link :to="{ path: '/editVacancy/' + item._id }">
-        <b-button class="mr-3" variant="info">Edit</b-button>
+        <b-button class="mr-3" variant="info">Emend Job</b-button>
         </router-link>
 
         <b-button variant="danger" @click.prevent="deleteVacancy(item._id)">Remove</b-button>
@@ -44,9 +43,6 @@ export default {
         this.arrayItem = res
         this.$router.push('/Vacancies')
       })
-    },
-       editVacancy() {
-       this.$router.push('/EditVacancy')
     }
     },
    beforeMount() {
@@ -57,31 +53,10 @@ export default {
 </script>
 
 <style scoped>
-.background {
-  background: grey;
-}
 li {
   display: block;
   background: #343a40;
   padding: 25px 25px 15px 25px;
   margin-bottom: 20px;
-}
-h5 {
-  color: #e5e5e5;
-}
-p {
-  color: rgba(255, 255, 255, 0.5);
-}
-.container {
-  background: grey;
-  padding-bottom: 10px;
-}
-a {
-    color: #fff;
-    text-decoration: none;
-}
-a:hover {
-   color: #fff;
-   text-decoration: none;
 }
 </style>

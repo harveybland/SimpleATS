@@ -7,12 +7,13 @@ import Login from '@/views/Login.vue'
 import Account from '@/views/Account.vue'
 import NewVacancy from '@/views/NewVacancy.vue'
 import editVacancy from '@/views/editVacancy.vue'
+import Applicants from '@/views/Applicants.vue'
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -39,6 +40,10 @@ const routes: RouteConfig[] = [
   {
     path: '/editVacancy/:id',
     component: editVacancy
+  },
+  {
+  path: '/Applicants',
+  component: Applicants
   }
 ];
 

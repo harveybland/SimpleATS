@@ -1,22 +1,26 @@
 <template>
-    <div class="container login">
-        <div class="text-center mt-5 mb-5">
-            <h2>Login</h2>
+    <div>
+        <div class="header">
+            <h2 class="pt-3 pb-3 mb-5"></h2>
         </div>
-        <b-form>
+        <div class="container account mt-5">
+        <div class="title">
+            <h2 class="pt-3 pb-3 mb-0">Login</h2>
+        </div>
+        <b-form class="mt-4 ml-5 mb-5 mr-5">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" v-model="login.username" placeholder="admin" autocomplete="on" class="form-control">
+                    <input type="text" v-model="login.username" placeholder="admin"  class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" v-model="login.password" placeholder="password" autocomplete="on" class="form-control">
+                    <input type="password" v-model="login.password" placeholder="password" class="form-control">
                 </div>
             <b-button 
-                variant="primary" 
                 @click="loginUser">Login
             </b-button>
         </b-form>
+        </div>
     </div>
 </template>
 
@@ -29,7 +33,8 @@ export default {
         login: {
             username: '',
             password: ''
-        }
+        },
+            submitted: false
     }
     },
     methods: {
@@ -50,15 +55,12 @@ export default {
             })
         },
         
-    },
+    }
 }
 
 </script>
 
 <style scoped>
-   .login {
-        height: 85.5vh;
-    }
     #error {
     color: red;
     }

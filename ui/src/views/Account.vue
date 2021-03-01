@@ -58,7 +58,7 @@ export default {
             HttpService.httpPost("login", body).then((authToken) => {
               localStorage.setItem("token", JSON.stringify(authToken));
               console.log(body, authToken);
-              this.$router.push('/');
+              this.$router.push('/home');
               // location.reload();
             })
             .catch(error => {

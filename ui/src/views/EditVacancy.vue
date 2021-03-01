@@ -44,7 +44,11 @@
 </template>
 <script>
 
-let job = { vacancyTitle: "test" };
+let jobArray = [
+  {
+    vacancyTitle: "test",
+  },
+];
 let id = "";
 
 import { HttpService } from "@/services/http.service";
@@ -52,7 +56,7 @@ export default {
   name: "editVacancy",
   data() {
     return {
-      arrayItem: job,
+      arrayItem: jobArray,
     };
   },
    methods: {
@@ -64,8 +68,7 @@ export default {
       this.id = this.$router.currentRoute.params.id;
       HttpService.httpPut("updateJob/" + this.id)
       .then(res => {
-        this.arrayItem = res;
-        // this.$router.push('/Vacancies')
+        this.jobArray = res
       })
     }
 

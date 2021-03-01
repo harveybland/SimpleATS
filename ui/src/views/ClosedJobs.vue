@@ -2,16 +2,16 @@
   <div>
     <div class="header mb-4">
       <div class="vac">
-          <router-link to="/Vacancies">View</router-link>
-          <router-link to="/NewVacancy">Create</router-link>
-          <router-link to="/Search">Search</router-link>
+        <router-link to="/Vacancies">View</router-link>
+        <router-link to="/NewVacancy">Create</router-link>
+        <router-link to="/search">Search</router-link>
       </div>
       <div class="active">
         <div>
           <p>Vacancies</p>
         </div>
         <div>  
-            <b-dropdown id="dropdown-right" right text="Active" class="m-2">
+            <b-dropdown id="dropdown-right" right text="Closed" class="m-2">
             <b-dropdown-item><router-link to="/Vacancies">Active</router-link></b-dropdown-item>
             <b-dropdown-item><router-link to="/Vacancies/ClosedJobs">Closed</router-link></b-dropdown-item>
           </b-dropdown>
@@ -42,7 +42,7 @@ let jobArray = [
 ];
 import { HttpService } from "@/services/http.service";
 export default {
-  name: "Vacancies",
+  name: "ClosedJobs",
   data() {
     return {
       arrayItem: jobArray,
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     async getJobs() {
-      const res = await HttpService.httpGet("jobs");
+      const res = await HttpService.httpGet("closedJobs");
       jobArray.splice(0, jobArray.length);
       jobArray.push(...res);
     }

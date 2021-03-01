@@ -6,14 +6,14 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
+      <b-navbar-nav class="active">
         <b-nav-item><router-link to="/home" class="nav">Dashboard</router-link></b-nav-item>
         <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
         <b-nav-item><router-link to="/Applicants" class="nav">Applicants</router-link></b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-      <b-navbar-nav v-if="!user">
+      <b-navbar-nav v-if="!user" class="active">
         <b-nav-item><router-link to="/Login" class="nav">Login</router-link></b-nav-item>
         <b-nav-item><router-link to="/Account" class="nav">Sign up</router-link></b-nav-item>
       </b-navbar-nav>
@@ -79,7 +79,7 @@ export default {
       padding: 1.2rem 0.8rem;
       font-size: 14px;
   } 
-  .nav-item a:hover{
+  .active .nav-item a:hover{
     background: #e2f3f8;
     opacity: 0.9;
     transition: 1s;
@@ -99,8 +99,8 @@ export default {
   .navbar-expand-lg .navbar-nav .nav-link {
       padding: 0
   }
-
   p {
+    color: #fff;
     padding-top: 4px;
   }
   .logout {

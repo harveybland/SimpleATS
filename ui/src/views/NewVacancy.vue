@@ -4,6 +4,7 @@
             <div class="vac">
                 <router-link to="/Vacancies">View</router-link>
                 <router-link to="/NewVacancy">Create</router-link>
+                <router-link to="/search">Search</router-link>
             </div>
         </div>
            <b-form class="container">
@@ -63,7 +64,6 @@ export default {
             town: '',
             city: '',
             postcode: ''
-
         }
     },
     methods: {
@@ -84,34 +84,34 @@ export default {
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .header {
         padding: 0 40px
     }
-    .vac {
-        display: flex;
-        justify-content: end;
-        padding-top: 10px;
-    }
-  .vac a {
+.vac {
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    a {
     color: #000 !important;
     padding: 15px 10px;
     text-decoration: none;
-  }
-  .vac a:hover{
+    }
+     a:hover{
     background: #fff;
     opacity: 0.7;
     transition: .7s;
   }
-    a.router-link-active {
-        background: #fff;
-        padding: 15px 10px;
-        color: #000 !important;
-    }
-    label {
-        display: flex;
-    }
-    .margin {
-        margin-bottom: 171px;
-    }
+}
+a.router-link-active {
+    background: #fff;
+    padding: 15px 10px;
+    color: #000 !important;
+}
+label {
+    display: flex;
+}
+.margin {
+    margin-bottom: 171px;
+}
 </style>

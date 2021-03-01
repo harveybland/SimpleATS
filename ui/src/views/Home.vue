@@ -35,7 +35,7 @@ export default {
     background-color: #e2f3f8
   }
   .header {
-        background-color: #e2f3f8;
+    background-color: #e2f3f8;
   }
   .title {
     background-color: #3c6473;

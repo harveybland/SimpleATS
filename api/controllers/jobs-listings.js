@@ -15,12 +15,21 @@ const schemas = require('../core/schemas/schemas');
 //   }
 // });
 
-
-
 // Get all jobs
 core.app.get('/api/jobs', async function (req, resp) {
   try {
     const jobs = await schemas.JobModel.find({ isDeleted: false });
+    resp.status(200).json(jobs);
+  }
+  catch {
+    resp.status('404').json('error')
+  }
+});
+
+// Get all closed jobs
+core.app.get('/api/closedJobs', async function (req, resp) {
+  try {
+    const jobs = await schemas.JobModel.find({ isDeleted: true });
     resp.status(200).json(jobs);
   }
   catch {

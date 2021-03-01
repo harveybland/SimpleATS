@@ -1,10 +1,13 @@
 <template>
-  <div class="container account">
-    <div v-if="!submitted">
-      <div class="text-center mt-5 mb-5">
-        <h2>Create Account</h2>
-      </div>
-      <b-form v-if="!submitted">
+  <div>
+    <div class="header">
+        <h2 class="pt-3 pb-3 mb-5"></h2>
+    </div>
+    <div v-if="!submitted"  class="container account mt-5">
+        <div class="title">
+            <h2 class="pt-3 pb-3 mb-0">Create account</h2>
+        </div>
+      <b-form v-if="!submitted" class="mt-4 ml-5 mb-5 mr-5">
         <b-form-group>
           <label>Username</label>
           <b-form-input
@@ -21,8 +24,8 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button variant="primary" type="submitted" @click.prevent="submitForm"
-          >CREATE</b-button
+        <b-button type="submitted" @click.prevent="submitForm"
+          >Create</b-button
         >
       </b-form>
     </div>
@@ -57,11 +60,8 @@ export default {
             HttpService.httpPost("login", body).then((authToken) => {
               localStorage.setItem("token", JSON.stringify(authToken));
               console.log(body, authToken);
-              this.$router.push('/');
+              this.$router.push('/home');
               // location.reload();
-            })
-            .then(res => {
-              localStorage.getItem('username', this.$data.login.username)
             })
             .catch(error => {
               console.log(error);
@@ -75,9 +75,6 @@ export default {
 </script>
 
 <style scoped>
-    .account {
-      height: 86vh;
-    }
     label {
         display: flex;
     }

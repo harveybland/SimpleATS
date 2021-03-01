@@ -2,17 +2,20 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Vacancies from '@/views/Vacancies.vue'
+import ClosedJobs from '@/views/ClosedJobs.vue'
 import Vacancy from '@/views/VacancyView.vue'
 import Login from '@/views/Login.vue'
 import Account from '@/views/Account.vue'
 import NewVacancy from '@/views/NewVacancy.vue'
 import editVacancy from '@/views/editVacancy.vue'
+import Applicants from '@/views/Applicants.vue'
+import Search from '@/views/Search.vue'
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -21,8 +24,24 @@ const routes: RouteConfig[] = [
     component: Vacancies
   },
   {
+    path: '/Vacancies/ClosedJobs',
+    component: ClosedJobs
+  },
+  {
     path: "/Vacancies/:id",
     component: Vacancy
+  },
+  {
+    path: '/editVacancy/:id',
+    component: editVacancy
+  },
+  {
+    path: '/NewVacancy',
+    component: NewVacancy
+  },
+  {
+    path: '/Search',
+    component: Search
   },
   {
     path: '/Login',
@@ -33,12 +52,8 @@ const routes: RouteConfig[] = [
     component: Account
   },
   {
-    path: '/NewVacancy',
-    component: NewVacancy
-  },
-  {
-    path: '/editVacancy/:id',
-    component: editVacancy
+    path: '/Applicants',
+    component: Applicants
   }
 ];
 

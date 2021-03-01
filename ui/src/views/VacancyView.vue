@@ -1,16 +1,20 @@
 <template>
-  <div class="background">
-    <div class="container">
-      <div class="mb-4 pt-3">
-        <h2>Load the Vacancy</h2>
+  <div>
+      <div class="header mb-4">
+      <div class="vac">
+        <li v-for="item in arrayItem" v-bind:key="item._id">
+        <h5>{{ item.vacancyTitle }}</h5>
+        <p>{{ item.companyName }} - {{ item.town }}</p>
+      </li>
       </div>
+    </div>
+    <div class="container">
       <li v-for="item in arrayItem" v-bind:key="item._id">
         <h5>{{ item.vacancyTitle }}</h5>
-        <p>{{ item.street }} {{ item.city }}</p>
-        <p>{{ item.town }} {{ item.postcode }}</p>
-
+        <p>{{ item.companyName }} - {{ item.street }}</p>
+        <p>{{ item.city }} - {{ item.town }} - {{ item.postcode }}</p>
         <router-link :to="{ path: '/editVacancy/' + item._id }">
-        <b-button class="mr-3" variant="info">Edit</b-button>
+        <b-button class="mr-3" variant="info">Emend Job</b-button>
         </router-link>
 
         <b-button variant="danger" @click.prevent="deleteVacancy(item._id)">Remove</b-button>
@@ -44,9 +48,6 @@ export default {
         this.arrayItem = res
         this.$router.push('/Vacancies')
       })
-    },
-       editVacancy() {
-       this.$router.push('/EditVacancy')
     }
     },
    beforeMount() {
@@ -56,32 +57,21 @@ export default {
 };
 </script>
 
-<style scoped>
-.background {
-  background: grey;
+<style lang="scss" scoped>
+.vac li {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px 0px 10px 40px;
+    h5,  p {
+    color: #000;
+    margin: 0
+  }
 }
-li {
+.container li {
   display: block;
   background: #343a40;
   padding: 25px 25px 15px 25px;
   margin-bottom: 20px;
-}
-h5 {
-  color: #e5e5e5;
-}
-p {
-  color: rgba(255, 255, 255, 0.5);
-}
-.container {
-  background: grey;
-  padding-bottom: 10px;
-}
-a {
-    color: #fff;
-    text-decoration: none;
-}
-a:hover {
-   color: #fff;
-   text-decoration: none;
 }
 </style>

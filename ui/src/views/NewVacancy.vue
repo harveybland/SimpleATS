@@ -1,7 +1,13 @@
 <template>
-    <div class="container margin">
-        <h2 class="mt-4 mb-2">Create Vacancy</h2>
-           <b-form>
+    <div class="margin">
+        <div class="header mb-4">
+            <div class="vac">
+                <router-link to="/Vacancies">View</router-link>
+                <router-link to="/NewVacancy">Create</router-link>
+                <router-link to="/search">Search</router-link>
+            </div>
+        </div>
+           <b-form class="container">
             <b-form-group>
                 <label>Vacancy Title</label>
                 <b-form-input v-model="vacancyTitle" placeholder="Senior Dev"></b-form-input>
@@ -36,8 +42,7 @@
                 <label>Postcode</label>
                 <b-form-input v-model="postcode" placeholder="BD23 3AG"></b-form-input>
             </b-form-group>
-                <b-button 
-                variant="primary" 
+                <b-button
                  @click="createVacancy">Submit
             </b-button>
            </b-form>
@@ -59,7 +64,6 @@ export default {
             town: '',
             city: '',
             postcode: ''
-
         }
     },
     methods: {
@@ -80,11 +84,34 @@ export default {
     }
 </script>
 
-<style scoped>
-    label {
-        display: flex;
+<style lang="scss" scoped>
+    .header {
+        padding: 0 40px
     }
-    .margin {
-        margin-bottom: 171px;
+.vac {
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    a {
+    color: #000 !important;
+    padding: 15px 10px;
+    text-decoration: none;
     }
+     a:hover{
+    background: #fff;
+    opacity: 0.7;
+    transition: .7s;
+  }
+}
+a.router-link-active {
+    background: #fff;
+    padding: 15px 10px;
+    color: #000 !important;
+}
+label {
+    display: flex;
+}
+.margin {
+    margin-bottom: 171px;
+}
 </style>

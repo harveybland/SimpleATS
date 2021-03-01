@@ -1,9 +1,9 @@
 <template>
-  <div class="background">
+  <div>
+    <div class="header">
+        <h2 class="pt-3 pb-3 mb-5">Emend Vacancy</h2>
+    </div>
     <div class="container">
-      <div class="mb-4 pt-3">
-        <h2>Edit Vacancy</h2>
-      </div>
       <li v-for="item in arrayItem" v-bind:key="item._id">
       <b-form-group>
             <label>Vacancy Title</label>
@@ -37,14 +37,18 @@
                 <label>Postcode</label>
                 <b-form-input v-model="item.postcode"></b-form-input>
             </b-form-group>
-      <b-button class="mt-3" variant="info" @click.prevent="editVacancy">Update</b-button>
+      <b-button class="mt-3" variant="info" @click.prevent="editVacancy(item._id)">Update</b-button>
       </li>
     </div>
   </div>
 </template>
 <script>
 
-let job = { vacancyTitle: "test" };
+let jobArray = [
+  {
+    vacancyTitle: "test",
+  },
+];
 let id = "";
 
 import { HttpService } from "@/services/http.service";
@@ -52,7 +56,7 @@ export default {
   name: "editVacancy",
   data() {
     return {
-      arrayItem: job,
+      arrayItem: jobArray,
     };
   },
    methods: {
@@ -62,20 +66,16 @@ export default {
     },
     editVacancy() {
       this.id = this.$router.currentRoute.params.id;
-      HttpService.httpPut("job/" + this.id)
+      HttpService.httpPut("updateJob/" + this.id)
       .then(res => {
-        const newVac = res.data.id;
-        console.log(newVac)
-      })
-      .catch(err => {
-        console.log(err)
+        this.jobArray = res
       })
     }
+
     },
     beforeMount() {
     this.getJob();
-  },
-
+  }
 };
 </script>
 

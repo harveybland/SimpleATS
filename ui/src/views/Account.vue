@@ -3,73 +3,91 @@
     <div class="header">
         <h2 class="pt-3 pb-3 mb-5"></h2>
     </div>
-    <div v-if="!submitted"  class="container account mt-5">
+    <div class="container account mt-5">
         <div class="title">
             <h2 class="pt-3 pb-3 mb-0">Create account</h2>
         </div>
-      <b-form v-if="!submitted" class="mt-4 ml-5 mb-5 mr-5">
-        <b-form-group>
-          <label>Username</label>
-          <b-form-input
-            v-model="form.username"
-            placeholder="Admin"
-            required
-          ></b-form-input>
+      <b-form class="mt-4 ml-5 mb-5 mr-5">
+
+          <b-form-group>
+              <label>Username</label>
+            <b-form-input placeholder="admin" class="form-control" v-model.trim="$v.username.$model" :class="{
+                'is-invalid':$v.username.$error, 'is-valid':!$v.username.$invalid}"></b-form-input>
+                <div class="valid-feedback">Your username is valid</div>
+                <div class="invalid-feedback">
+                    <span v-if="!$v.username.required">Username is required</span>
+                    <span v-if="!$v.username.minLength"> at least {{ $v.username.$params.minLength.min }}</span>
+                    <span v-if="!$v.username.maxLength"> at least {{ $v.username.$params.maxLength.max }}</span>
+                </div>
         </b-form-group>
+
         <b-form-group>
-          <label>Password</label>
-          <b-form-input
-            v-model="form.password"
-            placeholder="Password"
-            required
-          ></b-form-input>
+              <label>Password</label>
+            <b-form-input placeholder="password" type="password"  class="form-control" v-model.trim="$v.password.$model" :class="{
+                'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid}"></b-form-input>
+                <div class="valid-feedback">Your password is valid</div>
+                <div class="invalid-feedback">
+                    <span v-if="!$v.password.required">Password is required</span>
+                    <span v-if="!$v.password.minLength"> at least {{ $v.password.$params.minLength.min }}</span>
+                    <span v-if="!$v.password.maxLength"> at least {{ $v.password.$params.maxLength.max }}</span>
+                </div>
         </b-form-group>
-        <b-button type="submitted" @click.prevent="submitForm"
-          >Create</b-button
-        >
+
+        <b-button type="submitted" @click.prevent="submitForm">Create</b-button>
       </b-form>
     </div>
-    <div v-if="submitted" class="text-center mt-5 mb-5 alert alert-success">
-      <p>Thanks for creating an account</p>
-    </div>
+
   </div>
 </template>
 
 <script>
 import { HttpService } from "@/services/http.service";
-
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   name: "Account",
   data() {
     return {
-      form: {
         username: "",
         password: "",
-      },
-      editAccount: null,
-      submitted: false,
-    };
+    }
   },
   methods: {
     submitForm() {
-        const body = { username: this.$data.form.username, password: this.$data.form.password };
-        HttpService.httpPost("user/create", body).then((resp) => {
-          if (resp === "User Created") {
-            HttpService.httpPost("login", body).then((authToken) => {
-              localStorage.setItem("token", JSON.stringify(authToken));
-              console.log(body, authToken);
-              this.$router.push('/home');
-              // location.reload();
-            })
-            .catch(error => {
-              console.log(error);
-            })
-          }
+      this.$v.$touch() 
+      if (this.$v.$invalid) {
+          this.submitStatus = "FAIL"
+      } else {
+      const body = { username: this.$data.username, password: this.$data.password };
+      HttpService.httpPost("user/create", body).then((resp) => {
+      if (resp === "User Created") {
+          HttpService.httpPost("login", body).then((authToken) => {
+            localStorage.setItem("token", JSON.stringify(authToken));
+            console.log(body, authToken);
+            this.$router.push('/home');
+            // localStorage.setItem('username', this.$data.login.username)
+            // location.reload();
+          })
+          .catch(error => {
+            console.log(error);
+          })
+        }
       })
     }
   }
+  },
+      validations: {
+        username: {
+            required,
+            minLength: minLength(3),
+            maxLength: maxLength(10)
+        },
+        password: {
+            required,
+            minLength: minLength(3),
+            maxLength: maxLength(10)
+        }
+    }
 }
-
 </script>
 
 <style scoped>

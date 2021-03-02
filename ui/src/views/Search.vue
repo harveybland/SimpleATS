@@ -23,7 +23,7 @@
   }
   .vac {
     display: flex;
-    justify-content: end;
+    justify-content: flex-start;
     padding-top: 10px;
   }
   .vac a {

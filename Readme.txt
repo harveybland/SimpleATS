@@ -16,71 +16,84 @@ go to tests->test.http
 
 
 <template>
-    <div class="container mt-4" @submit="PostData" method="post">
-        <h2>Create Account</h2>
-        <div class="row mt-4 mb-3">
-          <div class="col-sm">
-            <label>First name</label>
-                <b-form-input v-model="posts.firstname" name="firstname" placeholder="Simon"></b-form-input>
-            </div>
-            <div class="col-sm">
-                <label>Sirname</label>
-                <b-form-input v-model="posts.Sirname" name="Sirname" placeholder="Firth"></b-form-input>
-            </div>
-            </div>
-            <div class="mt-3 mb-3">
-                <label>Username</label>
-                <b-form-input v-model="Username" placeholder="admin"></b-form-input>
-            </div>
-            <div class="mt-3 mb-3">
-                <label>Email</label>
-                <b-form-input v-model="Email" placeholder="name@example.com"></b-form-input>
-            </div>
-            <div class="mt-3 mb-3">
-                <label>Postal Code </label>
-                <b-form-input v-model="PostCode" placeholder="bb8 7ns"></b-form-input>
-            </div>
-            <div class="mt-3 mb-3">
-                <label>Password</label>
-                <b-form-input v-model="Enter" placeholder="Password"></b-form-input>
-            </div>
-            <div class="mt-3 mb-3">
-                <label>Re-enter Password</label>
-                <b-form-input v-model="ReEnter" placeholder="Re-enter Password"></b-form-input>
-            </div>
-            <div class="mt-4 mb-3">
-              <b-button variant="primary" type="submit">Create Account</b-button>
-            </div>
+    <div>
+        <div class="header">
+            <h2 class="pt-3 pb-3 mb-5"></h2>
+        </div>
+        <div class="container account mt-5">
+        <div class="title">
+            <h2 class="pt-3 pb-3 mb-0">Login</h2>
+        </div>
+        <b-form class="mt-4 ml-5 mb-5 mr-5">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" v-model="login.username" placeholder="admin"  class="form-control">
+                    <ul v-if="errors.length">
+                        <li><b-alert show variant="danger">Username is incorrect</b-alert></li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" v-model="login.password" placeholder="password" class="form-control">
+                      <ul v-if="errors.length">
+                        <li><b-alert show variant="danger">Password is incorrect</b-alert></li>
+                    </ul>
+                </div>
+            <b-button 
+                @click.prevent="loginUser">Login
+            </b-button>
+        </b-form>
+        </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "AccountView",
+import { HttpService } from "@/services/http.service";
+export default {
+    name: 'Login',
     data() {
-      return {
-        posts: {
-        firstname: null,
-        Sirname: null,
-        Username: '',
-        Email: '',
-        Enter: '',
-        ReEnter:'',
-        PostCode: ''
+        return {
+            errors: [],
+        login: {
+            username: null,
+            password: null
         }
-      }
+    }
     },
     methods: {
-        PostData(e) {
-            console.log("this.posts")
-            e.preventDefault();
-            
+        loginUser() {
+            this.errors = [];
+            if(this.login.username === null){
+                this.errors.push("name is required")
+            } else {
+            const body = { username: this.$data.login.username, password: this.$data.login.password };
+            HttpService.httpPost("/login", body)
+            .then(resp => {
+                localStorage.setItem('token', JSON.stringify(resp));
+                this.$router.push('/home');
+                location.reload();
+                localStorage.setItem('username', this.$data.login.username)
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
-    },
-
+      }
+    }
 }
+
 </script>
 
 <style scoped>
-
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+    #error {
+    color: red;
+    }
+    label {
+        display: flex;
+    }
 </style>
+

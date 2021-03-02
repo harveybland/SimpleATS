@@ -61,7 +61,7 @@ export default {
 .vac li {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 10px 0px 10px 40px;
     h5,  p {
     color: #000;

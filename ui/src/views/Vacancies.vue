@@ -69,7 +69,7 @@ export default {
   }
   .vac {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding-top: 10px;
     a {
       color: #000;
@@ -88,7 +88,7 @@ export default {
 }
 .active {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding-top: 10px;
     p {
       padding-top: 15px;

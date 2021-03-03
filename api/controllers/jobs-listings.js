@@ -41,6 +41,7 @@ core.app.get('/api/closedJobs', async function (req, resp) {
 // Gets a job with all of the applications
 core.app.get('/api/job/:uid', async function (req, resp) {
   try {
+
     const jobwithApplicants = await schemas.JobModel.aggregate([
       {
         $match:
@@ -69,13 +70,13 @@ core.app.get('/api/job/:uid', async function (req, resp) {
 // Create Job
 core.app.post('/api/job', async function (req, resp) {
   schemas.JobModel.create(req.body)
-    try {
-      console.log(result);
-      resp.status(200).json(result);
-    }
-    catch {
-      resp.status('404').json('error');
-    };
+  try {
+    console.log(result);
+    resp.status(200).json(result);
+  }
+  catch {
+    resp.status('404').json('error');
+  };
 });
 
 
@@ -97,6 +98,7 @@ core.app.put('/api/updateJob/:uid', async (req, resp) => {
   catch {
     resp.status('404').json('error');
   }
+
 });
 
 // Delete job

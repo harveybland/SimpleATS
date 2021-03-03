@@ -31,6 +31,10 @@ const UserSchema = new core.Schema({
 });
 
 
+const taskSchema = new core.Schema({
+    questions: []
+});
+
 UserSchema.pre('save', function (next) {
     var user = this;
     // only hash the password if it has been modified (or is new)
@@ -59,7 +63,10 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 const ApplicantsModel = core.mongoose.model("applicants", applicantSchema);
 const JobModel = core.mongoose.model("jobs", JobSchema);
 const UserModel = core.mongoose.model('user', UserSchema);
+const TaskModel = core.mongoose.model('task', taskSchema);
+
 
 module.exports.JobModel = JobModel;
 module.exports.ApplicantsModel = ApplicantsModel;
 module.exports.UserModel = UserModel;
+module.exports.TaskModel = TaskModel;

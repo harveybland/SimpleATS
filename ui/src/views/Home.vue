@@ -1,8 +1,9 @@
 <template>
 <div class="home">
     <div class="container home">
-           <div class="text-center pt-5 text">
+          <div class="pt-5 text">
             <h1 class="mb-5">Simple ATS</h1>
+            
             <div v-if="!user">
                 <h3>Please <router-link to="/Login">Sign in</router-link></h3>
             </div>
@@ -72,6 +73,9 @@ export default {
   h6:hover {
     color: #fff !important;
     text-decoration: underline #fff;
+  }
+  li {
+    list-style-type: none;
   }
   .form-control {
     background-color: rgba(255, 255, 255, 0.5) !important;

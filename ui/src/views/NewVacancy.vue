@@ -92,10 +92,7 @@
                 </div>
             </b-form-group>
 
-                <b-button
-                 @click.prevent="createVacancy">Submit
-            </b-button>
-            
+            <b-button @click.prevent="createVacancy">Submit</b-button>
            </b-form>
     </div>
 </template>
@@ -114,15 +111,14 @@ export default {
             street: '',
             town: '',
             city: '',
-            postcode: '',
-            submitStatus: null
+            postcode: ''
         }
     },
     methods: {
     createVacancy() {
-        this.$v.$touch() 
+        this.$v.$touch()    
         if (this.$v.$invalid) {
-            this.submitStatus = "FAIL"
+            alert('nope')
             } else {
             const body = { vacancyTitle: this.$data.vacancyTitle, companyName: this.$data.companyName,
             street: this.$data.street, salary: this.$data.salary, town: this.$data.town,

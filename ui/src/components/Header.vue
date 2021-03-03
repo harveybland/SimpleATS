@@ -9,7 +9,6 @@
       <b-navbar-nav class="active">
         <b-nav-item><router-link to="/home" class="nav">Dashboard</router-link></b-nav-item>
         <b-nav-item><router-link to="/Vacancies" class="nav">Vacancies</router-link></b-nav-item>
-        <b-nav-item><router-link to="/Applicants" class="nav">Applicants</router-link></b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">

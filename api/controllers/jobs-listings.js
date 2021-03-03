@@ -79,21 +79,6 @@ core.app.post('/api/job', async function (req, resp) {
 });
 
 
-// Delete job
-core.app.delete('/api/job/:uid', async function (req, resp) {
-  try {
-    const id = req.params.uid;
-    let job = await schemas.JobModel.findOne({ _id: id })
-    job.isDeleted = true;
-    job.save();
-    resp.status(200).json('ok')
-  }
-  catch {
-    resp.status('404').json('error');
-  }
-});
-
-
 //Update job
 core.app.put('/api/updateJob/:uid', async (req, resp) => {
   try {
@@ -114,6 +99,19 @@ core.app.put('/api/updateJob/:uid', async (req, resp) => {
   }
 });
 
+// Delete job
+core.app.delete('/api/job/:uid', async function (req, resp) {
+  try {
+    const id = req.params.uid;
+    let job = await schemas.JobModel.findOne({ _id: id })
+    job.isDeleted = true;
+    job.save();
+    resp.status(200).json('ok')
+  }
+  catch {
+    resp.status('404').json('error');
+  }
+});
 
 //undelete job
 core.app.put('/api/undelete/:uid', async (req, resp) => {

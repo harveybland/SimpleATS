@@ -55,7 +55,7 @@ export default {
     submitForm() {
       this.$v.$touch() 
       if (this.$v.$invalid) {
-          this.submitStatus = "FAIL"
+          alert('nope')
       } else {
       const body = { username: this.$data.username, password: this.$data.password };
       HttpService.httpPost("user/create", body).then((resp) => {
@@ -64,8 +64,10 @@ export default {
             localStorage.setItem("token", JSON.stringify(authToken));
             console.log(body, authToken);
             this.$router.push('/home');
-            // localStorage.setItem('username', this.$data.login.username)
-            // location.reload();
+            location.reload();
+          })
+          .then(() => {
+            localStorage.setItem('username', this.$data.username)
           })
           .catch(error => {
             console.log(error);

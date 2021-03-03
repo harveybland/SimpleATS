@@ -47,15 +47,14 @@ export default {
     data() {
         return {
             username: '',
-            password: '',
-            submitStatus: null
+            password: ''
     }
     },
     methods: {
         loginUser() {
             this.$v.$touch() 
             if (this.$v.$invalid) {
-                this.submitStatus = "FAIL"
+                alert('Invalid username and password')
             } else {
             const body = { username: this.$data.username, password: this.$data.password };
             HttpService.httpPost("/login", body)
@@ -63,7 +62,7 @@ export default {
                 localStorage.setItem('token', JSON.stringify(resp));
                 this.$router.push('/home');
                 location.reload();
-                localStorage.setItem('username', this.$data.login.username)
+                localStorage.setItem('username', this.$data.username)
             })
             .catch(err => {
                 console.log(err)
@@ -74,12 +73,12 @@ export default {
     validations: {
         username: {
             required,
-            minLength: minLength(3),
+            minLength: minLength(4),
             maxLength: maxLength(10)
         },
         password: {
             required,
-            minLength: minLength(3),
+            minLength: minLength(6),
             maxLength: maxLength(10)
         }
     }

@@ -17,71 +17,54 @@
            <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
           <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
         </div>
-        <div class="container">
-          <li>
-            <div class="flexL">    
-              <h5>Job Title</h5>
-                <p>{{ item.vacancyTitle }}</p>
-              <h5>Company</h5>
-                <p>{{ item.companyName }}</p>
-              <h5>Street</h5>
-                <p>{{ item.street }}</p></div>
-            <div class="flexR">
-              <h5>City</h5>
-              <p>{{ item.city }}</p>
-             <h5>Town</h5> 
-              <p> {{ item.town }} </p>
-             <h5>Postcode</h5>
-              <p> {{ item.postcode }}</p>
-              <p> {{ item.isDeleted }}</p>
-            </div>
+         </li>
+        <div class="container applicants">
+          <li v-for="item in applicantItem" v-bind:key="item._id">
+                <div>
+                  <h5>Name</h5>
+                  <p>{{ item.firstname }} {{ item.surname }}</p>
+                </div>
+                <div>
+                   <h5>Contact details</h5>
+                   <p>{{ item.emailaddress }} {{ item.postcode}} {{ item.mobile }} </p>
+                </div>
+                <div>
+                   <h5>Current work</h5>
+                   <p>{{ item.currentJobTitle }} {{ item.currentEmployer }}</p>
+                </div>
           </li>
-            <div>
-              <b-button variant="danger" @click.prevent="deleteVacancy(item._id)" class="mr-3">Remove</b-button>
-                <b-button variant="info" @click.prevent="recoverJob()">Recover</b-button>
-            </div>
         </div>
-      </li>
     </div>
   </div>
 </template>
 <script>
 
 let job = { vacancyTitle: "test" };
+let applicant = { firstname: "test" };
 let id = "";
 
 import { HttpService } from "@/services/http.service";
 export default {
-  name: "Vacancy",
+  name: "ApplicantsView",
   data() {
     return {
       arrayItem: job,
+      applicantItem: applicant
     };
   },
    methods: {
      async getJob() {
       this.id = this.$router.currentRoute.params.id;
       this.arrayItem = await HttpService.httpGet("job/" + this.id)
-      // this.arrayItem = vac;
     },
-    deleteVacancy() {
+      async getApplicant() {
       this.id = this.$router.currentRoute.params.id;
-      HttpService.httpDelete("job/" + this.id)
-      .then(res => {
-        this.arrayItem = res
-        this.$router.push('/Vacancies')
-      })
-    },
-    recoverJob() {
-      this.id = this.$router.currentRoute.params.id;
-      HttpService.httpPut("updateJob/" + this.id)
-      .then(res => {
-
-      })
+      this.applicantItem = await HttpService.httpGet("applications/" + this.id)
     }
     },
    beforeMount() {
     this.getJob();
+    this.getApplicant();
   },
 
 };
@@ -104,12 +87,12 @@ export default {
     background: #343a40;
     padding: 25px 25px 15px 25px;
     margin-bottom: 20px;
-    .flexL {
-    width: 50%;
   }
-    .flexR {
-    width: 50%;
-  }
+  .applicants div {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding-left: 30px;
   }
   .banner {
     display: flex;

@@ -13,7 +13,8 @@
             <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
             <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
             <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
-             <router-link :to="{ path: '/ApplicantForm/' + item._id }" >Application Form</router-link>
+             <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
+             <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
             </div>
         </li>
           <div class="container">
@@ -22,17 +23,41 @@
                   <p>{{ item.companyName }} - {{ item.town }}</p>
               </li>
             <li>
+          </li> 
+                <b-form-group>
+                      <label>First Name</label>
+                      <b-form-input v-model="firstName"></b-form-input>
+                </b-form-group>
               <b-form-group>
                       <label>First Name</label>
                       <b-form-input v-model="firstName"></b-form-input>
                 </b-form-group>
-                              <b-form-group>
-                    <label>Last Name</label>
-                    <b-form-input v-model="lastName"></b-form-input>
+                <b-form-group>
+                    <label>Surname</label>
+                    <b-form-input v-model="surname"></b-form-input>
                 </b-form-group>
-              </li>
+                     <b-form-group>
+                      <label>Postcode</label>
+                      <b-form-input v-model="postcode"></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <label>mobile</label>
+                    <b-form-input v-model="mobile"></b-form-input>
+                </b-form-group>
+                     <b-form-group>
+                      <label>Email</label>
+                      <b-form-input v-model="emailAddress"></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <label>Current Employer</label>
+                    <b-form-input v-model="currentEmployer"></b-form-input>
+                </b-form-group>
+                     <b-form-group>
+                      <label>Current Job Title</label>
+                      <b-form-input v-model="currentJobTitle"></b-form-input>
+                </b-form-group>
             </div>
-              <b-button class="mt-3" variant="info" @click.prevent="apply()">Apply</b-button>
+              <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
           </div>
 </template>
 
@@ -46,15 +71,33 @@ let id = "";
 
 import { HttpService } from "@/services/http.service";
 export default {
-  name: "ApplicantForm",
+  name: "NewApplicant",
   data() {
     return {
       firstName: '',
-      lastName: '',
+      surname: '',
+      postcode: '',
+      mobile: '',
+      emailAddress: '',
+      currentEmployer: '',
+      currentJobTitle: '',
       arrayItem: jobArray,
     }
   },
    methods: {
+      createApplicant() {
+        const body = { firstName: this.$data.firstName, Surname: this.$data.Surname,
+        postcode: this.$data.postcode, mobile: this.$data.mobile, emailAddress: this.$data.emailAddress,
+        currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle };
+        this.id = this.$router.currentRoute.params.id;
+        HttpService.httpPost('apply/' + this.id, body)
+        .then(res => {
+            jobid = this.id;
+        })
+        .catch(error => {
+        console.log(error);
+        })
+    },
      async getJob() {
       this.id = this.$router.currentRoute.params.id;
       this.arrayItem = await HttpService.httpGet("job/" + this.id)

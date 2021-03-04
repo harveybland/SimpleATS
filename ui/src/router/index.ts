@@ -7,8 +7,10 @@ import Vacancy from '@/views/VacancyView.vue'
 import Login from '@/views/Login.vue'
 import Account from '@/views/Account.vue'
 import NewVacancy from '@/views/NewVacancy.vue'
+import NewApplicant from '@/views/NewApplicant.vue'
 import editVacancy from '@/views/editVacancy.vue'
-import ApplicantForm from '@/views/ApplicantForm.vue'
+import ApplicantsView from '@/views/ApplicantsView.vue'
+
 import Search from '@/views/Search.vue'
 
 Vue.use(VueRouter);
@@ -36,8 +38,12 @@ const routes: RouteConfig[] = [
     component: editVacancy
   },
   {
-    path: '/ApplicantForm/:id',
-    component: ApplicantForm
+    path: '/NewApplicant/:id',
+    component: NewApplicant
+  },
+  {
+    path: '/ApplicantsView/:id',
+    component: ApplicantsView
   },
   {
     path: '/NewVacancy',

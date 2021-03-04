@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .dropdown-menu .dropdown-item {
+      padding: 0rem;
+  }
   .header {
     padding: 0 40px;
     display: flex;
@@ -98,6 +101,7 @@ export default {
     a {
       color: #000;
       text-decoration: none;
+      padding: 15px 60px 15px 0px;
     }
 }
   .container li {

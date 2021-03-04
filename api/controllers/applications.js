@@ -8,9 +8,9 @@ core.app.get('/api/applications/:jobid', async function (req, resp) {
         schemas.ApplicantsModel.find({ jobid: req.params.jobid }).then(result => {
             resp.status(200).json(result);
         })
-            .catch(error => {
-                resp.status('200').json('error');
-            })
+        .catch(error => {
+            resp.status('200').json('error');
+        })
     }
     catch {
         resp.status('200').json('error')

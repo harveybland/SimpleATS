@@ -122,7 +122,7 @@ export default {
             } else {
             const body = { vacancyTitle: this.$data.vacancyTitle, companyName: this.$data.companyName,
             street: this.$data.street, salary: this.$data.salary, town: this.$data.town,
-            city: this.$data.salary, postcode: this.$data.postcode };
+            city: this.$data.city, postcode: this.$data.postcode };
             HttpService.httpPost('job', body)
             .then(res => {
                 console.log(res);

@@ -8,7 +8,10 @@ const applicantSchema = new core.Schema({
     firstname: String,
     surname: String,
     postcode: String,
-    emailaddress: String
+    mobile: String,
+    emailaddress: String,
+    currentEmployer: String,
+    currentJobTitle: String
 });
 
 const JobSchema = new core.Schema({

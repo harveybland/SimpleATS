@@ -1,4 +1,3 @@
-
 const { authenticateToken } = require('../core/authentication/authentication');
 const core = require('../core/core');
 const schemas = require('../core/schemas/schemas');

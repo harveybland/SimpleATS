@@ -3,14 +3,27 @@
     <div class="container home">
           <div class="pt-5 text">
             <h1 class="mb-5">Simple ATS</h1>
-            
-            <div v-if="!user">
+            <!-- <div v-if="!user">
                 <h3>Please <router-link to="/Login">Sign in</router-link></h3>
             </div>
             <div v-if="user">
                 <h5>Welcome user</h5>
-            </div>
-        </div>
+            </div> -->
+          <div class="data">
+              <div>
+                <h3>Totle Candidates</h3>
+                  <p>{{  }}</p>
+              </div>
+              <div>
+                <h3>Open Vacancies</h3>
+                <p>{{ }}</p>
+              </div>
+              <div>
+                <h3>Appointed</h3>
+                <p>{{ }}</p>
+              </div>
+          </div>
+      </div>
     </div>
 </div>
 </template>
@@ -28,7 +41,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   .container {
     padding: 0 !important;
   }
@@ -83,5 +96,14 @@ export default {
   }
   .account {
     border: 1px solid #000;
+  }
+
+  .data {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    div {
+      border-right: 1px solid #000;  
+    }
   }
 </style>

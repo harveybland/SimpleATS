@@ -40,7 +40,6 @@ core.app.get('/api/closedJobs', async function (req, resp) {
 // Gets a job with all of the applications
 core.app.get('/api/job/:uid', async function (req, resp) {
   try {
-
     const jobwithApplicants = await schemas.JobModel.aggregate([
       {
         $match:
@@ -113,6 +112,7 @@ core.app.delete('/api/job/:uid', async function (req, resp) {
     resp.status('404').json('error');
   }
 });
+
 
 //undelete job
 core.app.put('/api/undelete/:uid', async (req, resp) => {

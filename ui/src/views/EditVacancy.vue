@@ -20,35 +20,35 @@
       <li>
       <b-form-group>
             <label>Vacancy Title</label>
-            <b-form-input v-model="item.vacancyTitle"></b-form-input>
+            <b-form-input v-model="vacancyTitle"></b-form-input>
         </b-form-group>
         <b-form-group>
                 <label>Company Name</label>
-                <b-form-input v-model="item.companyName"></b-form-input>
+                <b-form-input v-model="companyName"></b-form-input>
           </b-form-group>
                         <b-form-group>
               <label>Salary</label>
-              <b-form-input v-model="item.salary"></b-form-input>
+              <b-form-input v-model="salary"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Street</label>
-              <b-form-input v-model="item.street"></b-form-input>
+              <b-form-input v-model="street"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Town</label>
-              <b-form-input v-model="item.town"></b-form-input>
+              <b-form-input v-model="town"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>City</label>
-              <b-form-input v-model="item.city"></b-form-input>
+              <b-form-input v-model="city"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Postcode</label>
-              <b-form-input v-model="item.postcode"></b-form-input>
+              <b-form-input v-model="postcode"></b-form-input>
           </b-form-group>
           
       <b-button class="mt-3" variant="info" @click.prevent="editVacancy(item._id)">Save</b-button>

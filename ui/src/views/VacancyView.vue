@@ -13,7 +13,7 @@
         <div class="banner">
           <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
           <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
-          <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
+          <router-link :to="{ path: '/editVacancy/' + item._id }">Edit Job</router-link>
            <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
           <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
         </div>
@@ -38,7 +38,7 @@
           </li>
             <div>
               <b-button variant="danger" @click.prevent="deleteVacancy(item._id)" class="mr-3">Remove</b-button>
-                <b-button variant="info" @click.prevent="recoverJob()">Recover</b-button>
+                <b-button variant="info" @click.prevent="recoverJob(item._id)">Recover</b-button>
             </div>
         </div>
       </li>
@@ -74,9 +74,9 @@ export default {
     },
     recoverJob() {
       this.id = this.$router.currentRoute.params.id;
-      HttpService.httpPut("updateJob/" + this.id)
+      HttpService.httpPut("undelete/" + this.id)
       .then(res => {
-
+        this.$router.push('/Vacancies')
       })
     }
     },

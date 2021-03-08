@@ -24,10 +24,6 @@
               </li>
             <li>
           </li> 
-                <b-form-group>
-                      <label>First Name</label>
-                      <b-form-input v-model="firstName"></b-form-input>
-                </b-form-group>
               <b-form-group>
                       <label>First Name</label>
                       <b-form-input v-model="firstName"></b-form-input>
@@ -41,7 +37,7 @@
                       <b-form-input v-model="postcode"></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <label>mobile</label>
+                    <label>Mobile</label>
                     <b-form-input v-model="mobile"></b-form-input>
                 </b-form-group>
                      <b-form-group>
@@ -92,7 +88,7 @@ export default {
         this.id = this.$router.currentRoute.params.id;
         HttpService.httpPost('apply/' + this.id, body)
         .then(res => {
-            jobid = this.id;
+            console.log(res)
         })
         .catch(error => {
         console.log(error);

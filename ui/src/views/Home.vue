@@ -11,7 +11,7 @@
             </div> -->
           <div class="data">
               <div>
-                <h3>Totle Candidates</h3>
+                <h3>Total Candidates</h3>
                   <p>{{  }}</p>
               </div>
               <div>
@@ -100,10 +100,6 @@ export default {
 
   .data {
     display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    div {
-      border-right: 1px solid #000;  
-    }
+    justify-content: space-around;
   }
 </style>

@@ -30,7 +30,7 @@
                 </div>
                 <div>
                    <h5>Current work</h5>
-                   <p>{{ item.currentJobTitle }} {{ item.currentEmployer }}</p>
+                   <p>{{ item.currentJobTitle }} {{ item.currentEmployer }} {{ item.jobid }}</p>
                 </div>
           </li>
         </div>

@@ -2,30 +2,28 @@
     <div>
         <div class="header mb-4">
             <div class="vac">
-                <li v-for="item in arrayItem" v-bind:key="item._id">
-                    <h5>{{ item.vacancyTitle }}</h5>
-                    <p>{{ item.companyName }} - {{ item.town }}</p>
+                <li>
+                    <h5>{{ arrayItem.vacancyTitle }}</h5>
+                    <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
                 </li>
             </div>
         </div>
-        <li v-for="item in arrayItem" v-bind:key="item._id">
+        <li>
             <div class="banner">
             <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
-            <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
-            <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
-             <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
-             <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
+            <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
+            <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
+             <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
+             <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
             </div>
         </li>
           <div class="container">
-              <li v-for="item in arrayItem" v-bind:key="item._id">
-                  <h4>Applying for - {{ item.vacancyTitle }}</h4>
-                  <p>{{ item.companyName }} - {{ item.town }}</p>
-
-
-                <b-form-group>
+              <li>
+                  <h4>Applying for - {{ arrayItem.vacancyTitle }}</h4>
+                  <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
+                <b-form-group class="displaynone">
                       <label>id</label>
-                      <b-form-input v-model="jobid">{{ id }}</b-form-input>
+                      <b-form-input v-model="arrayItem._id"></b-form-input>
                 </b-form-group>
               <b-form-group>
                       <label>First Name</label>
@@ -33,7 +31,7 @@
                 </b-form-group>
                 <b-form-group>
                     <label>Surname</label>
-                    <b-form-input v-model="item.surname"></b-form-input>
+                    <b-form-input v-model="surname"></b-form-input>
                 </b-form-group>
                      <b-form-group>
                       <label>Postcode</label>
@@ -62,11 +60,7 @@
 </template>
 
 <script>
-let jobArray = [
-  {
-    vacancyTitle: "test",
-  },
-];
+let job = { vacancyTitle: "test" }
 let id = "";
 
 import { HttpService } from "@/services/http.service";
@@ -74,7 +68,9 @@ export default {
   name: "NewApplicant",
   data() {
     return {
-      jobid: '',
+      arrayItem: {
+        _id: '',
+      },
       firstname: '',
       surname: '',
       postcode: '',
@@ -82,12 +78,12 @@ export default {
       emailAddress: '',
       currentEmployer: '',
       currentJobTitle: '',
-      arrayItem: jobArray,
+      arrayItem: job,
     }
   },
    methods: {
       createApplicant() {
-        const body = { jobid: this.$data.jobid, firstname: this.$data.firstname, surname: this.$data.surname,
+        const body = { jobid: this.$data.arrayItem._id, firstname: this.$data.firstname, surname: this.$data.surname,
         postcode: this.$data.postcode, mobile: this.$data.mobile, emailAddress: this.$data.emailAddress,
         currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle };
         this.id = this.$router.currentRoute.params.id;
@@ -111,6 +107,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.displaynone {
+  display: none;
+}
   .container {
     text-align: left;
     h3 {

@@ -2,20 +2,20 @@
   <div>
       <div class="header mb-4">
         <div class="vac">
-            <li v-for="item in arrayItem" v-bind:key="item._id">
-            <h5>{{ item.vacancyTitle }}</h5>
-            <p>{{ item.companyName }} - {{ item.town }}</p>
+            <li>
+            <h5>{{ arrayItem.vacancyTitle }}</h5>
+            <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
           </li>
         </div>
     </div>
     <div>
-      <li v-for="item in arrayItem" v-bind:key="item._id">
+      <li>
         <div class="banner">
           <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
-          <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
-          <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
-           <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
-          <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
+          <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
+          <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
+           <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
+          <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
         </div>
          </li>
         <div class="container applicants">

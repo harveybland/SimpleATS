@@ -57,7 +57,9 @@ core.app.get('/api/job/:uid', async function (req, resp) {
         }
       }
     ]);
-    resp.status(200).json(jobwithApplicants);
+    if(!!jobwithApplicants){
+      resp.status(200).json(jobwithApplicants[0]);
+    }
   }
   catch {
     resp.status('404').json('error')

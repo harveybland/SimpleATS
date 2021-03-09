@@ -2,68 +2,64 @@
   <div>
        <div class="header mb-4">
         <div class="vac">
-            <li v-for="item in arrayItem" v-bind:key="item._id">
-            <h5>{{ item.vacancyTitle }}</h5>
-            <p>{{ item.companyName }} - {{ item.town }}</p>
+            <li>
+            <h5>{{ arrayItem.vacancyTitle }}</h5>
+            <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
           </li>
         </div>
     </div>
-    <li v-for="item in arrayItem" v-bind:key="item._id">
+    <li>
         <div class="banner">
           <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
-          <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
-          <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
-          <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
-           <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
+          <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
+          <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
+          <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
+           <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
         </div>
+        </li>
     <div class="container">
       <li>
       <b-form-group>
             <label>Vacancy Title</label>
-            <b-form-input v-model="item.vacancyTitle"></b-form-input>
+            <b-form-input v-model="arrayItem.vacancyTitle"></b-form-input>
         </b-form-group>
         <b-form-group>
                 <label>Company Name</label>
-                <b-form-input v-model="item.companyName"></b-form-input>
+                <b-form-input v-model="arrayItem.companyName"></b-form-input>
           </b-form-group>
-                        <b-form-group>
+          <b-form-group>
               <label>Salary</label>
-              <b-form-input v-model="item.salary"></b-form-input>
+              <b-form-input v-model="arrayItem.salary"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Street</label>
-              <b-form-input v-model="item.street"></b-form-input>
+              <b-form-input v-model="arrayItem.street"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Town</label>
-              <b-form-input v-model="item.town"></b-form-input>
+              <b-form-input v-model="arrayItem.town"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>City</label>
-              <b-form-input v-model="item.city"></b-form-input>
+              <b-form-input v-model="arrayItem.city"></b-form-input>
           </b-form-group>
 
             <b-form-group>
               <label>Postcode</label>
-              <b-form-input v-model="item.postcode"></b-form-input>
+              <b-form-input v-model="arrayItem.postcode"></b-form-input>
           </b-form-group>
           
-      <b-button class="mt-3" variant="info" @click.prevent="editVacancy(item._id)">Save</b-button>
+      <b-button class="mt-3" variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
         </li>
           </div>
-      </li>
   </div>
 </template>
 <script>
 
-let job = [
-  {
-    vacancyTitle: "test",
-  },
-];
+let job = { vacancyTitle: "test" }
 let id = "";
 
 import { HttpService } from "@/services/http.service";
@@ -71,15 +67,17 @@ export default {
   name: "editVacancy",
   data() {
     return {
-      vacancyTitle: '',
-      companyName: '',
-      salary: '',
-      street: '',
-      town: '',
-      city: '',
-      postcode: '',
-      arrayItem: job,
-    };
+      arrayItem: {
+        vacancyTitle: '',
+        companyName: '',
+        salary: '',
+        street: '',
+        town: '',
+        city: '',
+        postcode: '',
+        arrayItem: job,
+      }
+    }
   },
    methods: {
      async getJob() {
@@ -87,9 +85,9 @@ export default {
       this.arrayItem = await HttpService.httpGet("job/" + this.id)
     },
     editVacancy() {
-      const body = { vacancyTitle: this.$data.vacancyTitle, companyName: this.$data.companyName,
-      street: this.$data.street, salary: this.$data.salary, town: this.$data.town,
-      city: this.$data.city, postcode: this.$data.postcode };
+      const body = { vacancyTitle: this.$data.arrayItem.vacancyTitle, companyName: this.$data.arrayItem.companyName,
+      street: this.$data.arrayItem.street, salary: this.$data.arrayItem.salary, town: this.$data.arrayItem.town,
+      city: this.$data.arrayItem.city, postcode: this.$data.arrayItem.postcode };
       this.id = this.$router.currentRoute.params.id;
       HttpService.httpPut("updateJob/" + this.id, body)
       .then(res => {

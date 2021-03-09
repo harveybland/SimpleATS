@@ -2,44 +2,44 @@
   <div>
       <div class="header mb-4">
         <div class="vac">
-            <li v-for="item in arrayItem" v-bind:key="item._id">
-            <h5>{{ item.vacancyTitle }}</h5>
-            <p>{{ item.companyName }} - {{ item.town }}</p>
+            <li>
+            <h5>{{ arrayItem.vacancyTitle }}</h5>
+            <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
           </li>
         </div>
     </div>
     <div>
-      <li v-for="item in arrayItem" v-bind:key="item._id">
+      <li>
         <div class="banner">
           <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
-          <router-link :to="{ path: '/Vacancies/' + item._id }">Details</router-link>
-          <router-link :to="{ path: '/editVacancy/' + item._id }">Job Description</router-link>
-           <router-link :to="{ path: '/NewApplicant/' + item._id }" >Application Form</router-link>
-          <router-link :to="{ path: '/ApplicantsView/' + item._id }" >Applicants</router-link>
+          <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
+          <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
+           <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
+          <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
         </div>
         <div class="container">
           <li>
             <div class="flexL">    
               <h5>Job Title</h5>
-                <p>{{ item.vacancyTitle }}</p>
+                <p>{{ arrayItem.vacancyTitle }}</p>
               <h5>Company</h5>
-                <p>{{ item.companyName }}</p>
+                <p>{{ arrayItem.companyName }}</p>
               <h5>Street</h5>
-                <p>{{ item.street }}</p></div>
+                <p>{{ arrayItem.street }}</p></div>
             <div class="flexR">
               <h5>City</h5>
-              <p>{{ item.city }}</p>
+              <p>{{ arrayItem.city }}</p>
              <h5>Town</h5> 
-              <p> {{ item.town }} </p>
+              <p> {{ arrayItem.town }} </p>
              <h5>Postcode</h5>
-              <p> {{ item.postcode }}</p>
+              <p> {{ arrayItem.postcode }}</p>
             </div>
           </li>
-            <div v-if="item.isDeleted === false">
-              <b-button variant="danger" @click.prevent="deleteVacancy(item._id)" class="mr-3">Remove</b-button>
+            <div v-if="arrayItem.isDeleted === false">
+              <b-button variant="danger" @click.prevent="deleteVacancy(arrayItem._id)" class="mr-3">Remove</b-button>
             </div>
-          <div v-if="item.isDeleted === true">
-                <b-button variant="info" @click.prevent="recoverJob(item._id)">Recover</b-button>
+          <div v-if="arrayItem.isDeleted === true">
+                <b-button variant="info" @click.prevent="recoverJob(arrayItem._id)">Recover</b-button>
           </div>
         </div>
       </li>

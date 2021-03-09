@@ -21,16 +21,19 @@
               <li v-for="item in arrayItem" v-bind:key="item._id">
                   <h4>Applying for - {{ item.vacancyTitle }}</h4>
                   <p>{{ item.companyName }} - {{ item.town }}</p>
-              </li>
-            <li>
-          </li> 
+
+
+                <b-form-group>
+                      <label>id</label>
+                      <b-form-input v-model="jobid">{{ id }}</b-form-input>
+                </b-form-group>
               <b-form-group>
                       <label>First Name</label>
-                      <b-form-input v-model="firstName"></b-form-input>
+                      <b-form-input v-model="firstname"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Surname</label>
-                    <b-form-input v-model="surname"></b-form-input>
+                    <b-form-input v-model="item.surname"></b-form-input>
                 </b-form-group>
                      <b-form-group>
                       <label>Postcode</label>
@@ -52,6 +55,7 @@
                       <label>Current Job Title</label>
                       <b-form-input v-model="currentJobTitle"></b-form-input>
                 </b-form-group>
+              </li> 
             </div>
               <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
           </div>
@@ -70,7 +74,8 @@ export default {
   name: "NewApplicant",
   data() {
     return {
-      firstName: '',
+      jobid: '',
+      firstname: '',
       surname: '',
       postcode: '',
       mobile: '',
@@ -82,13 +87,13 @@ export default {
   },
    methods: {
       createApplicant() {
-        const body = { firstName: this.$data.firstName, Surname: this.$data.Surname,
+        const body = { jobid: this.$data.jobid, firstname: this.$data.firstname, surname: this.$data.surname,
         postcode: this.$data.postcode, mobile: this.$data.mobile, emailAddress: this.$data.emailAddress,
         currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle };
         this.id = this.$router.currentRoute.params.id;
         HttpService.httpPost('apply/' + this.id, body)
         .then(res => {
-            console.log(res)
+            this.$router.push('/ApplicantsView/' + this.id);
         })
         .catch(error => {
         console.log(error);

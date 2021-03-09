@@ -7,7 +7,46 @@
             <router-link to="/search">Search</router-link>
         </div>
         </div>
-        <h1>Search Page</h1>
+            <div class="container account mt-5">
+        <div class="title">
+            <h2 class="pt-3 pb-3 mb-0">Search Page</h2>
+        </div>
+      <b-form class="search mt-4 ml-5 mb-3 mr-5">
+        <div class="flexL">
+            <b-form-group>
+                <label>Vacancy Title</label>
+              <b-form-input placeholder="Developer" class="form-control"></b-form-input>
+          </b-form-group>
+
+          <b-form-group>
+                <label>Vacancy Id</label>
+              <b-form-input placeholder="123" type="password"  class="form-control"></b-form-input>
+          </b-form-group>
+
+            <b-form-group>
+                <label>Location</label>
+              <b-form-input placeholder="Locations" class="form-control"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="flexR">
+          <b-form-group>
+                <label>Recruitment User</label>
+              <b-form-input placeholder="Recruitment User" type="password"  class="form-control"></b-form-input>
+          </b-form-group>
+
+            <b-form-group>
+                <label>Line manager</label>
+              <b-form-input placeholder="admin" class="form-control"></b-form-input>
+          </b-form-group>
+
+          <b-form-group>
+                <label>Vacancy Status</label>
+              <b-form-input placeholder="Status" type="password"  class="form-control"></b-form-input>
+          </b-form-group>
+        </div>
+      </b-form>
+        <b-button class="mb-4" type="submitted" @click.prevent="search">Search</b-button>
+    </div>
     </div>
 </template>
 
@@ -17,7 +56,17 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped> 
+  .search {
+    display: flex;
+        .flexL {
+    width: 50%;
+    margin-right: 50px;
+  }
+    .flexR {
+    width: 50%;
+  }
+  }
   .header {
     padding: 0 40px
   }

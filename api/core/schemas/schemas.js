@@ -27,6 +27,11 @@ const JobSchema = new core.Schema({
     applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
 });
 
+// const combinedSchema = new core.Schema({
+//     applicant: applicantSchema,
+//     jobs: JobSchema
+// })
+
 
 const UserSchema = new core.Schema({
     username: { type: String, required: true, index: { unique: true } },
@@ -67,9 +72,11 @@ const ApplicantsModel = core.mongoose.model("applicants", applicantSchema);
 const JobModel = core.mongoose.model("jobs", JobSchema);
 const UserModel = core.mongoose.model('user', UserSchema);
 const TaskModel = core.mongoose.model('task', taskSchema);
+// const combinedModel = core.mongoose.model('combined', combinedSchema);
 
 
 module.exports.JobModel = JobModel;
 module.exports.ApplicantsModel = ApplicantsModel;
 module.exports.UserModel = UserModel;
 module.exports.TaskModel = TaskModel;
+// module.exports.combinedModel = combinedModel;

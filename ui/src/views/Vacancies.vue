@@ -22,7 +22,7 @@
       <li v-for="item in arrayItem" v-bind:key="item._id">
         <div>
             <h5>{{ item.vacancyTitle }}</h5>
-          <p>{{ item.companyName }} - {{ item.city }} - {{ item.town }}</p>
+            <p>{{ item.companyName }} - {{ item.city }} - {{ item.town }}</p>
         </div>
         <div>
           <router-link :to="{ path: '/Vacancies/' + item._id }" class="nav">
@@ -57,7 +57,7 @@ export default {
     },
       beforeMount() {
         this.getJobs();
-    },
+    }
 };
 </script>
 

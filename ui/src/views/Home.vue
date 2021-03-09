@@ -10,10 +10,10 @@
                 <h5>Welcome user</h5>
             </div> -->
           <div class="data">
-              <div>
+              <li v-for="item in arrayItem" v-bind:key="item._id">
                 <h3>Total Candidates</h3>
-                  <p>{{  }}</p>
-              </div>
+                  <h1>{{ item.city.length }}</h1>
+              </li>
               <div>
                 <h3>Open Vacancies</h3>
                 <p>{{ }}</p>
@@ -29,8 +29,29 @@
 </template>
 
 <script>
+let jobArray = [
+  {
+    vacancyTitle: "test",
+  },
+];
+import { HttpService } from "@/services/http.service";
 export default {
       name: 'Home',
+      data() {
+        return {
+          arrayItem: jobArray,
+        }
+      },
+      methods: {
+        async getJobs() {
+        const res = await HttpService.httpGet("jobs");
+        jobArray.splice(0, jobArray.length);
+        jobArray.push(...res);
+      }
+      },
+        beforeMount() {
+          this.getJobs();
+      },
       created() {
         if (localStorage.getItem('token') === null) {
           this.user = false

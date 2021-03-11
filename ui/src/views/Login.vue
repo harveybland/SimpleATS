@@ -3,12 +3,11 @@
         <div class="header">
             <h2 class="pt-3 pb-3 mb-5"></h2>
         </div>
-        <div class="container account mt-5">
+        <div class="container account mt-5 animate__animated animate__fadeInUp">
         <div class="title">
-            <h2 class="pt-3 pb-3 mb-0">Login</h2>
+            <h4 class="pt-3 pb-3 mb-0">Login</h4>
         </div>
-        <b-form class="mt-4 ml-5 mb-5 mr-5">
-
+        <b-form class="contain">
             <b-form-group>
                  <label>Username</label>
                 <b-form-input placeholder="admin" class="form-control" v-model.trim="$v.username.$model" :class="{
@@ -86,9 +85,13 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/styles.scss';
     #error {
     color: red;
+    }
+    .contain {
+        margin: 30px 80px 30px 80px;
     }
     label {
         display: flex;

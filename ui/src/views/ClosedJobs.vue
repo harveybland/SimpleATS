@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header mb-4">
-      <div class="vac">
+      <div class="routes">
         <router-link to="/Vacancies">View</router-link>
         <router-link to="/NewVacancy">Create</router-link>
         <router-link to="/search">Search</router-link>
@@ -19,16 +19,18 @@
       </div>
     </div>
     <div class="container">
-      <li v-for="item in arrayItem" v-bind:key="item._id">
-        <div>
+      <li class="animate__animated animate__fadeIn border" v-for="item in arrayItem" v-bind:key="item._id">
             <h5>{{ item.vacancyTitle }}</h5>
-          <p>{{ item.companyName }} - {{ item.city }} - {{ item.town }}</p>
-        </div>
-        <div>
-          <router-link :to="{ path: '/Vacancies/' + item._id }" class="nav">
-            <h6>More details <b-icon-arrow-up rotate="90"></b-icon-arrow-up></h6>
-          </router-link>
-        </div>
+          <div class="vacancies">
+            <div>
+                <p>{{ item.companyName }} - {{ item.city }} - {{ item.town }}</p>
+            </div>
+            <div>
+              <router-link :to="{ path: '/Vacancies/' + item._id }" class="nav">
+                <h6>More details <b-icon-arrow-up rotate="90"></b-icon-arrow-up></h6>
+              </router-link>
+            </div>
+          </div>
       </li>
     </div>
   </div>
@@ -62,60 +64,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/styles.scss';
   .header {
     padding: 0 40px;
     display: flex;
     justify-content: space-between;
   }
-  .vac {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 10px;
-    a {
-      color: #000;
-      padding: 15px 10px;
-      text-decoration: none;
-    }
-      a:hover{
-      background: #fff;
-      opacity: 0.7;
-      transition: .7s;
-    }
-    a.router-link-active {
-    background: #fff;
-    padding: 15px 10px;
-  }
-}
-.active {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 10px;
-    p {
-      padding-top: 15px;
-      color: #000;
-      margin: 0;
-    }
-    a {
-      color: #000;
-      text-decoration: none;
-    }
-}
+
+  //Main 
   .container li {
+    margin-bottom: 20px;
+    background: #b1d2de;
+  }
+  .vacancies{
     display: flex;
     justify-content: space-between;
-    background: #343a40;
     align-items: center;
-    padding: 25px 25px 15px 25px;
-    margin-bottom: 20px;
+    padding: 10px;
   }
   .btn-primary {
     background-color: #345b69 !important;
   }
   h5 {
+    padding: 5px 0 5px 10px;
     text-align: left;
-    color: #e5e5e5;
+    color: #fff;
+    background: #3c6473;
   }
   p {
-    color: rgba(255, 255, 255, 0.5);
+    // color: rgba(255, 255, 255, 0.5);
+    color: #000;
   }
 </style>

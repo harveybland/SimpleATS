@@ -10,7 +10,7 @@
     </div>
     <li>
         <div class="banner">
-          <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
+          <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>
           <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
           <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
           <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
@@ -19,6 +19,10 @@
         </li>
     <div class="container">
       <li>
+        <div class="head">
+          <h4>Description</h4>
+      </div>
+      <div class="contain animate__animated animate__fadeInUp animate__slow">
       <b-form-group>
             <label>Vacancy Title</label>
             <b-form-input v-model="arrayItem.vacancyTitle"></b-form-input>
@@ -51,10 +55,10 @@
               <label>Postcode</label>
               <b-form-input v-model="arrayItem.postcode"></b-form-input>
           </b-form-group>
-          
-      <b-button class="mt-3" variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
+      <b-button variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
+      </div>
         </li>
-          </div>
+      </div>
   </div>
 </template>
 <script>
@@ -104,49 +108,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vac li {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px 10px 40px;
-      h5,  p {
-      color: #000;
-      margin: 0
-    }
-  }
-  label {
-      display: flex;
-      color: rgba(255, 255, 255, 0.5)!important;
-  }
-  .form-control {
-        background-color: #fff !important;
-  }
-  .container li {
-    display: block;
-    background: #343a40;
-    padding: 25px 25px 15px 25px;
-    margin-bottom: 20px;
-  }
-    .banner {
-    display: flex;
-    background-color: lightgrey;
-    justify-content: space-evenly;
-    margin: 0 40px 15px 40px;
-    a {
-      color: #000;
-      padding: 15px 10px;
-      text-decoration: none;
-    }
-      a:hover{
-      background: #343a40;
-      color: #fff;
-      opacity: 0.7;
-      transition: .7s;
-    }
-    a.router-link-active {
-    background: #343a40;
-    color: #fff;
-    padding: 15px 10px;
-  }
+@import '@/styles/styles.scss';
+ label {
+   display: flex;
+ }
+.contain {
+    margin: 20px 100px 20px 100px;
 }
 </style>

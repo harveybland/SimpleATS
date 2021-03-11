@@ -14,7 +14,7 @@ import Header from "./components/Header.vue";
 export default Vue.extend({
   name: "App",
   components: {
-    Header,
+    Header
   },
   mounted() {
  

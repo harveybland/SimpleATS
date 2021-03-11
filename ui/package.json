@@ -10,6 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@types/vuelidate": "^0.7.13",
+    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",

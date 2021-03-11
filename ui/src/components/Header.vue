@@ -74,6 +74,9 @@ export default {
 </script>
 
 <style scoped>
+.navbar-nav {
+    padding-top: 0;
+}
   .nav {
       padding: 1.2rem 0.8rem;
       font-size: 14px;
@@ -96,7 +99,7 @@ export default {
     text-decoration: none;
   }
   .navbar-expand-lg .navbar-nav .nav-link {
-      padding: 0
+      padding: 0;
   }
   p {
     color: #fff;

@@ -1,15 +1,15 @@
 <template>
     <div>
         <div class="header mb-4">
-        <div class="vac">
+        <div class="routes">
             <router-link to="/Vacancies">View</router-link>
             <router-link to="/NewVacancy">Create</router-link>
             <router-link to="/search">Search</router-link>
         </div>
         </div>
-            <div class="container account mt-5">
+        <div class="container account mt-5 animate__animated animate__fadeInUp">
         <div class="title">
-            <h2 class="pt-3 pb-3 mb-0">Search Page</h2>
+            <h4 class="pt-3 pb-3 mb-0">Search Page</h4>
         </div>
       <b-form class="search mt-4 ml-5 mb-3 mr-5">
         <div class="flexL">
@@ -56,38 +56,19 @@
     }
 </script>
 
-<style lang="scss" scoped> 
+<style lang="scss" scoped>
+@import '@/styles/styles.scss'; 
   .search {
     display: flex;
-        .flexL {
+    .flexL {
     width: 50%;
     margin-right: 50px;
   }
     .flexR {
     width: 50%;
   }
-  }
-  .header {
-    padding: 0 40px
-  }
-  .vac {
-    display: flex;
-    justify-content: flex-start;
-    padding-top: 10px;
-  }
-  .vac a {
-    color: #000 !important;
-    padding: 15px 10px;
-    text-decoration: none;
-  }
-  .vac a:hover{
-    background: #fff;
-    opacity: 0.7;
-    transition: .7s;
-  }
-  a.router-link-active {
-    background: #fff;
-    padding: 15px 10px;
-    color: #000 !important;
-  }
+}
+label {
+  display: flex;
+}
 </style>

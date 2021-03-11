@@ -33,3 +33,18 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
         resp.status('200').json('error')
     }
 });
+
+
+//delete applicant
+core.app.delete('/api/applicant/:uid', async function (req, resp) {
+    try {
+      const id = req.params.uid;
+      let applicant = await schemas.ApplicantsModel.findOne({ _id: id })
+      applicant.isDeleted = true;
+      applicant.save();
+      resp.status(200).json('ok')
+    }
+    catch {
+      resp.status('404').json('error');
+    }
+  });

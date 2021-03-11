@@ -1,13 +1,17 @@
 <template>
     <div class="margin">
         <div class="header mb-4">
-            <div class="vac">
+            <div class="routes">
                 <router-link to="/Vacancies">View</router-link>
                 <router-link to="/NewVacancy">Create</router-link>
                 <router-link to="/search">Search</router-link>
             </div>
         </div>
-           <b-form class="container">
+           <b-form class="container border animate__animated animate__fadeIn">
+               <div class="head">
+                   <h4>Create a new vacancy</h4>
+               </div>
+            <div class="contain">
             <b-form-group>
                 <label>Vacancy Title</label>
                 <b-form-input placeholder="Senior Dev" v-model.trim="$v.vacancyTitle.$model" :class="{
@@ -92,7 +96,8 @@
                 </div>
             </b-form-group>
 
-            <b-button @click.prevent="createVacancy">Submit</b-button>
+    </div>
+            <b-button @click.prevent="createVacancy" class="mb-4">Submit</b-button>
            </b-form>
     </div>
 </template>
@@ -175,33 +180,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .header {
-        padding: 0 40px
-    }
-.vac {
-    display: flex;
-    justify-content: flex-start;
-    padding-top: 10px;
-    a {
-    color: #000 !important;
-    padding: 15px 10px;
-    text-decoration: none;
-    }
-     a:hover{
-    background: #fff;
-    opacity: 0.7;
-    transition: .7s;
-  }
-}
-a.router-link-active {
-    background: #fff;
-    padding: 15px 10px;
-    color: #000 !important;
+@import '@/styles/styles.scss';
+.contain {
+    margin: 20px 100px 20px 100px;
 }
 label {
     display: flex;
-}
-.margin {
-    margin-bottom: 171px;
 }
 </style>

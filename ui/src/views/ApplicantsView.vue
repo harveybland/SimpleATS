@@ -11,26 +11,41 @@
     <div>
       <li>
         <div class="banner">
-          <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
+          <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>
           <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
           <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
            <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
           <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
         </div>
          </li>
-        <div class="container applicants">
-          <li v-for="item in applicantItem" v-bind:key="item._id">
+        <div class="container">
+           <div class="head">
+                <h4>Applicants</h4>
+            </div>
+          <li v-for="item in applicantItem" v-bind:key="item._id" class="border animate__animated animate__fadeInUp animate__slow">
                 <div>
                   <h5>Name</h5>
                   <p>{{ item.firstname }} {{ item.surname }}</p>
                 </div>
                 <div>
-                   <h5>Contact details</h5>
-                   <p>{{ item.emailaddress }} {{ item.postcode}} {{ item.mobile }} </p>
+                   <h5>Email</h5>
+                    <p>{{ item.emailaddress }} </p>
+                </div>
+                  <div>
+                   <h5>Postcode</h5>
+                   <p>{{ item.postcode }} </p>
+                </div>
+                 <div>
+                   <h5>Mobile</h5>
+                   <p>{{ item.mobile }} </p>
                 </div>
                 <div>
-                   <h5>Current work</h5>
-                   <p>{{ item.currentJobTitle }} {{ item.currentEmployer }} {{ item.jobid }}</p>
+                   <h5>Current Employer</h5>
+                   <p>{{ item.currentEmployer }}</p>
+                </div>
+                <div>
+                   <h5>Current Role</h5>
+                   <p>{{ item.currentJobTitle }}</p>
                 </div>
           </li>
         </div>
@@ -71,50 +86,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vac li {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px 10px 40px;
-      h5,  p {
-      color: #000;
-      margin: 0
+@import '@/styles/styles.scss';
+  .head {
+    background: #3c6473;
+    h4 {
+      margin-bottom: 20px;
     }
   }
   .container li {
-    display: flex;
-    flex-direction: row;
-    background: #343a40;
-    padding: 25px 25px 15px 25px;
+    display: inline-flex;
+    color: #000;
     margin-bottom: 20px;
-  }
-  .applicants div {
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    padding-left: 30px;
-  }
-  .banner {
-    display: flex;
-    background-color: lightgrey;
-    justify-content: space-evenly;
-    margin: 0 40px 15px 40px;
-    a {
-      color: #000;
-      padding: 15px 10px;
-      text-decoration: none;
-    }
-      a:hover{
-      background: #343a40;
+    h5 {
+      padding: 8px 25px;
+      background: #3c6473;
+      margin: 0;
       color: #fff;
-      opacity: 0.7;
-      transition: .7s;
     }
-    a.router-link-active {
-    background: #343a40;
-    color: #fff;
-    padding: 15px 10px;
+    p {
+      padding: 25px 30px 15px 30px;
+      background: #e2f3f8;
+      // background: #b1d2de;
+      margin: 0;
+    }
   }
 
-}
 </style>

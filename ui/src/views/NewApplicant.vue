@@ -10,52 +10,56 @@
         </div>
         <li>
             <div class="banner">
-            <!-- <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link> -->
+            <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>
             <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
             <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
              <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>
              <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
             </div>
         </li>
-          <div class="container">
-              <li>
+          <div class="container">     
+                <div class="head">
                   <h4>Applying for - {{ arrayItem.vacancyTitle }}</h4>
                   <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
+               </div>
+              <div class="contain  animate__animated animate__fadeInUp animate__slow">
                 <b-form-group class="displaynone">
                       <label>id</label>
                       <b-form-input v-model="arrayItem._id"></b-form-input>
                 </b-form-group>
               <b-form-group>
                       <label>First Name</label>
-                      <b-form-input v-model="firstname"></b-form-input>
+                      <b-form-input placeholder="Harvey" v-model="firstname"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Surname</label>
-                    <b-form-input v-model="surname"></b-form-input>
+                    <b-form-input placeholder="Bland" v-model="surname"></b-form-input>
                 </b-form-group>
                      <b-form-group>
                       <label>Postcode</label>
-                      <b-form-input v-model="postcode"></b-form-input>
+                      <b-form-input placeholder="bb8" v-model="postcode"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Mobile</label>
-                    <b-form-input v-model="mobile"></b-form-input>
+                    <b-form-input placeholder="0795445590" v-model="mobile"></b-form-input>
                 </b-form-group>
                      <b-form-group>
                       <label>Email</label>
-                      <b-form-input v-model="emailAddress"></b-form-input>
+                      <b-form-input placeholder="harvey.bland@genius.online" v-model="emailAddress"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Current Employer</label>
-                    <b-form-input v-model="currentEmployer"></b-form-input>
+                    <b-form-input placeholder="Simon" v-model="currentEmployer"></b-form-input>
                 </b-form-group>
                      <b-form-group>
                       <label>Current Job Title</label>
-                      <b-form-input v-model="currentJobTitle"></b-form-input>
+                      <b-form-input placeholder="Developer" v-model="currentJobTitle"></b-form-input>
                 </b-form-group>
-              </li> 
+              <div style="text-align: center;">
+                <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
+              </div>
+              </div>
             </div>
-              <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
           </div>
 </template>
 
@@ -107,49 +111,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/styles.scss';
 .displaynone {
   display: none;
 }
+//Main
   .container {
     text-align: left;
-    h3 {
-      color: #000
+    h4 {
+      color: #fff;
+      margin: 0;
     }
     p {
-      color: #000
+      padding: 0 0 15px 15px;
+      color: #fff
     }
-    
   }
-.vac li {
+  .contain {
+      margin: 20px 100px 30px 100px;
+  }
+  label {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px 10px 40px;
-      h5,  p {
-      color: #000;
-      margin: 0
-    }
   }
-.banner {
-    display: flex;
-    background-color: lightgrey;
-    justify-content: space-evenly;
-    margin: 0 40px 15px 40px;
-    a {
-      color: #000;
-      padding: 15px 10px;
-      text-decoration: none;
-    }
-      a:hover{
-      background: #343a40;
-      color: #fff;
-      opacity: 0.7;
-      transition: .7s;
-    }
-    a.router-link-active {
-    background: #343a40;
-    color: #fff;
-    padding: 15px 10px;
-  }
-}
+
 </style>

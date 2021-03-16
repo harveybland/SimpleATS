@@ -58,7 +58,7 @@
                    <h5>Status</h5>
                    <p>{{ item.applicationStatusId }}</p>
                 </div>
-          </li>
+            </li>
         </div>
     </div>
   </div>

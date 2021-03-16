@@ -56,11 +56,11 @@ export default {
                 alert('Invalid username and password')
             } else {
             const body = { username: this.$data.username, password: this.$data.password };
-            HttpService.httpPost("/login", body)
+            HttpService.httpPost("login", body)
             .then(resp => {
                 localStorage.setItem('token', JSON.stringify(resp));
                 this.$router.push('/home');
-                // location.reload();
+                location.reload();
                 localStorage.setItem('username', this.$data.username)
             })
             .catch(err => {

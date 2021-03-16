@@ -11,7 +11,8 @@ const applicantSchema = new core.Schema({
     mobile: String,
     emailaddress: String,
     currentEmployer: String,
-    currentJobTitle: String
+    currentJobTitle: String,
+    applicationStatusId: { type: core.mongoose.Schema.ObjectId, required: true }
 });
 
 const applicantStatusSchema = new core.Schema({

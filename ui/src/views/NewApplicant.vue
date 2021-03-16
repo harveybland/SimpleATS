@@ -55,10 +55,6 @@
                       <label>Current Job Title</label>
                       <b-form-input placeholder="Developer" v-model="currentJobTitle"></b-form-input>
                 </b-form-group>
-                  <b-form-group>
-                      <label>Applicant id</label>
-                      <b-form-input placeholder="ID" v-model="applicationStatusId"></b-form-input>
-                </b-form-group>
               <div style="text-align: center;">
                 <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
               </div>

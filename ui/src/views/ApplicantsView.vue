@@ -100,8 +100,7 @@ export default {
    beforeMount() {
     this.getJob();
     this.getApplicant();
-  },
-  
+  }
 }
 </script>
 
@@ -123,10 +122,10 @@ export default {
  
   .applicants {
     display: grid;
-    grid-template-columns: 1fr 10%;
+    grid-template-columns: 1fr 11%;
     color: #000;
     h5 {
-    padding: 8px 18px;
+    padding: 8px 41.1px;
     background: #3c6473;
     margin: 0;
     color: #fff;

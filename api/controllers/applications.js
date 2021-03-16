@@ -35,16 +35,32 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
 });
 
 
-//delete applicant
-core.app.delete('/api/applicant/:uid', async function (req, resp) {
+//Applicant status
+  core.app.get('/api/applicantStatus/:jobid', async function (req, resp) {
     try {
-      const id = req.params.uid;
-      let applicant = await schemas.ApplicantsModel.findOne({ _id: id })
-      applicant.isDeleted = true;
-      applicant.save();
-      resp.status(200).json('ok')
+      const applicantStatus = await schemas.ApplicantsModel.aggregate([
+        {
+          $match:
+          {
+            jobid: core.mongoose.Types.ObjectId(req.params.jobid)
+          }
+        },
+        { $lookup: 
+            {
+                from: 'applicantStatus',
+                localField: 'applicationStatusId',
+                foreignField: '_id',
+                as: 'applicantStatus'
+            }
+            },
+            { $project: {
+                firstname: 1,
+                applicationStatus: { "$arrayElemAt": [ "$applicantStatus.status", 0] }
+            }}
+      ]);
+      resp.status(200).json(applicantStatus);
     }
     catch {
-      resp.status('404').json('error');
+      resp.status('404').json('error')
     }
   });

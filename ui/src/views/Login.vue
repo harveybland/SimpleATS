@@ -60,7 +60,7 @@ export default {
             .then(resp => {
                 localStorage.setItem('token', JSON.stringify(resp));
                 this.$router.push('/home');
-                location.reload();
+                // location.reload();
                 localStorage.setItem('username', this.$data.username)
             })
             .catch(err => {

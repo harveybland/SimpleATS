@@ -11,6 +11,8 @@ import NewVacancy from '@/views/NewVacancy.vue'
 import NewApplicant from '@/views/NewApplicant.vue'
 import editVacancy from '@/views/editVacancy.vue'
 import ApplicantsView from '@/views/ApplicantsView.vue'
+import ApplicantProgress from '@/views/ApplicantProgress.vue'
+import ApplicantReject from '@/views/ApplicantReject.vue'
 
 import Search from '@/views/Search.vue'
 
@@ -45,6 +47,14 @@ const routes: RouteConfig[] = [
   {
     path: '/ApplicantsView/:id',
     component: ApplicantsView
+  },
+  {
+    path: '/ApplicantProgress/:id',
+    component: ApplicantProgress
+  },
+  {
+    path: '/ApplicantReject/:id',
+    component: ApplicantReject
   },
   {
     path: '/NewVacancy',

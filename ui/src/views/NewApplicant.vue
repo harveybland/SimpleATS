@@ -37,7 +37,7 @@
                 </b-form-group>
                      <b-form-group>
                       <label>Postcode</label>
-                      <b-form-input placeholder="bb8" v-model="postcode"></b-form-input>
+                      <b-form-input placeholder="bb8 7ns" v-model="postcode"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Mobile</label>
@@ -45,7 +45,7 @@
                 </b-form-group>
                      <b-form-group>
                       <label>Email</label>
-                      <b-form-input placeholder="harvey.bland@genius.online" v-model="emailAddress"></b-form-input>
+                      <b-form-input placeholder="harvey.bland@genius.online" v-model="emailaddress"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <label>Current Employer</label>
@@ -54,6 +54,10 @@
                      <b-form-group>
                       <label>Current Job Title</label>
                       <b-form-input placeholder="Developer" v-model="currentJobTitle"></b-form-input>
+                </b-form-group>
+                  <b-form-group>
+                      <label>Applicant id</label>
+                      <b-form-input placeholder="ID" v-model="applicationStatusId"></b-form-input>
                 </b-form-group>
               <div style="text-align: center;">
                 <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
@@ -73,23 +77,25 @@ export default {
   data() {
     return {
       arrayItem: {
-        _id: '',
+        _id: ''
       },
       firstname: '',
       surname: '',
       postcode: '',
       mobile: '',
-      emailAddress: '',
+      emailaddress: '',
       currentEmployer: '',
       currentJobTitle: '',
+      applicationStatusId: '604a033e9448df2d9810ee20',
       arrayItem: job,
     }
   },
    methods: {
       createApplicant() {
         const body = { jobid: this.$data.arrayItem._id, firstname: this.$data.firstname, surname: this.$data.surname,
-        postcode: this.$data.postcode, mobile: this.$data.mobile, emailAddress: this.$data.emailAddress,
-        currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle };
+        postcode: this.$data.postcode, mobile: this.$data.mobile, emailaddress: this.$data.emailaddress,
+        currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle,
+        applicationStatusId: this.$data.applicationStatusId };
         this.id = this.$router.currentRoute.params.id;
         HttpService.httpPost('apply/' + this.id, body)
         .then(res => {

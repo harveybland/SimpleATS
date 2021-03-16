@@ -66,19 +66,6 @@ core.app.get('/api/job/:uid', async function (req, resp) {
   }
 });
 
-//home page data
-// core.app.get('/api/home', async function (req, resp) {
-//   try {
-//     const data = await schemas.JobModel.aggregate([
-//       { $match: {isDeleted: false} }
-//     ])
-//     resp.status(200).json(data);
-//   }
-//   catch {
-//     resp.status('404').json('error')
-//   }
-// })
-
 
 
 // Create Job
@@ -144,16 +131,3 @@ core.app.put('/api/undelete/:uid', async (req, resp) => {
   }
 })
 
-
-//Search job
-core.app.get('/api/search', async (req, res) => {
-  try{
-    const search = await schemas.JobModel.find({
-      $text : { $search : "developer"}
-    })
-    resp.status(200).json(search);
-  }
-  catch {
-    resp.status('404').json('error');
-  }
-})

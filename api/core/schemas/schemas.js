@@ -14,6 +14,10 @@ const applicantSchema = new core.Schema({
     currentJobTitle: String
 });
 
+const applicantStatusSchema = new core.Schema({
+    status: String
+});
+
 const JobSchema = new core.Schema({
     vacancyTitle: String,
     companyName: String,
@@ -69,14 +73,16 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 
 
 const ApplicantsModel = core.mongoose.model("applicants", applicantSchema);
+const applicantStatusModel = core.mongoose.model("applicantStatus", applicantStatusSchema);
 const JobModel = core.mongoose.model("jobs", JobSchema);
 const UserModel = core.mongoose.model('user', UserSchema);
 const TaskModel = core.mongoose.model('task', taskSchema);
 // const combinedModel = core.mongoose.model('combined', combinedSchema);
 
 
-module.exports.JobModel = JobModel;
 module.exports.ApplicantsModel = ApplicantsModel;
+module.exports.applicantStatusModel = applicantStatusModel;
+module.exports.JobModel = JobModel;
 module.exports.UserModel = UserModel;
 module.exports.TaskModel = TaskModel;
 // module.exports.combinedModel = combinedModel;

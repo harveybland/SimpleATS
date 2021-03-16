@@ -64,9 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.css";
 @import '@/styles/styles.scss';
-
   .header {
     padding: 0 40px;
     display: flex;

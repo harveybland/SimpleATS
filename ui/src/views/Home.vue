@@ -1,8 +1,8 @@
 <template>
 <div class="home">
     <div class="container home">
-          <div class="pt-3 text animate__animated animate__fadeIn">
-            <h3 class="mb-5 ">Simple ATS</h3>
+          <div>
+            <h3 class="mb-5 text">Simple ATS</h3>
             <!-- <div v-if="!user">
                 <h3>Please <router-link to="/Login">Sign in</router-link></h3>
             </div>
@@ -14,16 +14,19 @@
                   <h4>Total Candidates</h4>
                   <p>{{  }}</p>
                 </div>
-              <div>
+              <div class="text">
                 <h4>Open Vacancies</h4>
                 <p>{{  }}</p>
               </div>
-              <div>
+              <div class="text">
                 <h4>Appointed</h4>
                 <p>{{  }}</p>
               </div>
           </div>
       </div>
+    <transition>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi eos quod aut molestias tenetur. Nisi minus aspernatur eveniet ab corrupti officia deserunt, soluta ratione beatae iusto? Quos voluptate harum consectetur!</p>
+    </transition>
     </div>
 </div>
 </template>
@@ -31,6 +34,7 @@
 <script>
 let job = { vacancyTitle: "test" };
 import { HttpService } from "@/services/http.service";
+import { gsap } from "gsap";
 export default {
       name: 'Home',
       data() {
@@ -56,8 +60,7 @@ export default {
         };
       },
       mounted() {
-        HttpService.httpGet("jobs")
-        .then(response => this.arrayItem = response.data)
+        gsap.to('.text', {y: 100, duration: 3})
       }
 }
 </script>

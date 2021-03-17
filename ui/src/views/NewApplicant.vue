@@ -22,40 +22,40 @@
                   <h4>Applying for - {{ arrayItem.vacancyTitle }}</h4>
                   <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
                </div>
-              <div class="contain  animate__animated animate__fadeInUp animate__slow">
+              <div class="contain">
                 <b-form-group class="displaynone">
                       <label>id</label>
                       <b-form-input v-model="arrayItem._id"></b-form-input>
                 </b-form-group>
-              <b-form-group>
+              <b-form-group class="box">
                       <label>First Name</label>
                       <b-form-input placeholder="Harvey" v-model="firstname"></b-form-input>
                 </b-form-group>
-                <b-form-group>
+                <b-form-group class="box">
                     <label>Surname</label>
                     <b-form-input placeholder="Bland" v-model="surname"></b-form-input>
                 </b-form-group>
-                     <b-form-group>
+                     <b-form-group class="box">
                       <label>Postcode</label>
                       <b-form-input placeholder="bb8 7ns" v-model="postcode"></b-form-input>
                 </b-form-group>
-                <b-form-group>
+                <b-form-group class="box">
                     <label>Mobile</label>
                     <b-form-input placeholder="0795445590" v-model="mobile"></b-form-input>
                 </b-form-group>
-                     <b-form-group>
+                     <b-form-group class="box">
                       <label>Email</label>
                       <b-form-input placeholder="harvey.bland@genius.online" v-model="emailaddress"></b-form-input>
                 </b-form-group>
-                <b-form-group>
+                <b-form-group class="box">
                     <label>Current Employer</label>
                     <b-form-input placeholder="Simon" v-model="currentEmployer"></b-form-input>
-                </b-form-group>
-                     <b-form-group>
+                </b-form-group >
+                     <b-form-group class="box">
                       <label>Current Job Title</label>
                       <b-form-input placeholder="Developer" v-model="currentJobTitle"></b-form-input>
                 </b-form-group>
-              <div style="text-align: center;">
+              <div style="text-align: center;" class="box">
                 <b-button class="mb-3" variant="info" @click.prevent="createApplicant">Create</b-button>
               </div>
               </div>
@@ -68,6 +68,7 @@ let job = { vacancyTitle: "test" }
 let id = "";
 
 import { HttpService } from "@/services/http.service";
+import { gsap } from "gsap";
 export default {
   name: "NewApplicant",
   data() {
@@ -108,6 +109,9 @@ export default {
     },
     beforeMount() {
     this.getJob();
+  },
+    mounted() {
+    gsap.to(".box", {duration: 2, y:50, stagger: 0.5, clearProps:'.box'});
   }
 };
 </script>
@@ -130,7 +134,7 @@ export default {
     }
   }
   .contain {
-      margin: 20px 100px 30px 100px;
+      margin: 0 100px 30px 100px;
   }
   label {
     display: flex;

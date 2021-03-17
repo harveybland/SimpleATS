@@ -64,3 +64,9 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
       resp.status('404').json('error')
     }
   });
+  
+
+  //update status 
+  core.app.put('/api/applicantStatus/:jobid', async function(req, res) {
+
+  })

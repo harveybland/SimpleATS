@@ -125,7 +125,7 @@ export default {
     grid-template-columns: 1fr 11%;
     color: #000;
     h5 {
-    padding: 8px 41.1px;
+    padding: 8px 45.3px;
     background: #3c6473;
     margin: 0;
     color: #fff;
@@ -146,6 +146,10 @@ export default {
 
   .status {
     margin-bottom: 20px;
+    p {
+      background-color: lightgreen;
+      padding: 20px 10px;
+    }
   }
 
 </style>

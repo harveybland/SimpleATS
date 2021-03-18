@@ -111,7 +111,7 @@ export default {
     this.getJob();
   },
     mounted() {
-    gsap.to(".box", {duration: 2, y:50, stagger: 0.5, clearProps:'.box'});
+    gsap.to(".box", {duration: 1.5, y: 30, stagger: 0.5, clearProps: '.box'});
   }
 };
 </script>
@@ -130,7 +130,8 @@ export default {
     }
     p {
       padding: 0 0 15px 15px;
-      color: #fff
+      color: #fff;
+      margin: 0;
     }
   }
   .contain {

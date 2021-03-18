@@ -24,12 +24,14 @@
             <div class="active">  
               <b-dropdown id="dropdown-right" right text="Rejected" class="m-2">
               <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
-              <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }">Progress</router-link></b-dropdown-item>
+              <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }" >Progress</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantReject/' + arrayItem._id }">Rejected</router-link></b-dropdown-item>
           </b-dropdown>
           </div>
         </div>
-          <li v-for="item in applicantItem" v-bind:key="item._id" class="border animate__animated animate__fadeInUp animate__slow">
+        <div class="applicants animate__animated animate__fadeInUp animate__slow">
+          <div>
+          <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
                   <h5>Name</h5>
                   <p>{{ item.firstname }} {{ item.surname }}</p>
@@ -54,11 +56,15 @@
                    <h5>Current Role</h5>
                    <p>{{ item.currentJobTitle }}</p>
                 </div>
-                <div>
-                   <h5>Status</h5>
-                   <p>{{ item.applicationStatusId }}</p>
-                </div>
             </li>
+          </div>
+          <div>
+            <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
+                <h5>Status</h5>
+                <p>{{ item.applicationStatus }}</p>
+            </li>
+          </div>
+          </div>
         </div>
     </div>
   </div>
@@ -67,33 +73,56 @@
 
 let job = { vacancyTitle: "test" };
 let applicant = { firstname: "test" };
+let applicantStatus = { status: "test" };
 let id = "";
 
 import { HttpService } from "@/services/http.service";
 export default {
-  name: "ApplicantReject",
+  name: "ApplicantsView",
   data() {
     return {
       arrayItem: job,
-      applicantItem: applicant
+      applicantItem: [],
+      applicantStatusItem: []
     };
   },
-   methods: {
+     methods: {
      async getJob() {
       this.id = this.$router.currentRoute.params.id;
       this.arrayItem = await HttpService.httpGet("job/" + this.id)
     },
       async getApplicant() {
       this.id = this.$router.currentRoute.params.id;
-      this.applicantItem = await HttpService.httpGet("applications/" + this.id)
+      this.applicantItem = await HttpService.httpGet("applications/" + this.id);
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    },
+      async getApplicantStatus() {
+      this.id = this.$router.currentRoute.params.id;
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    }
+  },
+  computed: {
+      filteredStatus() {
+        if(!!this.applicantStatusItem){
+        return this.applicantStatusItem.filter((item) => {
+          return item.applicationStatus === "Rejected" 
+        }
+      )}
+    },
+      filteredApplicant() {
+      if(!!this.applicantItem) {
+        return this.applicantItem.filter((status) => {
+          return status.applicationStatusId === "604a03519448df2d9810ee22"
+        })
+      }
     }
   },
    beforeMount() {
     this.getJob();
     this.getApplicant();
-  },
-
-};
+    this.getApplicantStatus();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -110,22 +139,37 @@ export default {
       margin: 0 !important;
     }
   }
-  .container li {
-    display: inline-flex;
+
+ 
+  .applicants {
+    display: grid;
+    grid-template-columns: 1fr 11%;
     color: #000;
-    margin-bottom: 20px;
     h5 {
-    padding: 8px 18px;
+    padding: 8px 45.3px;
     background: #3c6473;
     margin: 0;
     color: #fff;
     font-size: 16px;
     }
     p {
-     padding: 25px 10px 15px 15px;
+      padding: 25px 10px 15px 15px;
       background: #e2f3f8;
       // background: #b1d2de;
       margin: 0;
+    }
+  }
+
+  .applicantData {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .status {
+    margin-bottom: 20px;
+    p {
+      background-color: #ff4040;
+      padding: 20px 10px;
     }
   }
 

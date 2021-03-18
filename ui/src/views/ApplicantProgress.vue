@@ -20,16 +20,18 @@
          </li>
         <div class="container">
            <div class="head">
-                <h4>Applicants In Progress</h4>
+                <h4>Applicants in progress</h4>
             <div class="active">  
               <b-dropdown id="dropdown-right" right text="Progress" class="m-2">
               <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
-              <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }">Progress</router-link></b-dropdown-item>
+              <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }" >Progress</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantReject/' + arrayItem._id }">Rejected</router-link></b-dropdown-item>
           </b-dropdown>
           </div>
         </div>
-          <li v-for="item in applicantItem" v-bind:key="item._id" class="border animate__animated animate__fadeInUp animate__slow">
+        <div class="applicants animate__animated animate__fadeInUp animate__slow">
+          <div>
+          <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
                   <h5>Name</h5>
                   <p>{{ item.firstname }} {{ item.surname }}</p>
@@ -54,11 +56,15 @@
                    <h5>Current Role</h5>
                    <p>{{ item.currentJobTitle }}</p>
                 </div>
-                <div>
-                   <h5>Status</h5>
-                   <p>{{ item.applicationStatusId }}</p>
-                </div>
-          </li>
+            </li>
+          </div>
+          <div>
+            <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
+                <h5>Status</h5>
+                <p>{{ item.applicationStatus }}</p>
+            </li>
+          </div>
+          </div>
         </div>
     </div>
   </div>
@@ -67,15 +73,17 @@
 
 let job = { vacancyTitle: "test" };
 let applicant = { firstname: "test" };
+let applicantStatus = { status: "test" };
 let id = "";
 
 import { HttpService } from "@/services/http.service";
 export default {
-  name: "ApplicantProgress",
+  name: "ApplicantsView",
   data() {
     return {
       arrayItem: job,
-      applicantItem: applicant
+      applicantItem: [],
+      applicantStatusItem: []
     };
   },
    methods: {
@@ -85,15 +93,41 @@ export default {
     },
       async getApplicant() {
       this.id = this.$router.currentRoute.params.id;
-      this.applicantItem = await HttpService.httpGet("applications/" + this.id)
+      this.applicantItem = await HttpService.httpGet("applications/" + this.id);
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    },
+      async getApplicantStatus() {
+      this.id = this.$router.currentRoute.params.id;
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    },
+      filterationApplicants() {
+      return this.applicantItem.filter((status) => {
+        return status.applicationStatusId === "604a03489448df2d9810ee21"
+      })
+    }
+  },
+    computed: {
+    filteredStatus() {
+      if(!!this.applicantStatusItem){
+      return this.applicantStatusItem.filter((item) => {
+        return item.applicationStatus === "Progress" 
+      }
+    )}
+    },
+      filteredApplicant() {
+      if(!!this.applicantItem) {
+        return this.applicantItem.filter((status) => {
+          return status.applicationStatusId === "604a03489448df2d9810ee21"
+        })
+      }
     }
   },
    beforeMount() {
     this.getJob();
     this.getApplicant();
-  },
-
-};
+    this.getApplicantStatus();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -110,12 +144,14 @@ export default {
       margin: 0 !important;
     }
   }
-  .container li {
-    display: inline-flex;
+
+ 
+  .applicants {
+    display: grid;
+    grid-template-columns: 1fr 11%;
     color: #000;
-    margin-bottom: 20px;
     h5 {
-    padding: 8px 18px;
+    padding: 8px 45.3px;
     background: #3c6473;
     margin: 0;
     color: #fff;
@@ -126,6 +162,19 @@ export default {
       background: #e2f3f8;
       // background: #b1d2de;
       margin: 0;
+    }
+  }
+
+  .applicantData {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .status {
+    margin-bottom: 20px;
+    p {
+      background-color: lightgreen;
+      padding: 20px 10px;
     }
   }
 

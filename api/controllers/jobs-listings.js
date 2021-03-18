@@ -99,7 +99,6 @@ core.app.put('/api/updateJob/:uid', async (req, resp) => {
   catch {
     resp.status('404').json('error');
   }
-
 });
 
 // Delete job

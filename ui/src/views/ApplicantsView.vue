@@ -31,7 +31,7 @@
         </div>
         <div class="applicants animate__animated animate__fadeInUp animate__slow">
           <div>
-          <li v-for="item in applicantItem" v-bind:key="item._id" class="applicantData">
+          <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
                   <h5>Name</h5>
                   <p>{{ item.firstname }} {{ item.surname }}</p>
@@ -59,9 +59,15 @@
             </li>
           </div>
           <div>
-            <li v-for="item in applicantStatusItem" v-bind:key="item._id" class="status">
-                <h5>Status</h5>
+            <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
+                  <b-dropdown class="dropdownStatus" dropright text="Status">
+                    <b-dropdown-item href="#">New</b-dropdown-item>
+                    <b-dropdown-item href="#">Pending</b-dropdown-item>
+                    <b-dropdown-item href="#">Rejected</b-dropdown-item>
+                </b-dropdown>
+                <div>
                 <p>{{ item.applicationStatus }}</p>
+                </div>
             </li>
           </div>
           </div>
@@ -82,8 +88,8 @@ export default {
   data() {
     return {
       arrayItem: job,
-      applicantItem: applicant,
-      applicantStatusItem: applicantStatus
+      applicantItem: [],
+      applicantStatusItem: []
     };
   },
    methods: {
@@ -93,13 +99,68 @@ export default {
     },
       async getApplicant() {
       this.id = this.$router.currentRoute.params.id;
-      this.applicantItem = await HttpService.httpGet("applications/" + this.id)
+      this.applicantItem = await HttpService.httpGet("applications/" + this.id);
+
+    },
+      async getApplicantStatus() {
+      this.id = this.$router.currentRoute.params.id;
       this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
     },
+    // filterationApplicants() {
+    //   return this.applicantItem.filter((status) => {
+    //     return status.applicationStatusId === "604a033e9448df2d9810ee20"
+    //   })
+    // }
+
+      // let result = this.applicantStatusItem.filter((status) => {
+      // return status.applicationStatus === 'New';
+      // })
+      // console.log(result)
+      // },
+
+      // filterationStatus() {
+      //   return this.applicantStatusItem.filter((status) => {
+      //     return status.applicationStatus === "New"
+      // })
+      // },
+
+
+      // let  result = this.applicantStatusItem.filter(function (e) {
+      //   return e.applicantStatus == "New"
+      // })
+
+      // for (let i = 0; i < this.applicantStatusItem.length; i++) {
+      //   if (this.applicantStatusItem[i].applicantStatus == "New") {
+      //     result.push(this.applicantStatusItem[i])
+      //   }
+      // }
+      
+      // let vals = [5,4,3,2,1];
+      // function isEven(num) {
+      //   return (num % 2 == 0)
+      // }
+      // vals = vals.filter(isEven);
+  },
+  computed: {
+    filteredStatus() {
+      if(!!this.applicantStatusItem){
+      return this.applicantStatusItem.filter((item) => {
+        return item.applicationStatus === "New" 
+      }
+    )}
+    },
+    filteredApplicant() {
+      if(!!this.applicantItem) {
+        return this.applicantItem.filter((status) => {
+          return status.applicationStatusId === "604a033e9448df2d9810ee20"
+        })
+      }
+    }
   },
    beforeMount() {
     this.getJob();
     this.getApplicant();
+    this.getApplicantStatus();
   }
 }
 </script>
@@ -147,7 +208,7 @@ export default {
   .status {
     margin-bottom: 20px;
     p {
-      background-color: lightgreen;
+      background-color: #fff44f;
       padding: 20px 10px;
     }
   }

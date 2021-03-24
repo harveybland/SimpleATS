@@ -18,6 +18,33 @@ core.app.get('/api/applications/:jobid', async function (req, resp) {
 });
 
 
+// // Gets all appplicants
+core.app.get('/api/applicationStatuss', async function (req, resp) {
+    try {
+      const applicationStatuss = await schemas.ApplicantsModel.find();
+      resp.status(200).json(applicationStatuss);
+    }
+    catch {
+      resp.status('404').json('error')
+    }
+  });
+
+//Gets all applicant status's
+core.app.get('/api/applicationStatus/:applicationStatusId', async function (req, resp) {
+    try {
+        schemas.ApplicantsModel.find({ applicationStatusId: req.params.applicationStatusId }).then(result => {
+            resp.status(200).json(result);
+        })
+        .catch(error => {
+            resp.status('200').json('error');
+        })
+    }
+    catch {
+        resp.status('200').json('error')
+    }
+});
+
+
 // apply for a job
 core.app.post('/api/apply/:jobid', async function (req, resp) {
     try {
@@ -35,16 +62,16 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
 });
 
 
-//Applicant statuss
-  core.app.get('/api/applicantStatuss', async function (req, resp) {
+//Applicant status
+  core.app.get('/api/applicantStatus/:jobid', async function (req, resp) {
     try {
       const applicantStatus = await schemas.ApplicantsModel.aggregate([
-        // {
-        //   $match:
-        //   {
-        //     applicationStatusId: core.mongoose.Types.ObjectId(req.params.applicationStatusId)
-        //   }
-        // },
+        {
+          $match:
+          {
+            jobid: core.mongoose.Types.ObjectId(req.params.jobid)
+          }
+        },
         { $lookup: 
             {
                 from: 'applicantStatus',
@@ -52,10 +79,9 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
                 foreignField: '_id',
                 as: 'applicantStatus'
             }
-        },
+            },
             { $project: {
                 firstname: 1,
-                applicationStatusId: 1,
                 applicationStatus: { "$arrayElemAt": [ "$applicantStatus.status", 0] }
             }}
       ]);

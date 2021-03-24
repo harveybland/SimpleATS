@@ -20,60 +20,59 @@
          </li>
         <div class="container">
            <div class="head">
-              <h4>New Applicants</h4>
-        </div>
-        <div class="applicants">
-          <div>
-            <div>
-              <b-form-select v-model="applicant" :options="options" size="sm" class="mt-3"></b-form-select>
-              <div class="mt-3">Selected: <strong>{{ applicant }}</strong></div>
-            </div>
-
-          <select v-model="selected" class="form-control">
-              <option disabled value="" >Please select one</option>
-                  <option 
-                  v-for="applicant in applicantStatusItem"
-                  v-bind:value="applicant.applicationStatusId" 
-                  v-bind:key="applicant._id">
-                  {{ applicant.applicationStatus }}</option>
-            </select>
-              <div class="applicantData">
-                  Applicants: {{ selected }}
-              </div>
-            </div>
+                <h4>Rejected Applicants</h4>
+            <div class="active">  
+              <b-dropdown id="dropdown-right" dropright right text="New" class="m-2">
+              <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
+              <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }" >Progress</router-link></b-dropdown-item>
+              <b-dropdown-item><router-link :to="{ path: '/ApplicantReject/' + arrayItem._id }">Rejected</router-link></b-dropdown-item>
+          </b-dropdown>
           </div>
-          <!-- <select v-model="applicant" class="form-control">
-            <option disabled value="" selected="selected">Please select one</option>
-            <option v-for="applicant in applicantStatusItem" :key="applicant.id" v-bind:value="applicant.id">
-                    {{ applicant.applicationStatusId }}
-              </option>
-              <div v-for="applicant in applicantStatusItem" :key="applicant.id">
-                <span>Applicants: {{ applicant.applicationStatusId }}</span>
-              </div>
-          </select> -->
         </div>
-         <!-- <li v-for="item in applicantStatusItem" v-bind:key="item._id" class="applicantData">
+        <div class="applicants animate__animated animate__fadeInUp animate__slow">
+          <div>
+          <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
-                  <p>Name</p>
-                  <p>{{ item.firstname }} </p>
+                  <h5>Name</h5>
+                  <p>{{ item.firstname }} {{ item.surname }}</p>
                 </div>
                 <div>
-                   <p>ID</p>
-                    <p>{{ item.applicationStatusId }}</p>
+                   <h5>Email</h5>
+                    <p>{{ item.emailaddress }} </p>
+                </div>
+                  <div>
+                   <h5>Postcode</h5>
+                   <p>{{ item.postcode }} </p>
+                </div>
+                 <div>
+                   <h5>Mobile</h5>
+                   <p>{{ item.mobile }} </p>
                 </div>
                 <div>
-                   <p>Status</p>
-                  <p>{{ item.applicationStatus }}</p>
+                   <h5>Current Employer</h5>
+                   <p>{{ item.currentEmployer }}</p>
                 </div>
-            </li> -->
+                <div>
+                   <h5>Current Role</h5>
+                   <p>{{ item.currentJobTitle }}</p>
+                </div>
+            </li>
           </div>
           <div>
-      </div>
+            <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
+                <h5>Status</h5>
+                <p>{{ item.applicationStatus }}</p>
+            </li>
+          </div>
+          </div>
+          </div>
+        </div>
     </div>
 </template>
 <script>
 
 let job = { vacancyTitle: "test" };
+let applicant = { firstname: "test" };
 let applicantStatus = { status: "test" };
 let id = "";
 
@@ -83,27 +82,51 @@ export default {
   data() {
     return {
       arrayItem: job,
-      applicantStatusItem: [],
-      selected: '',
-      applicant: '',
-      options: [
-          { value: '604a033e9448df2d9810ee20', text: 'New' },
-          { value: '604a03489448df2d9810ee21', text: 'Pending' },
-          { value: '604a03519448df2d9810ee22', text: 'Rejected' }
-        ]
+      applicantItem: [],
+      applicantStatusItem: [ {
+        applicationStatusId: "604a033e9448df2d9810ee20"
+      }]
     };
   },
-   methods: {
+     methods: {
      async getJob() {
       this.id = this.$router.currentRoute.params.id;
       this.arrayItem = await HttpService.httpGet("job/" + this.id)
     },
+      async getApplicant() {
+      this.id = this.$router.currentRoute.params.id;
+      this.applicantItem = await HttpService.httpGet("applications/" + this.id);
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    },
       async getApplicantStatus() {
-      this.applicantStatusItem = await HttpService.httpGet("applicantStatuss")
+      this.id = this.$router.currentRoute.params.id;
+      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
+    },
+        // filterationApplicants() {
+    //   return this.applicantItem.filter((status) => {
+    //     return status.applicationStatusId === "604a033e9448df2d9810ee20"
+    //   })
+    // }
+  },
+  computed: {
+      filteredStatus() {
+        if (!!this.applicantStatusItem) {
+        return this.applicantStatusItem.filter((item) => {
+          return item.applicationStatus === "New" 
+        }
+      )}
+    },
+      filteredApplicant() {
+      if (!!this.applicantItem) {
+        return this.applicantItem.filter((status) => {
+          return status.applicationStatusId === "604a033e9448df2d9810ee20"
+        })
+      }
     }
   },
    beforeMount() {
     this.getJob();
+    this.getApplicant();
     this.getApplicantStatus();
   }
 }
@@ -147,19 +170,14 @@ export default {
   .applicantData {
     display: flex;
     margin-bottom: 20px;
-    p {
-    margin-right: 20px;
-    margin-bottom: 0;
-    }
   }
 
   .status {
     margin-bottom: 20px;
     p {
-      background-color: #fff44f;
+      background-color: yellow;
       padding: 20px 10px;
     }
   }
-
 
 </style>

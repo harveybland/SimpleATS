@@ -67,26 +67,7 @@
           </div>
         </div>
     </div>
-              <select v-model="applicant.applicationStatusId" class="form-control">
-            <option v-for="applicant in applicantStatusItem" v-bind:value="{id: applicant.applicationStatusId, status: applicant.applicationStatus, name: applicant.firstname}" v-bind:key="applicant._id">
-            {{ applicant.applicationStatus }} </option>
-          </select>
-              Selected Value: {{ applicant.applicationStatusId }}
-
-                    <!-- <li v-for="item in applicantStatusItem" v-bind:key="item._id" class="applicantData">
-                <div>
-                  <p>Name</p>
-                  <p>{{ item.firstname }} </p>
-                </div>
-                <div>
-                   <p>ID</p>
-                    <p>{{ item.applicationStatusId }}</p>
-                </div>
-                <div>
-                   <p>Status</p>
-                  <p>{{ item.applicationStatus }}</p>
-                </div>
-            </li> -->
+    
   </div>
 </template>
 <script>

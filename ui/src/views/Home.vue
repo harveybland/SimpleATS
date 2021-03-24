@@ -12,11 +12,11 @@
           <div class="data">
               <div>
                   <h4>Total Candidates</h4>
-                  <p>{{  }}</p>
+                  <p></p>
                 </div>
               <div class="text">
                 <h4>Open Vacancies</h4>
-                <p>{{  }}</p>
+                <p>{{ item.vacancyTitle }}</p>
               </div>
               <div class="text">
                 <h4>Appointed</h4>
@@ -32,35 +32,30 @@
 </template>
 
 <script>
-let job = { vacancyTitle: "test" };
+let jobs = { vacancyTitle: "test" };
 import { HttpService } from "@/services/http.service";
-import { gsap } from "gsap";
 export default {
       name: 'Home',
       data() {
         return {
-          arrayItem: job
+          item: jobs
         }
       },
-      // methods: {
-      //   async getJobs() {
-      //   const res = await HttpService.httpGet("jobs");
-      //   jobArray.splice(0, jobArray.length);
-      //   jobArray.push(...res);
-      // }
-      // },
-      //   beforeMount() {
-      //     this.getJobs();
-      // },
+      methods: {
+        async getJobs() {
+        let res = this.item = await HttpService.httpGet("jobs")
+        console.log(res)
+      }
+      },
+        beforeMount() {
+          this.getJobs();
+      },
       created() {
         if (localStorage.getItem('token') === null) {
           this.user = false
         } else {
           this.user = true
         };
-      },
-      mounted() {
-        gsap.to('.text', {y: 100, duration: 3})
       }
 }
 </script>

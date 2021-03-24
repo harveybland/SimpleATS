@@ -22,7 +22,7 @@
            <div class="head">
                 <h4>Applicants in progress</h4>
             <div class="active">  
-              <b-dropdown id="dropdown-right" right text="Progress" class="m-2">
+              <b-dropdown id="dropdown-right" dropright right text="Progress" class="m-2">
               <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }" >Progress</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantReject/' + arrayItem._id }">Rejected</router-link></b-dropdown-item>
@@ -108,14 +108,14 @@ export default {
   },
     computed: {
     filteredStatus() {
-      if(!!this.applicantStatusItem){
+      if (!!this.applicantStatusItem) {
       return this.applicantStatusItem.filter((item) => {
         return item.applicationStatus === "Progress" 
       }
     )}
     },
       filteredApplicant() {
-      if(!!this.applicantItem) {
+      if (!!this.applicantItem) {
         return this.applicantItem.filter((status) => {
           return status.applicationStatusId === "604a03489448df2d9810ee21"
         })

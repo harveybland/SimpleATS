@@ -22,7 +22,7 @@
            <div class="head">
                 <h4>Rejected Applicants</h4>
             <div class="active">  
-              <b-dropdown id="dropdown-right" right text="Rejected" class="m-2">
+              <b-dropdown id="dropdown-right" dropright right text="Rejected" class="m-2">
               <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantProgress/' + arrayItem._id }" >Progress</router-link></b-dropdown-item>
               <b-dropdown-item><router-link :to="{ path: '/ApplicantReject/' + arrayItem._id }">Rejected</router-link></b-dropdown-item>
@@ -67,6 +67,26 @@
           </div>
         </div>
     </div>
+              <select v-model="applicant.applicationStatusId" class="form-control">
+            <option v-for="applicant in applicantStatusItem" v-bind:value="{id: applicant.applicationStatusId, status: applicant.applicationStatus, name: applicant.firstname}" v-bind:key="applicant._id">
+            {{ applicant.applicationStatus }} </option>
+          </select>
+              Selected Value: {{ applicant.applicationStatusId }}
+
+                    <!-- <li v-for="item in applicantStatusItem" v-bind:key="item._id" class="applicantData">
+                <div>
+                  <p>Name</p>
+                  <p>{{ item.firstname }} </p>
+                </div>
+                <div>
+                   <p>ID</p>
+                    <p>{{ item.applicationStatusId }}</p>
+                </div>
+                <div>
+                   <p>Status</p>
+                  <p>{{ item.applicationStatus }}</p>
+                </div>
+            </li> -->
   </div>
 </template>
 <script>
@@ -83,7 +103,9 @@ export default {
     return {
       arrayItem: job,
       applicantItem: [],
-      applicantStatusItem: []
+      applicantStatusItem: [ {
+        applicationStatusId: "604a033e9448df2d9810ee20"
+      }]
     };
   },
      methods: {
@@ -99,18 +121,23 @@ export default {
       async getApplicantStatus() {
       this.id = this.$router.currentRoute.params.id;
       this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
-    }
+    },
+        // filterationApplicants() {
+    //   return this.applicantItem.filter((status) => {
+    //     return status.applicationStatusId === "604a033e9448df2d9810ee20"
+    //   })
+    // }
   },
   computed: {
       filteredStatus() {
-        if(!!this.applicantStatusItem){
+        if (!!this.applicantStatusItem) {
         return this.applicantStatusItem.filter((item) => {
           return item.applicationStatus === "Rejected" 
         }
       )}
     },
       filteredApplicant() {
-      if(!!this.applicantItem) {
+      if (!!this.applicantItem) {
         return this.applicantItem.filter((status) => {
           return status.applicationStatusId === "604a03519448df2d9810ee22"
         })

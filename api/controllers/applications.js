@@ -35,16 +35,16 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
 });
 
 
-//Applicant status
-  core.app.get('/api/applicantStatus/:jobid', async function (req, resp) {
+//Applicant statuss
+  core.app.get('/api/applicantStatuss', async function (req, resp) {
     try {
       const applicantStatus = await schemas.ApplicantsModel.aggregate([
-        {
-          $match:
-          {
-            jobid: core.mongoose.Types.ObjectId(req.params.jobid)
-          }
-        },
+        // {
+        //   $match:
+        //   {
+        //     applicationStatusId: core.mongoose.Types.ObjectId(req.params.applicationStatusId)
+        //   }
+        // },
         { $lookup: 
             {
                 from: 'applicantStatus',
@@ -52,9 +52,10 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
                 foreignField: '_id',
                 as: 'applicantStatus'
             }
-            },
+        },
             { $project: {
                 firstname: 1,
+                applicationStatusId: 1,
                 applicationStatus: { "$arrayElemAt": [ "$applicantStatus.status", 0] }
             }}
       ]);
@@ -67,11 +68,16 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
   
 
   //update status 
-  core.app.put('/api/updateStatus/:jobid', async function(req, resp) {
-    try {
-        const id = req.params.jobid;
-    }
-    catch {
-        resp.status('404').json('error')
-    }
-  })
+//   core.app.put('/api/updateStatus/:uid', async function(req, resp) {
+//     try {
+//         const id = req.params.uid;
+//         const updateStatus = await schemas.ApplicantsModel.findOne({ _id: id })
+//         updateStatus.applicationStatusId = req.body.applicationStatusId;
+//         updateStatus.save();
+//         resp.status(200).json(updateStatus);
+//     }
+//     catch {
+//         resp.status('404').json('error')
+//     }
+//   })
+

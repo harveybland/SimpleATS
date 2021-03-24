@@ -50,7 +50,6 @@
               <label>City</label>
               <b-form-input v-model="arrayItem.city"></b-form-input>
           </b-form-group>
-
             <b-form-group>
               <label>Postcode</label>
               <b-form-input v-model="arrayItem.postcode"></b-form-input>

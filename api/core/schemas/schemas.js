@@ -16,7 +16,8 @@ const applicantSchema = new core.Schema({
 });
 
 const applicantStatusSchema = new core.Schema({
-    status: String
+    status: String,
+    applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
 });
 
 const JobSchema = new core.Schema({

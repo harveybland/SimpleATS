@@ -22,35 +22,35 @@
         <div class="head">
           <h4>Description</h4>
       </div>
-      <div class="contain animate__animated animate__fadeInUp animate__slow">
-      <b-form-group>
+      <div class="contain">
+      <b-form-group class="box">
             <label>Vacancy Title</label>
             <b-form-input v-model="arrayItem.vacancyTitle"></b-form-input>
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="box">
                 <label>Company Name</label>
                 <b-form-input v-model="arrayItem.companyName"></b-form-input>
           </b-form-group>
-          <b-form-group>
+          <b-form-group class="box">
               <label>Salary</label>
               <b-form-input v-model="arrayItem.salary"></b-form-input>
           </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
               <label>Street</label>
               <b-form-input v-model="arrayItem.street"></b-form-input>
           </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
               <label>Town</label>
               <b-form-input v-model="arrayItem.town"></b-form-input>
           </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
               <label>City</label>
               <b-form-input v-model="arrayItem.city"></b-form-input>
           </b-form-group>
-            <b-form-group>
+            <b-form-group class="box">
               <label>Postcode</label>
               <b-form-input v-model="arrayItem.postcode"></b-form-input>
           </b-form-group>
@@ -64,7 +64,7 @@
 
 let job = { vacancyTitle: "test" }
 let id = "";
-
+import { gsap } from "gsap";
 import { HttpService } from "@/services/http.service";
 export default {
   name: "editVacancy",
@@ -102,6 +102,14 @@ export default {
     },
     beforeMount() {
     this.getJob();
+  },
+      mounted() {
+      gsap.from(".box", {
+      duration: 0.4,
+      scale: 0.2, 
+      opacity: 0, 
+      stagger: 0.1,
+    })
   }
 };
 </script>

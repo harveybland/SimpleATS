@@ -112,18 +112,17 @@ export default {
   },
     mounted() {
       gsap.from(".box", {
-      duration: 0.5,
-      scale: 0.5, 
+      duration: 0.4,
+      scale: 0.2, 
       opacity: 0, 
-      delay: 0.1, 
-      stagger: 0.2,
-    })
-      gsap.to(".box", {
-      duration: 0.5, 
-      opacity: 0, 
-      y: 20, 
       stagger: 0.1,
-    });
+    })
+    //   gsap.to(".box", {
+    //   duration: 0.5, 
+    //   opacity: 0, 
+    //   y: 20, 
+    //   stagger: 0.1,
+    // });
   }
 };
 </script>

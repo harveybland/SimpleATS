@@ -21,7 +21,7 @@
             <div class="head"> 
               <h4>Vacancy Details</h4>
             </div>
-          <div class="animate__animated animate__fadeInUp animate__slow">
+          <div class="box">
           <li>
             <div class="flexL">
               <div>
@@ -67,7 +67,7 @@
 <script>
 let job = { vacancyTitle: "test" };
 let id = "";
-
+import { gsap } from "gsap";
 import { HttpService } from "@/services/http.service";
 export default {
   name: "Vacancy",
@@ -101,7 +101,13 @@ export default {
     beforeMount() {
     this.getJob();
   },
-
+    mounted() {
+      gsap.from(".box", {
+      duration: 0.8,
+      y: 200,
+      opacity: 0, 
+    })
+  }
 };
 </script>
 

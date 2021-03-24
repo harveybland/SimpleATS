@@ -22,7 +22,7 @@
                   <h4>Applying for - {{ arrayItem.vacancyTitle }}</h4>
                   <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
                </div>
-              <div class="contain">
+              <div class="contain mt-3">
                 <b-form-group class="displaynone">
                       <label>id</label>
                       <b-form-input v-model="arrayItem._id"></b-form-input>
@@ -112,7 +112,7 @@ export default {
   },
     mounted() {
       gsap.from(".box", {
-      duration: 0.4,
+      duration: 0.5,
       scale: 0.2, 
       opacity: 0, 
       stagger: 0.1,

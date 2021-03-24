@@ -54,7 +54,7 @@
               <label>Postcode</label>
               <b-form-input v-model="arrayItem.postcode"></b-form-input>
           </b-form-group>
-      <b-button variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
+      <b-button class="box" variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
       </div>
         </li>
       </div>
@@ -105,7 +105,7 @@ export default {
   },
       mounted() {
       gsap.from(".box", {
-      duration: 0.4,
+      duration: 0.5,
       scale: 0.2, 
       opacity: 0, 
       stagger: 0.1,

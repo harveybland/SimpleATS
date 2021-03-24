@@ -7,7 +7,7 @@
             <router-link to="/search">Search</router-link>
         </div>
         </div>
-        <div class="container account mt-5 animate__animated animate__fadeInUp">
+        <div class="container account mt-5 box">
         <div class="title">
             <h4 class="pt-3 pb-3 mb-0">Search Page</h4>
         </div>
@@ -51,8 +51,16 @@
 </template>
 
 <script>
-    export default {
-        name: 'Search'
+import { gsap } from "gsap";
+export default {
+        name: 'Search',
+      mounted() {
+      gsap.from(".box", {
+      duration: 0.8,
+      y: 200,
+      opacity: 0, 
+    })
+  }
     }
 </script>
 

@@ -12,7 +12,7 @@
                    <h4>Create a new vacancy</h4>
                </div>
             <div class="contain">
-            <b-form-group>
+            <b-form-group class="box">
                 <label>Vacancy Title</label>
                 <b-form-input placeholder="Senior Dev" v-model.trim="$v.vacancyTitle.$model" :class="{
                     'is-invalid':$v.vacancyTitle.$error, 'is-valid':!$v.vacancyTitle.$invalid}"></b-form-input>
@@ -24,7 +24,7 @@
                     </div>
             </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
                 <label>Company Name</label>
                 <b-form-input placeholder="Genius Group" v-model.trim="$v.companyName.$model" :class="{
                     'is-invalid':$v.companyName.$error, 'is-valid':!$v.companyName.$invalid}"></b-form-input>
@@ -36,7 +36,7 @@
                     </div>
             </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
                 <label>Salary</label>
                 <b-form-input placeholder="10000" v-model.trim="$v.salary.$model" :class="{
                     'is-invalid':$v.salary.$error, 'is-valid':!$v.salary.$invalid}"></b-form-input>
@@ -48,7 +48,7 @@
                     </div>
             </b-form-group>
             
-             <b-form-group>
+             <b-form-group class="box">
                 <label>Street</label>
                 <b-form-input placeholder="Broughton hall estate" v-model.trim="$v.street.$model" :class="{
                 'is-invalid':$v.street.$error, 'is-valid':!$v.street.$invalid}"></b-form-input>
@@ -60,7 +60,7 @@
                 </div>
             </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
                 <label>Town</label>
                 <b-form-input placeholder="Skipton" v-model.trim="$v.town.$model" :class="{
                 'is-invalid':$v.town.$error, 'is-valid':!$v.town.$invalid}"></b-form-input>
@@ -72,7 +72,7 @@
                 </div>
             </b-form-group>
 
-            <b-form-group>
+            <b-form-group class="box">
                 <label>City</label>
                 <b-form-input placeholder="North Yorkshire" v-model.trim="$v.city.$model" :class="{
                 'is-invalid':$v.city.$error, 'is-valid':!$v.city.$invalid}"></b-form-input>
@@ -84,7 +84,7 @@
                 </div>
             </b-form-group> 
 
-       <b-form-group>
+       <b-form-group class="box">
                 <label>Postcode</label>
                 <b-form-input placeholder="BD23 3AG" v-model.trim="$v.postcode.$model" :class="{
                 'is-invalid':$v.postcode.$error, 'is-valid':!$v.postcode.$invalid}"></b-form-input>
@@ -97,7 +97,7 @@
             </b-form-group>
 
     </div>
-            <b-button @click.prevent="createVacancy" class="mb-4">Submit</b-button>
+            <b-button @click.prevent="createVacancy" class="mb-4 box">Submit</b-button>
            </b-form>
     </div>
 </template>
@@ -106,6 +106,7 @@
 
 import { HttpService } from "@/services/http.service";
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { gsap } from "gsap";
 export default {
     name: 'CreateVacancy',
     data() {
@@ -138,6 +139,14 @@ export default {
             })
         }
         }
+    },
+    mounted() {
+      gsap.from(".box", {
+      duration: 0.5,
+      scale: 0.2, 
+      opacity: 0, 
+      stagger: 0.1,
+    })
     },
     validations: {
             vacancyTitle: {

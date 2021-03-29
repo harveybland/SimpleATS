@@ -17,7 +17,7 @@
            <router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }" >Applicants</router-link>
         </div>
         </li>
-    <div class="container">
+    <ul class="container">
       <li>
         <div class="head">
           <h4>Description</h4>
@@ -57,7 +57,7 @@
       <b-button class="box" variant="info" @click.prevent="editVacancy(arrayItem._id)">Save</b-button>
       </div>
         </li>
-      </div>
+      </ul>
   </div>
 </template>
 <script>
@@ -94,7 +94,7 @@ export default {
       this.id = this.$router.currentRoute.params.id;
       HttpService.httpPut("updateJob/" + this.id, body)
       .then(res => {
-        console.log(res);
+        console.log(body);
         this.$router.push('/Vacancies');
       })
     }

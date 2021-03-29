@@ -21,7 +21,7 @@
             <div class="head"> 
               <h4>Vacancy Details</h4>
             </div>
-          <div class="box">
+          <ul class="box">
           <li>
             <div class="flexL">
               <div>
@@ -57,7 +57,7 @@
           <div v-if="arrayItem.isDeleted === true">
                 <b-button variant="info" @click.prevent="recoverJob(arrayItem._id)">Recover</b-button>
           </div>
-          </div>
+          </ul>
         </div>
       </li>
     </div>

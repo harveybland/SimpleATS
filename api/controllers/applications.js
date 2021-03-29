@@ -29,21 +29,6 @@ core.app.get('/api/applicationStatuss', async function (req, resp) {
     }
   });
 
-//Gets all applicant status's
-core.app.get('/api/applicationStatus/:applicationStatusId', async function (req, resp) {
-    try {
-        schemas.ApplicantsModel.find({ applicationStatusId: req.params.applicationStatusId }).then(result => {
-            resp.status(200).json(result);
-        })
-        .catch(error => {
-            resp.status('200').json('error');
-        })
-    }
-    catch {
-        resp.status('200').json('error')
-    }
-});
-
 
 // apply for a job
 core.app.post('/api/apply/:jobid', async function (req, resp) {
@@ -94,16 +79,16 @@ core.app.post('/api/apply/:jobid', async function (req, resp) {
   
 
   //update status 
-//   core.app.put('/api/updateStatus/:uid', async function(req, resp) {
-//     try {
-//         const id = req.params.uid;
-//         const updateStatus = await schemas.ApplicantsModel.findOne({ _id: id })
-//         updateStatus.applicationStatusId = req.body.applicationStatusId;
-//         updateStatus.save();
-//         resp.status(200).json(updateStatus);
-//     }
-//     catch {
-//         resp.status('404').json('error')
-//     }
-//   })
+  core.app.put('/api/updateStatus/:uid', async function(req, resp) {
+    try {
+        const id = req.params.uid;
+        const updateStatus = await schemas.ApplicantsModel.findOne({ _id: id })
+        updateStatus.applicationStatusId = req.body.applicationStatusId;
+        updateStatus.save();
+        resp.status(200).json(updateStatus);
+    }
+    catch {
+        resp.status('404').json('error')
+    }
+  })
 

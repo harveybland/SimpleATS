@@ -14,8 +14,6 @@ import ApplicantsView from '@/views/ApplicantsView.vue'
 import ApplicantProgress from '@/views/ApplicantProgress.vue'
 import ApplicantReject from '@/views/ApplicantReject.vue'
 
-import Search from '@/views/Search.vue'
-
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
@@ -59,10 +57,6 @@ const routes: RouteConfig[] = [
   {
     path: '/NewVacancy',
     component: NewVacancy
-  },
-  {
-    path: '/Search',
-    component: Search
   },
   {
     path: '/Login',

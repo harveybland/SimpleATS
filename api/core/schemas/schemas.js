@@ -29,6 +29,8 @@ const JobSchema = new core.Schema({
     city: String,
     postcode: String,
     description: String,
+    startDate: String,
+    endDate: String,
     isDeleted: { type: Boolean, default: false },
     applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
 });

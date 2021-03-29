@@ -1,12 +1,12 @@
 <template>
   <div>
       <div class="header mb-4">
-        <div class="vac">
+        <ul class="vac">
             <li>
             <h5>{{ arrayItem.vacancyTitle }}</h5>
             <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
           </li>
-        </div>
+        </ul>
     </div>
     <div>
       <li>
@@ -29,8 +29,8 @@
           </b-dropdown>
           </div>
         </div>
-        <div class="applicants animate__animated animate__fadeInUp animate__slow">
-          <div>
+        <div class="applicants box">
+          <ul>
           <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
                   <h5>Name</h5>
@@ -57,11 +57,19 @@
                    <p>{{ item.currentJobTitle }}</p>
                 </div>
             </li>
-          </div>
+          </ul>
           <div>
             <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
-                <h5>Status</h5>
-                <p>{{ item.applicationStatus }}</p>
+            <b-form-select 
+              v-on:change="updateStatus($event, item._id)"  
+              v-model="item.applicationStatusId" 
+              :options="options">
+              <template #first>
+                <b-form-select-option :value="null" disabled>Status</b-form-select-option>
+              </template>
+              </b-form-select>
+              
+              <p>{{ item.applicationStatus }}</p>
             </li>
           </div>
           </div>
@@ -75,7 +83,7 @@ let job = { vacancyTitle: "test" };
 let applicant = { firstname: "test" };
 let applicantStatus = { status: "test" };
 let id = "";
-
+import { gsap } from "gsap";
 import { HttpService } from "@/services/http.service";
 export default {
   name: "ApplicantsView",
@@ -83,9 +91,12 @@ export default {
     return {
       arrayItem: job,
       applicantItem: [],
-      applicantStatusItem: [ {
-        applicationStatusId: "604a033e9448df2d9810ee20"
-      }]
+      applicantStatusItem: [],
+      options: [
+          { value: '604a033e9448df2d9810ee20', text: 'New' },
+          { value: '604a03489448df2d9810ee21', text: 'Pending' },
+          { value: '604a03519448df2d9810ee22', text: 'Rejected' }
+        ]
     };
   },
      methods: {
@@ -98,15 +109,21 @@ export default {
       this.applicantItem = await HttpService.httpGet("applications/" + this.id);
       this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
     },
-      async getApplicantStatus() {
-      this.id = this.$router.currentRoute.params.id;
-      this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
-    },
-        // filterationApplicants() {
-    //   return this.applicantItem.filter((status) => {
-    //     return status.applicationStatusId === "604a033e9448df2d9810ee20"
-    //   })
-    // }
+      updateStatus(event, applicantId) {
+        console.log(event, applicantId)
+        const body = { applicationStatusId: event }
+        HttpService.httpPut("updateStatus/" + applicantId, body)
+        .then(res => {
+          location.reload();
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+  },
+     beforeMount() {
+      this.getJob();
+      this.getApplicant();
   },
   computed: {
       filteredStatus() {
@@ -124,10 +141,12 @@ export default {
       }
     }
   },
-   beforeMount() {
-    this.getJob();
-    this.getApplicant();
-    this.getApplicantStatus();
+    mounted() {
+      gsap.from(".box", {
+      duration: 0.8,
+      y: 200,
+      opacity: 0, 
+    })
   }
 }
 </script>
@@ -153,7 +172,7 @@ export default {
     grid-template-columns: 1fr 11%;
     color: #000;
     h5 {
-    padding: 8px 45.3px;
+    padding: 8px 16px;
     background: #3c6473;
     margin: 0;
     color: #fff;
@@ -168,15 +187,16 @@ export default {
   }
 
   .applicantData {
-    display: flex;
-    margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      margin-bottom: 23px;
   }
 
   .status {
-    margin-bottom: 20px;
+    margin-bottom: 21px;
     p {
-      background-color: yellow;
-      padding: 20px 10px;
+      background-color: #428bca;
+      padding: 19px 10px 18.5px 10px;
     }
   }
 

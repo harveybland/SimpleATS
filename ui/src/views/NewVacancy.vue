@@ -4,7 +4,6 @@
             <div class="routes">
                 <router-link to="/Vacancies">View</router-link>
                 <router-link to="/NewVacancy">Create</router-link>
-                <router-link to="/search">Search</router-link>
             </div>
         </div>
            <b-form class="container border animate__animated animate__fadeIn">

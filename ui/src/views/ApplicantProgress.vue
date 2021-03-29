@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="applicants animate__animated animate__fadeInUp animate__slow">
-          <div>
+          <ul>
           <li v-for="item in filteredApplicant" v-bind:key="item._id" class="applicantData">
                 <div>
                   <h5>Name</h5>
@@ -57,11 +57,14 @@
                    <p>{{ item.currentJobTitle }}</p>
                 </div>
             </li>
-          </div>
+          </ul>
           <div>
             <li v-for="item in filteredStatus" v-bind:key="item._id" class="status">
-                <h5>Status</h5>
-                <p>{{ item.applicationStatus }}</p>
+            <b-form-select 
+              v-on:change="updateStatus($event, item._id)"  
+              v-model="item.applicationStatusId" 
+              :options="options"></b-form-select>
+              <p>{{ item.applicationStatus }}</p>
             </li>
           </div>
           </div>
@@ -83,7 +86,12 @@ export default {
     return {
       arrayItem: job,
       applicantItem: [],
-      applicantStatusItem: []
+      applicantStatusItem: [],
+      options: [
+          { value: '604a033e9448df2d9810ee20', text: 'New' },
+          { value: '604a03489448df2d9810ee21', text: 'Pending' },
+          { value: '604a03519448df2d9810ee22', text: 'Rejected' }
+        ]
     };
   },
    methods: {
@@ -100,11 +108,23 @@ export default {
       this.id = this.$router.currentRoute.params.id;
       this.applicantStatusItem = await HttpService.httpGet("applicantStatus/" + this.id)
     },
-      filterationApplicants() {
-      return this.applicantItem.filter((status) => {
-        return status.applicationStatusId === "604a03489448df2d9810ee21"
-      })
-    }
+      updateStatus(event, applicantId) {
+        console.log(event, applicantId)
+        const body = { applicationStatusId: event }
+        HttpService.httpPut("updateStatus/" + applicantId, body)
+        .then(res => {
+          console.log(res)
+          location.reload();
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+    //   filterationApplicants() {
+    //   return this.applicantItem.filter((status) => {
+    //     return status.applicationStatusId === "604a03489448df2d9810ee21"
+    //   })
+    // }
   },
     computed: {
     filteredStatus() {
@@ -151,7 +171,7 @@ export default {
     grid-template-columns: 1fr 11%;
     color: #000;
     h5 {
-    padding: 8px 45.3px;
+    padding: 8px 16px;
     background: #3c6473;
     margin: 0;
     color: #fff;
@@ -166,15 +186,16 @@ export default {
   }
 
   .applicantData {
-    display: flex;
-    margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      margin-bottom: 21px;
   }
 
   .status {
-    margin-bottom: 20px;
+    margin-bottom: 21px;
     p {
-      background-color: lightgreen;
-      padding: 20px 10px;
+      background-color: #5cb85c;
+      padding: 19px 10px 18.5px 10px;
     }
   }
 

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="header mb-4">
+        <ul class="header mb-4">
             <div class="vac">
                 <li>
                     <h5>{{ arrayItem.vacancyTitle }}</h5>
                     <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
                 </li>
             </div>
-        </div>
+        </ul>
         <li>
             <div class="banner">
             <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>

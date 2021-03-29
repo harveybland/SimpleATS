@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <ul class="container">
       <li class="animate__animated animate__fadeIn border" v-for="item in arrayItem" v-bind:key="item._id">
             <h5>{{ item.vacancyTitle }}</h5>
           <div class="vacancies">
@@ -32,7 +32,7 @@
             </div>
           </div>
       </li>
-    </div>
+    </ul>
   </div>
 </template>
 

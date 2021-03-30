@@ -23,10 +23,8 @@
                 <p>{{  }}</p>
               </div>
           </div>
+          
       </div>
-    <transition>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi eos quod aut molestias tenetur. Nisi minus aspernatur eveniet ab corrupti officia deserunt, soluta ratione beatae iusto? Quos voluptate harum consectetur!</p>
-    </transition>
     </div>
 </div>
 </template>

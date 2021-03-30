@@ -95,6 +95,16 @@
                 </div>
             </b-form-group>
 
+            <div class="box date">
+                <div class="flexL">
+                    <label>Start Date</label>
+                    <b-form-datepicker  v-model="startDate" class="mb-3"></b-form-datepicker>
+                </div>
+                <div class="flexR">
+                    <label>End Date</label>
+                    <b-form-datepicker v-model="endDate"></b-form-datepicker>
+                </div>
+            </div>
     </div>
             <b-button @click.prevent="createVacancy" class="mb-4 box">Submit</b-button>
            </b-form>
@@ -116,7 +126,9 @@ export default {
             street: '',
             town: '',
             city: '',
-            postcode: ''
+            postcode: '',
+            startDate: '',
+            endDate: ''
         }
     },
     methods: {
@@ -127,7 +139,8 @@ export default {
             } else {
             const body = { vacancyTitle: this.$data.vacancyTitle, companyName: this.$data.companyName,
             street: this.$data.street, salary: this.$data.salary, town: this.$data.town,
-            city: this.$data.city, postcode: this.$data.postcode };
+            city: this.$data.city, postcode: this.$data.postcode, startDate: this.$data.startDate, 
+            endDate: this.$data.endDate };
             HttpService.httpPost('job', body)
             .then(res => {
                 console.log(res);
@@ -194,5 +207,17 @@ export default {
 }
 label {
     display: flex;
+}
+.date {
+    display: flex;
+    flex-direction: row;
+    .flexL {
+    width: 50%;
+    margin-right: 10px;
+  }
+    .flexR {
+    width: 50%;
+    margin-left: 10px;
+  }
 }
 </style>

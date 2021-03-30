@@ -83,21 +83,18 @@ export default {
 }
 </script>
 
-<style scoped>
-
-
+<style lang="scss" scoped>
+@import '@/styles/styles.scss';
 .arrange {
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
-
-.arrange li {
-  margin-right: 20px;
-}
-
-.arrange button {
-  border: none;
-  background-color: transparent;
+  li {
+    margin-right: 20px;
+  }
+   button {
+    border: none;
+    background-color: transparent;
+  }
 }
 
 .sort {
@@ -137,26 +134,5 @@ export default {
     padding: 15px 0;
     color: #fff;
   }
-  .h4 {
-    margin: 0;
-  }
-  h5 {
-    color: #3c6473;
-    margin: 0 0 10px 0;
-  }
-  h6 {
-    background-color: #17a2b8;
-    padding: 10px 25px;
-    border-radius: 8px;
-    color: #fff;
-  }
-  p {
-    margin: 0;
-  }
-  li {
-    list-style: none;
-  }
-  ul {
-    padding: 0;
-  }
+
 </style>

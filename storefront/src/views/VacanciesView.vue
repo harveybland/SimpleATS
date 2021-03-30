@@ -42,7 +42,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/styles.scss';
   .banner {
     background-color: #3c6473;
     font-size: 22px;
@@ -61,13 +62,5 @@ export default {
   text-align: left;
 }
 
-  p {
-    margin: 0;
-  }
-  li {
-    list-style: none;
-  }
-  ul {
-    padding: 0;
-  }
+
 </style>

@@ -1,43 +1,22 @@
 <template>
   <div>
-      <li>
+    <div class="banner">
+      <p>Search Jobs</p>
+    </div>
         <div class="container">
-            <div class="head"> 
-              <h4>Vacancy Details</h4>
-            </div>
-          <ul class="box">
-          <li>
-            <div class="flexL">
-              <div>
-                <label>Job Title</label>
-                <p>{{ arrayItem.vacancyTitle }}</p>
+            <ul>
+            <li class="box">
+              <div class="flexL">
+                  <p>{{ arrayItem.vacancyTitle }}</p>
+                  <p>{{ arrayItem.companyName }} {{ arrayItem.town }}</p>
+                  <p>Contract Type: Permanent &nbsp; Working Pattern:Full Time &nbsp; Salary:{{ arrayItem.salary }}</p>
+              </div>   
+              <div class="flexR">
+                  <p>Map</p>
               </div>
-              <div>
-                <label>Company</label>
-                <p>{{ arrayItem.companyName }}</p>
-              </div>
-              <div>
-                <label>Street</label>
-                <p>{{ arrayItem.street }}</p></div>
-              </div>        
-            <div class="flexR">
-              <div>
-                <label>City</label>
-                <p>{{ arrayItem.city }}</p>
-              </div>    
-              <div>
-                <label>Town</label> 
-                <p> {{ arrayItem.town }} </p>
-              </div>    
-              <div>
-                <label>Postcode</label>
-                <p> {{ arrayItem.postcode }}</p>
-              </div>    
-            </div>
-          </li>
-          </ul>
+            </li>
+            </ul>
         </div>
-      </li>
   </div>
 </template>
 
@@ -47,18 +26,7 @@ export default {
   name: "Vacancy",
   data() {
     return {
-        arrayItem: {
-        firstname: '',
-        surname: '',
-        address: '',
-        city: '',
-        postcode: '',
-        county: '',
-        DOB: '',
-        age: '',
-        mobile: '',
-        emailaddress: '',
-      }
+        arrayItem: ''
     };
   },
    methods: {
@@ -75,5 +43,31 @@ export default {
 </script>
 
 <style scoped>
+  .banner {
+    background-color: #3c6473;
+    font-size: 22px;
+    padding: 15px 0;
+    color: #fff;
+  }
 
+.box {
+  margin: 20px 0;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.flexL {
+  text-align: left;
+}
+
+  p {
+    margin: 0;
+  }
+  li {
+    list-style: none;
+  }
+  ul {
+    padding: 0;
+  }
 </style>

@@ -32,7 +32,8 @@ const JobSchema = new core.Schema({
     startDate: String,
     endDate: String,
     isDeleted: { type: Boolean, default: false },
-    applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
+    applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }],
+    favourite: String
 });
 
 // const combinedSchema = new core.Schema({

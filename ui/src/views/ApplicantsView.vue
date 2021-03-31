@@ -64,11 +64,7 @@
               v-on:change="updateStatus($event, item._id)"  
               v-model="item.applicationStatusId" 
               :options="options">
-              <template #first>
-                <b-form-select-option :value="null" disabled>Status</b-form-select-option>
-              </template>
               </b-form-select>
-              
               <p>{{ item.applicationStatus }}</p>
             </li>
           </div>

@@ -8,10 +8,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-
 gsap.registerPlugin(ScrollTrigger);
 Vue.use(gsap);
+
 Vue.use(Vuelidate)
+
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin

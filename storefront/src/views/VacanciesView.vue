@@ -7,9 +7,10 @@
             <ul>
             <li class="box">
               <div class="flexL">
-                  <p>{{ arrayItem.vacancyTitle }}</p>
+                  <h5>{{ arrayItem.vacancyTitle }}</h5>
                   <p>{{ arrayItem.companyName }} {{ arrayItem.town }}</p>
                   <p>Contract Type: Permanent &nbsp; Working Pattern:Full Time &nbsp; Salary:{{ arrayItem.salary }}</p>
+                  <b-button variant="info" class="mt-3">Apply</b-button>
               </div>   
               <div class="flexR">
                   <p>Map</p>
@@ -50,17 +51,16 @@ export default {
     padding: 15px 0;
     color: #fff;
   }
-
-.box {
-  margin: 20px 0;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.flexL {
-  text-align: left;
-}
+  .box {
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .flexL {
+    text-align: left;
+  }
 
 
 </style>

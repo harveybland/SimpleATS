@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+
 gsap.registerPlugin(ScrollTrigger);
 Vue.use(gsap);
 

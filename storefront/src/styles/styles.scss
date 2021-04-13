@@ -33,7 +33,9 @@ p {
   ul {
     padding: 0;
   }
-
+  svg {
+    cursor: pointer;
+  }
   .banner {
     background-color: #3c6473;
     font-size: 22px;

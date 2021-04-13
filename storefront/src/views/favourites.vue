@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="banner">
+      <a href="/"><b-icon class="h2" icon="arrow-left"></b-icon></a>
       <p>Favourite Jobs</p>
     </div>
         <div class="container">
@@ -30,8 +31,11 @@
                 </div>  
               </div>
               <div class="view">
-                <div>
-                  <b-icon icon="heart" class="h4 mt-2"></b-icon>
+                <div v-if="item.favourite === true">
+                  <b-icon v-on:click="removeFavourite($event, item._id)" icon="suit-heart-fill" class="h4 mt-2"></b-icon>
+                </div>
+                <div v-if="item.favourite === false">
+                  <b-icon v-on:click="addFavourite($event, item._id)" icon="heart" class="h4 mt-2"></b-icon>
                 </div>
                 <div>
                   <router-link :to="{ path: '/VacanciesView/' + item._id }" class="nav">
@@ -62,7 +66,31 @@ import axios from 'axios';
       async getJobs() {
       await axios.get('http://localhost:4000/api/favJobs')
       .then(res => { this.arrayItem = res.data })
-    }
+    },
+          addFavourite(event, _id) {
+        console.log(event, _id)
+        const body = { _id: event }
+        axios.put('http://localhost:4000/api/favJob/' + _id, body)
+        .then(res => {
+          location.reload();
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      },
+        removeFavourite(event, _id) {
+        console.log(event, _id)
+        const body = { _id: event }
+        axios.put('http://localhost:4000/api/unfavJob/' + _id, body)
+        .then(res => {
+          location.reload();
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
     },
       beforeMount() {
         this.getJobs();
@@ -84,7 +112,15 @@ import axios from 'axios';
 
 <style lang="scss" scoped>
 @import '@/styles/styles.scss';
-
+  .banner {
+    padding: 15px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    a {
+      display: flex;
+      color: #fff;
+    }
+  }
 .arrange {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -124,6 +160,9 @@ import axios from 'axios';
   display: flex;
   justify-content: space-around;
   padding: 25px 0 0 0;
+  svg {
+      cursor: pointer;
+  }
 }
 
 .vacancies {

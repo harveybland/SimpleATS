@@ -17,7 +17,7 @@
                     <p><span>Salary:</span> {{ arrayItem.salary }}</p>
                   </div>
                   <div class="apply">
-                    <a href="/apply"><b-button variant="info" class="mr-3">Apply</b-button></a>
+                    <b-button variant="info" class="mr-3">Apply</b-button>
                     <b-icon class="h4" icon="suit-heart-fill"></b-icon>
                   </div>
               </div>   
@@ -27,7 +27,7 @@
             </li>
             </ul>
         </div>
-        <div class="moreJobs">
+        <div class="apply">
           <div>
             <h2>Jobs you may like</h2>
           </div>
@@ -41,7 +41,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: "Vacancy",
+  name: "apply",
   data() {
     return {
         arrayItem: ''

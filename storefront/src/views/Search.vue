@@ -30,8 +30,11 @@
                 </div>  
               </div>
               <div class="view">
-                <div>
-                  <b-icon v-on:click="addFavourite($event, item._id)" v-model="favourite" icon="heart" class="h4 mt-2"></b-icon>
+                <div v-if="item.favourite === true">
+                  <b-icon v-on:click="removeFavourite($event, item._id)" icon="suit-heart-fill" class="h4 mt-2"></b-icon>
+                </div>
+                <div v-if="item.favourite === false">
+                  <b-icon v-on:click="addFavourite($event, item._id)" icon="heart" class="h4 mt-2"></b-icon>
                 </div>
                 <div>
                   <router-link :to="{ path: '/VacanciesView/' + item._id }" class="nav">
@@ -55,7 +58,6 @@ export default {
         arrange: false,
         arrayItem: [],
         search: '',
-        favourite: ''
     }
   },
   methods: {
@@ -63,11 +65,24 @@ export default {
       await axios.get('http://localhost:4000/api/jobs')
       .then(res => { this.arrayItem = res.data })
     },
-      addFavourite(event, applicantId) {
-        console.log(event, applicantId)
-        const body = { applicationStatusId: event }
-        axios.put('http://localhost:4000/api/favJob/' + applicantId, body)
+      addFavourite(event, _id) {
+        console.log(event, _id)
+        const body = { _id: event }
+        axios.put('http://localhost:4000/api/favJob/' + _id, body)
         .then(res => {
+          location.reload();
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      },
+        removeFavourite(event, _id) {
+        console.log(event, _id)
+        const body = { _id: event }
+        axios.put('http://localhost:4000/api/unfavJob/' + _id, body)
+        .then(res => {
+          location.reload();
           console.log(res)
         })
         .catch(err => {
@@ -108,6 +123,9 @@ export default {
   }
   .view {
     padding: 45px 0 0 0;
+    svg {
+        cursor: pointer;
+    }
   }
   .text {
     display: block;

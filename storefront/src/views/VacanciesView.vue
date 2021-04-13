@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="banner">
+      <a href="/"><b-icon class="h2" icon="arrow-left"></b-icon></a>
       <p>Search Jobs</p>
     </div>
         <div class="container">
@@ -48,8 +49,14 @@ export default {
   .banner {
     background-color: #3c6473;
     font-size: 22px;
-    padding: 15px 0;
+    padding: 15px 30px;
     color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    a {
+      display: flex;
+      color: #fff;
+    }
   }
   .box {
     margin: 20px 0;

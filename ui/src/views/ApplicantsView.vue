@@ -5,6 +5,7 @@
             <li>
             <h5>{{ arrayItem.vacancyTitle }}</h5>
             <p>{{ arrayItem.companyName }} - {{ arrayItem.town }}</p>
+            <p>{{ arrayItem.applicants.firstname }}</p>
           </li>
         </ul>
     </div>
@@ -20,7 +21,7 @@
          </li>
         <div class="container">
            <div class="head">
-                <h4>Rejected Applicants</h4>
+                <h4>New Applicants</h4>
             <div class="active">  
               <b-dropdown id="dropdown-right" dropright right text="New" class="m-2">
               <b-dropdown-item><router-link :to="{ path: '/ApplicantsView/' + arrayItem._id }">New</router-link></b-dropdown-item>
@@ -90,7 +91,7 @@ export default {
       applicantStatusItem: [],
       options: [
           { value: '604a033e9448df2d9810ee20', text: 'New' },
-          { value: '604a03489448df2d9810ee21', text: 'Pending' },
+          { value: '604a03489448df2d9810ee21', text: 'Progress' },
           { value: '604a03519448df2d9810ee22', text: 'Rejected' }
         ]
     };

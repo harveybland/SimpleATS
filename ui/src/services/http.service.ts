@@ -1,5 +1,5 @@
-const baseUrl = 'https://simpleats.azurewebsites.net/api/';
-// const baseUrl = 'http://localhost:4000/api/';
+// const baseUrl = 'https://simpleats.azurewebsites.net/api/';
+const baseUrl = 'http://localhost:4000/api/';
 
 export class HttpService {
 

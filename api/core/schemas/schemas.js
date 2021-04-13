@@ -36,11 +36,6 @@ const JobSchema = new core.Schema({
     favourite: String
 });
 
-// const combinedSchema = new core.Schema({
-//     applicant: applicantSchema,
-//     jobs: JobSchema
-// })
-
 
 const UserSchema = new core.Schema({
     username: { type: String, required: true, index: { unique: true } },
@@ -48,9 +43,6 @@ const UserSchema = new core.Schema({
 });
 
 
-const taskSchema = new core.Schema({
-    questions: []
-});
 
 UserSchema.pre('save', function (next) {
     var user = this;
@@ -81,7 +73,6 @@ const ApplicantsModel = core.mongoose.model("applicants", applicantSchema);
 const applicantStatusModel = core.mongoose.model("applicantStatus", applicantStatusSchema);
 const JobModel = core.mongoose.model("jobs", JobSchema);
 const UserModel = core.mongoose.model('user', UserSchema);
-const TaskModel = core.mongoose.model('task', taskSchema);
 // const combinedModel = core.mongoose.model('combined', combinedSchema);
 
 
@@ -89,5 +80,4 @@ module.exports.ApplicantsModel = ApplicantsModel;
 module.exports.applicantStatusModel = applicantStatusModel;
 module.exports.JobModel = JobModel;
 module.exports.UserModel = UserModel;
-module.exports.TaskModel = TaskModel;
 // module.exports.combinedModel = combinedModel;

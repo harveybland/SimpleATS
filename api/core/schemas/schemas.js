@@ -33,7 +33,7 @@ const JobSchema = new core.Schema({
     endDate: String,
     isDeleted: { type: Boolean, default: false },
     applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }],
-    favourite: String
+    favourite: Boolean
 });
 
 

@@ -129,10 +129,3 @@ core.app.put('/api/undelete/:uid', async (req, resp) => {
     resp.status('404').json('error');
   }
 })
-
-
-// Storefront
-
-
-//Favourites
-

@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="banner">
-      <p>Search Jobs</p>
+      <p>Favourite Jobs</p>
     </div>
         <div class="container">
           <div class="sort"> 
           <input type="text" v-model="search" placeholder="Search Job Title" />
             <div class="date">
-                 <input type="date" class="first">
-                 <input type="date">
+                 <input type="date" v-model="startDate" class="first">
+                 <input type="date" v-model="endDate">
             </div>
             <div class="arrange">
                 <button v-on:click="arrange = !arrange"><b-icon class="h4" icon="filter-square" aria-hidden="true"></b-icon></button>
@@ -31,7 +31,7 @@
               </div>
               <div class="view">
                 <div>
-                  <b-icon v-on:click="addFavourite($event, item._id)" v-model="favourite" icon="heart" class="h4 mt-2"></b-icon>
+                  <b-icon icon="heart" class="h4 mt-2"></b-icon>
                 </div>
                 <div>
                   <router-link :to="{ path: '/VacanciesView/' + item._id }" class="nav">
@@ -47,33 +47,22 @@
 
 <script>
 import axios from 'axios';
-
-export default {
-  name: 'Search',
-  data() {
+    export default {
+        name: 'favourites',
+          data() {
     return {
+        startDate: null,
+        endDate: null,
         arrange: false,
         arrayItem: [],
-        search: '',
-        favourite: ''
+        search: ''
     }
   },
   methods: {
       async getJobs() {
-      await axios.get('http://localhost:4000/api/jobs')
+      await axios.get('http://localhost:4000/api/favJobs')
       .then(res => { this.arrayItem = res.data })
-    },
-      addFavourite(event, applicantId) {
-        console.log(event, applicantId)
-        const body = { applicationStatusId: event }
-        axios.put('http://localhost:4000/api/favJob/' + applicantId, body)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      }
+    }
     },
       beforeMount() {
         this.getJobs();
@@ -90,7 +79,7 @@ export default {
             });
         }
     }
-}
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -112,13 +101,6 @@ export default {
   .text {
     display: block;
   }
-}
-
-.arrange .bi-suit-heart-fill {
-  color: #17a2b8;
-}
-.arrange .bi-suit-heart-fill:hover {
-  color: #3c6473;
 }
 
 .sort {
@@ -167,5 +149,4 @@ export default {
   span {
     font-weight: bold;
   }
-
 </style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Search from '../views/Search.vue'
 import VacanciesView from '../views/VacanciesView.vue'
+import favourites from '../views/favourites'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes = [
     name: 'VacanciesView',
     component: VacanciesView
   },
+  {
+    path: '/favourites',
+    name: 'favourites',
+    component: favourites
+  }
 
 ]
 

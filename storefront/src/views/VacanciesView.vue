@@ -29,6 +29,7 @@
               </div>   
               <div class="flexR">
                   <p>Map</p>
+                  <img src="" alt="">
               </div>
             </li>
             </ul>
@@ -37,17 +38,19 @@
           <div>
             <h2>Jobs you may like</h2>
           </div>
-          <div>
-
-          </div>
+          <Jobs></Jobs>
         </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Jobs from "../components/jobs.vue"
 export default {
   name: "Vacancy",
+  components: {
+    Jobs
+  },
   data() {
     return {
         arrayItem: ''

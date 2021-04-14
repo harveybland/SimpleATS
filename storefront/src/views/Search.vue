@@ -109,9 +109,6 @@ export default {
           });
       }
     },
-      beforeMount() {
-        this.getJobs();
-    },
     computed: {
       filteredJobs: function() {
         return this.filteredTitle(this.filteredTown(this.arrayItem))
@@ -121,6 +118,9 @@ export default {
                 arrange: this.arrange,
             }
         },
+    },
+      beforeMount() {
+      this.getJobs();
     }
 }
 </script>

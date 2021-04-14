@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="banner">
-      <a href="/"><b-icon class="h2" icon="arrow-left"></b-icon></a>
-      <p>Search Jobs</p>
+      <router-link :to="{ path: '/VacanciesView/' + arrayItem._id }" class="nav"><b-icon class="h2" icon="arrow-left"></b-icon>
+       </router-link>
+      <p>The perfect job is waiting...</p>
     </div>
         <div class="container">
             <ul>
@@ -16,25 +17,55 @@
                     <p><span>Working Pattern:</span> Full Time</p>
                     <p><span>Salary:</span> {{ arrayItem.salary }}</p>
                   </div>
-                  <div class="apply">
-                    <b-button variant="info" class="mr-3">Apply</b-button>
-                    <b-icon class="h4" icon="suit-heart-fill"></b-icon>
-                  </div>
               </div>   
               <div class="flexR">
                   <p>Map</p>
               </div>
             </li>
             </ul>
-        </div>
-        <div class="apply">
+        <div class="contain">
           <div>
-            <h2>Jobs you may like</h2>
+            <h2>Quick Apply</h2>
           </div>
-          <div>
-
-          </div>
+              <div class="apply mt-3">
+                <b-form-group class="displaynone">
+                      <label>id</label>
+                      <b-form-input v-model="arrayItem._id"></b-form-input>
+                </b-form-group>
+              <b-form-group>
+                      <label>First Name</label>
+                      <b-form-input placeholder="Harvey" v-model="firstname"></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <label>Surname</label>
+                    <b-form-input placeholder="Bland" v-model="surname"></b-form-input>
+                </b-form-group>
+                     <b-form-group>
+                      <label>Postcode</label>
+                      <b-form-input placeholder="bb8 7ns" v-model="postcode"></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <label>Mobile</label>
+                    <b-form-input placeholder="0795445590" v-model="mobile"></b-form-input>
+                </b-form-group>
+                     <b-form-group>
+                      <label>Email</label>
+                      <b-form-input placeholder="harvey.bland@genius.online" v-model="emailaddress"></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <label>Current Employer</label>
+                    <b-form-input placeholder="Simon" v-model="currentEmployer"></b-form-input>
+                </b-form-group >
+                     <b-form-group>
+                      <label>Current Job Title</label>
+                      <b-form-input placeholder="Developer" v-model="currentJobTitle"></b-form-input>
+                </b-form-group>
+              <div style="text-align: center;">
+                <b-button class="mb-3" variant="info" @click.prevent="apply">Apply</b-button>
+              </div>
+              </div>
         </div>
+      </div>
   </div>
 </template>
 
@@ -44,8 +75,18 @@ export default {
   name: "apply",
   data() {
     return {
-        arrayItem: ''
-    };
+        arrayItem: {
+          _id: ''
+        },
+        firstname: '',
+        surname: '',
+        postcode: '',
+        mobile: '',
+        emailaddress: '',
+        currentEmployer: '',
+        currentJobTitle: '',
+        applicationStatusId: '604a033e9448df2d9810ee20',
+      }
   },
    methods: {
     getJob() {
@@ -53,6 +94,20 @@ export default {
       axios.get('http://localhost:4000/api/job/' + this.id)
        .then(res => { this.arrayItem = res.data})
     },
+    apply() {
+        const body = { jobid: this.$data.arrayItem._id, firstname: this.$data.firstname, surname: this.$data.surname,
+        postcode: this.$data.postcode, mobile: this.$data.mobile, emailaddress: this.$data.emailaddress,
+        currentEmployer: this.$data.currentEmployer, currentJobTitle: this.$data.currentJobTitle,
+        applicationStatusId: this.$data.applicationStatusId };
+        this.id = this.$router.currentRoute.params.id;
+        axios.post('http://localhost:4000/api/apply/' + this.id, body)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(error => {
+        console.log(error);
+        })
+    }
     },
     beforeMount() {
     this.getJob();
@@ -72,7 +127,7 @@ export default {
     }
   }
   .box {
-    margin: 20px 0 50px 0;
+    margin: 20px 0 0 0;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
     display: grid;
@@ -80,11 +135,6 @@ export default {
   }
   .flexL {
     text-align: left;
-  }
-
-  .apply {
-    display: flex;
-    align-items: center;
   }
 
   .info {
@@ -97,9 +147,22 @@ export default {
     }
   }
 
-  .moreJobs {
-    background: #f4f4f4;
-    padding: 15px 0;
+  .contain {
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
+  padding: 20px;
+  text-align: left;
+  }
+
+  .apply {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .form-group {
+      margin-right: 20px;
+    }
+  }
+
+  .displaynone {
+    display: none;
   }
 
 </style>

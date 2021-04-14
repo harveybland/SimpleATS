@@ -36,6 +36,9 @@ p {
   svg {
     cursor: pointer;
   }
+  .mt-1, .my-1 {
+     margin-top: 0 !important;
+}
   .banner {
     background-color: #3c6473;
     font-size: 22px;

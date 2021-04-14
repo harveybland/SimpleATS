@@ -17,8 +17,14 @@
                     <p><span>Salary:</span> {{ arrayItem.salary }}</p>
                   </div>
                   <div class="apply">
-                    <a href="/apply"><b-button variant="info" class="mr-3">Apply</b-button></a>
-                    <b-icon class="h4" icon="suit-heart-fill"></b-icon>
+                    <router-link :to="{ path: '/apply/' + arrayItem._id }" class="nav"><h6 class="mr-3">Apply</h6>
+                    </router-link>
+                    <div v-if="arrayItem.favourite === true">
+                    <b-icon v-on:click="removeFavourite($event, arrayItem._id)" icon="suit-heart-fill" class="h4 mt-2"></b-icon>
+                    </div>
+                    <div v-if="arrayItem.favourite === false">
+                      <b-icon v-on:click="addFavourite($event, arrayItem._id)" icon="heart" class="h4 mt-2"></b-icon>
+                    </div>
                   </div>
               </div>   
               <div class="flexR">
@@ -53,7 +59,25 @@ export default {
       axios.get('http://localhost:4000/api/job/' + this.id)
        .then(res => { this.arrayItem = res.data})
     },
+    addFavourite(event, _id) {
+    console.log(event, _id)
+    const body = { _id: event }
+    axios.put('http://localhost:4000/api/favJob/' + _id, body)
+    .then(res => {
+      location.reload();
+      console.log(res)
+    })
+  },
+    removeFavourite(event, _id) {
+    console.log(event, _id)
+    const body = { _id: event }
+    axios.put('http://localhost:4000/api/unfavJob/' + _id, body)
+    .then(res => {
+      location.reload();
+      console.log(res)
+    })
     },
+  },
     beforeMount() {
     this.getJob();
   }

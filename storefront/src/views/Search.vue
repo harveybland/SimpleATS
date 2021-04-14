@@ -3,25 +3,32 @@
     <div class="banner">
       <p>Search Jobs</p>
     </div>
-        <div class="container">
-          <div class="sort"> 
-          <input type="text" v-model="search" placeholder="Search Job Title" />
-            <div class="date">
-                 <input type="date" class="first">
-                 <input type="date">
-            </div>
-            <div class="arrange">
+        <div class="container search">
+          <div class="input">
+             <div>Job Title: <input type="text" v-model="searchTitle" placeholder="e.g. Manager" /></div>
+             <div>Location: <input type="text" v-model="searchTown" placeholder="e.g Skipton" /></div>
+          </div>
+            <div class="sort">
+              <div>
+                <h4>Sort Date:</h4>
+                <select>
+                  <option>Sort</option>
+                  <option value="Asc" :v-model="asc">Asc</option>
+                  <option value="Desc">Desc</option>
+                </select>
+              </div>
+            <div class="arrange heart">
                 <button v-on:click="arrange = !arrange"><b-icon class="h4" icon="filter-square" aria-hidden="true"></b-icon></button>
                 <a href="/favourites"><b-icon class="h4 mt-1" icon="suit-heart-fill"></b-icon></a>
             </div>
-          </div>
+            </div>
       </div>
       <div class="container">
       <ul :class="arrangeBox">
-        <li v-for="item in filteredJobs" v-bind:key="item._id">
+        <li v-for="item in filteredJobs" v-bind:key="item._id" class="list">
             <div class="vacancies">
                 <h5>{{ item.vacancyTitle }}</h5>
-                <p>{{ item.companyName }} {{ item.town }}</p>
+                <p><font-awesome-icon :icon="['fas', 'map-marker-alt']"/> {{ item.town }}</p>
                 <p>{{ item.startDate }}</p>
                 <div class="text">
                   <p><span>Contract Type:</span> Permanent</p>
@@ -57,7 +64,9 @@ export default {
     return {
         arrange: false,
         arrayItem: [],
-        search: '',
+        searchTitle: '',
+        searchTown: '',
+        asc: ''
     }
   },
   methods: {
@@ -88,22 +97,30 @@ export default {
         .catch(err => {
           console.log(err)
         })
+      },
+        filteredTitle: function(){
+            return this.arrayItem.filter((item) => {
+                return item.vacancyTitle.toLowerCase().match(this.searchTitle);
+            });
+        },
+          filteredTown: function(){
+          return this.arrayItem.filter((item) => {
+              return item.town.toLowerCase().match(this.searchTown);
+          });
       }
     },
       beforeMount() {
         this.getJobs();
     },
     computed: {
-        arrangeBox(){
+      filteredJobs: function() {
+        return this.filteredTitle(this.filteredTown(this.arrayItem))
+      },
+      arrangeBox(){
             return{
                 arrange: this.arrange,
             }
         },
-        filteredJobs: function(){
-            return this.arrayItem.filter((item) => {
-                return item.vacancyTitle.toLowerCase().match(this.search);
-            });
-        }
     }
 }
 </script>
@@ -132,19 +149,46 @@ export default {
   }
 }
 
-.arrange .bi-suit-heart-fill {
-  color: #17a2b8;
+.heart {
+    display: flex;
+    justify-content: space-evenly;
 }
-.arrange .bi-suit-heart-fill:hover {
-  color: #3c6473;
+
+
+.search {
+  margin-bottom: 20px;
+}
+
+.input {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 15px 0 15px 10px;
+  margin: 10px 0;
+  div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  input {
+    width: 86%;
+    margin-left: 3px;
+  }
 }
 
 .sort {
   background-color: #e2f3f8;
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
   padding: 15px 0 15px 10px;
-  margin: 10px 0 30px 0;
+  margin: 10px 0;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  h4 {
+    font-size: 20px;
+    margin-top: 5px;
+  }
 }
 
 .date {
@@ -166,13 +210,19 @@ export default {
   text-align: left;
 }
 
-.container li {
+.container .list {
   display: grid;
   grid-template-columns: 3fr 1fr;
   margin-bottom: 25px;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.14901960784313725);
+}
+
+select {
+  padding: 5px 20px;
+  border-radius: 8px;
+  margin-left: 10px;
 }
 
   .text {

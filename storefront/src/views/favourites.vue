@@ -2,20 +2,27 @@
   <div>
     <div class="banner">
       <a href="/"><b-icon class="h2" icon="arrow-left"></b-icon></a>
-      <p>Favourite Jobs</p>
+      <p>Saved Jobs</p>
     </div>
-        <div class="container">
-          <div class="sort"> 
-          <input type="text" v-model="search" placeholder="Search Job Title" />
-            <div class="date">
-                 <input type="date" v-model="startDate" class="first">
-                 <input type="date" v-model="endDate">
-            </div>
-            <div class="arrange">
+        <div class="container search">
+          <div class="input">
+             <div>Job Title: <input type="text" v-model="searchTitle" placeholder="e.g. Manager" /></div>
+             <div>Location: <input type="text" v-model="searchTown" placeholder="e.g Skipton" /></div>
+          </div>
+            <div class="sort">
+              <div>
+                <h4>Sort Date:</h4>
+                <select>
+                  <option>Sort</option>
+                  <option value="Asc" :v-model="asc">Asc</option>
+                  <option value="Desc">Desc</option>
+                </select>
+              </div>
+            <div class="arrange heart">
                 <button v-on:click="arrange = !arrange"><b-icon class="h4" icon="filter-square" aria-hidden="true"></b-icon></button>
                 <a href="/favourites"><b-icon class="h4 mt-1" icon="suit-heart-fill"></b-icon></a>
             </div>
-          </div>
+            </div>
       </div>
       <div class="container">
       <ul :class="arrangeBox">
@@ -139,12 +146,42 @@ import axios from 'axios';
   }
 }
 
+.input {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 15px 0 15px 10px;
+  margin: 10px 0;
+  div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  input {
+    width: 86%;
+    margin-left: 3px;
+  }
+}
+
 .sort {
   background-color: #e2f3f8;
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
   padding: 15px 0 15px 10px;
-  margin: 10px 0 30px 0;
+  margin: 10px 0;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  h4 {
+    font-size: 20px;
+    margin-top: 5px;
+  }
+}
+
+select {
+  padding: 5px 20px;
+  border-radius: 8px;
+  margin-left: 10px;
 }
 
 .date {

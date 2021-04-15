@@ -10,15 +10,17 @@
           </div>
             <div class="sort">
               <div>
-                <h4>Sort Date:</h4>
+                <h4>Sorted by:</h4>
+                  <button @click="filterName">Name</button>
+                  <button @click="filterDate">Date</button>
+                  
                 <select>
-                  <option>Sort</option>
-                  <option value="Asc" :v-model="asc">Asc</option>
-                  <option value="Desc">Desc</option>
+                  <option value="sort">sort</option>
+                 <option @click="filterName">Name</option>
                 </select>
               </div>
             <div class="arrange heart">
-                <button v-on:click="arrange = !arrange"><b-icon class="h4" icon="filter-square" aria-hidden="true"></b-icon></button>
+                <button v-on:click="arrange = !arrange"><font-awesome-icon :icon="['fas', 'bars']"/> </button>
                 <a href="/favourites"><b-icon class="h4 mt-1" icon="suit-heart-fill"></b-icon></a>
             </div>
             </div>
@@ -66,7 +68,7 @@ export default {
         arrayItem: [],
         searchTitle: '',
         searchTown: '',
-        asc: ''
+        date: ''
     }
   },
   methods: {
@@ -82,9 +84,6 @@ export default {
           location.reload();
           console.log(res)
         })
-        .catch(err => {
-          console.log(err)
-        })
       },
         removeFavourite(event, _id) {
         console.log(event, _id)
@@ -94,24 +93,42 @@ export default {
           location.reload();
           console.log(res)
         })
-        .catch(err => {
-          console.log(err)
-        })
       },
         filteredTitle: function(){
             return this.arrayItem.filter((item) => {
                 return item.vacancyTitle.toLowerCase().match(this.searchTitle);
             });
         },
-          filteredTown: function(){
-          return this.arrayItem.filter((item) => {
-              return item.town.toLowerCase().match(this.searchTown);
-          });
-      }
+        filteredTown: function(){
+            return this.arrayItem.filter((item) => {
+                return item.town.toLowerCase().match(this.searchTown);
+            });
+        },
+          filterName: function() {
+             function compare(a, b) {
+            if (a.vacancyTitle < b.vacancyTitle)
+              return -1;
+            if (a.vacancyTitle > b.vacancyTitle)
+              return 1;
+            return 0;
+            }
+          return this.arrayItem.sort(compare);
+        },
+          filterDate: function() {
+             function compare(a, b) {
+            if (a.startDate < b.startDate)
+              return -1;
+            if (a.startDate > b.startDate)
+              return 1;
+            return 0;
+            }
+          return this.arrayItem.sort(compare);
+        }
     },
     computed: {
       filteredJobs: function() {
         return this.filteredTitle(this.filteredTown(this.arrayItem))
+        // return this.filteredTown(this.arrayItem);
       },
       arrangeBox(){
             return{
@@ -152,6 +169,9 @@ export default {
 .heart {
     display: flex;
     justify-content: space-evenly;
+    svg {
+          font-size: 28px;
+    }
 }
 
 

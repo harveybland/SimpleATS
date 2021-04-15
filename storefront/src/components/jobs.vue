@@ -2,8 +2,8 @@
   <div>
       <div class="container">
       <ul>
-        <li v-for="item in arrayItem" v-bind:key="item._id" class="list">
-            <div class="vacancies">
+        <li v-for="item in arrayItem.slice(0, 3)" v-bind:key="item._id" class="list">
+            <div>
                 <h5>{{ item.vacancyTitle }}</h5>
                 <p><font-awesome-icon :icon="['fas', 'map-marker-alt']"/> {{ item.town }}</p>
                 <p>{{ item.startDate }}</p>
@@ -22,7 +22,7 @@
                 </div>
                 <div>
                   <router-link :to="{ path: '/VacanciesView/' + item._id }" class="nav">
-                  <h6>View</h6>
+                  <font-awesome-icon :icon="['fas', 'chevron-right']"/>
                   </router-link>
                 </div>
               </div>
@@ -55,9 +55,6 @@ export default {
           location.reload();
           console.log(res)
         })
-        .catch(err => {
-          console.log(err)
-        })
       },
         removeFavourite(event, _id) {
         console.log(event, _id)
@@ -67,15 +64,9 @@ export default {
           location.reload();
           console.log(res)
         })
-        .catch(err => {
-          console.log(err)
-        })
       }
     },
     computed: {
-      filteredJobs: function() {
-        return this.filteredTitle(this.filteredTown(this.arrayItem))
-      },
       arrangeBox(){
             return{
                 arrange: this.arrange,
@@ -91,89 +82,16 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/styles.scss';
 
-.arrange {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  li {
-    margin-right: 20px;
-  }
-   button {
-    border: none;
-    background-color: transparent;
-  }
-  .view {
-    padding: 45px 0 0 0;
-    svg {
-        cursor: pointer;
-    }
-  }
-  .text {
-    display: block;
-  }
-}
-
-.heart {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-
-.search {
-  margin-bottom: 20px;
-}
-
-.input {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  padding: 15px 0 15px 10px;
-  margin: 10px 0;
-  div {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  input {
-    width: 86%;
-    margin-left: 3px;
-  }
-}
-
-.sort {
-  background-color: #e2f3f8;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  padding: 15px 0 15px 10px;
-  margin: 10px 0;
-  div {
-    display: flex;
-    align-items: center;
-  }
-  h4 {
-    font-size: 20px;
-    margin-top: 5px;
-  }
-}
-
-.date {
-  display: grid;
-  padding: 0 0 0 10px;
-  grid-template-columns: 1fr 1fr;
-  .first {
-    margin-right: 10px;
-  }
-}
-
 .view {
-  display: flex;
-  justify-content: space-around;
-  padding: 25px 0 0 0;
-}
-
-.vacancies {
-  text-align: left;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 25px 0px;
+    align-items: center;
+    flex-direction: column;
 }
 
 .container {
+    text-align: left;
     .list {
 background: #fff;
   display: grid;
@@ -192,21 +110,8 @@ background: #fff;
   }
 }
 
-select {
-  padding: 5px 20px;
-  border-radius: 8px;
-  margin-left: 10px;
-}
-
-  .text {
-    display: flex;
-    p {
-      padding-right: 20px;
-    }
-  }
-
-  span {
+span {
     font-weight: bold;
-  }
+}
 
 </style>

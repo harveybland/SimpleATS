@@ -127,6 +127,9 @@ export default {
   .moreJobs {
     background: #f4f4f4;
     padding: 15px 0;
+    h2 {
+      margin-bottom: 25px;
+    }
   }
 
 </style>

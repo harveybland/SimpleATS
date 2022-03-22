@@ -18,7 +18,7 @@ core.app.get('/api/applications/:jobid', async function (req, resp) {
 });
 
 
-// // Gets all appplicants
+// Gets all appplicants
 core.app.get('/api/applicationStatuss', async function (req, resp) {
     try {
       const applicationStatuss = await schemas.ApplicantsModel.find();

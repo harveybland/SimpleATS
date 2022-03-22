@@ -3,6 +3,22 @@ const core = require('../core');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
+const JobSchema = new core.Schema({
+    vacancyTitle: String,
+    companyName: String,
+    salary: String,
+    street: String,
+    town: String,
+    city: String,
+    postcode: String,
+    description: String,
+    startDate: String,
+    endDate: String,
+    isDeleted: { type: Boolean, default: false },
+    applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }],
+    favourite: Boolean
+});
+
 const applicantSchema = new core.Schema({
     jobid: { type: core.mongoose.Schema.ObjectId, required: true },
     firstname: String,
@@ -20,21 +36,7 @@ const applicantStatusSchema = new core.Schema({
     applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }]
 });
 
-const JobSchema = new core.Schema({
-    vacancyTitle: String,
-    companyName: String,
-    salary: String,
-    street: String,
-    town: String,
-    city: String,
-    postcode: String,
-    description: String,
-    startDate: String,
-    endDate: String,
-    isDeleted: { type: Boolean, default: false },
-    applicants: [{ type: Schema.Types.ObjectId, ref: 'applicants' }],
-    favourite: Boolean
-});
+
 
 
 const UserSchema = new core.Schema({

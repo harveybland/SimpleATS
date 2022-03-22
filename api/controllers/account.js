@@ -3,7 +3,6 @@ const core = require('../core/core');
 const { generateAccessToken } = require('../core/authentication/authentication');
 // main account controller
 
-
 // create account
 core.app.post('/api/user/create', async function (req, resp) {
     schemas.UserModel.create(req.body)

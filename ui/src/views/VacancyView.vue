@@ -11,7 +11,7 @@
     <div>
       <li>
         <div class="banner">
-          <router-link to="/#"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>
+          <router-link to="/Vacancies"><b-icon-arrow-up rotate="-90"></b-icon-arrow-up></router-link>
           <router-link :to="{ path: '/Vacancies/' + arrayItem._id }">Details</router-link>
           <router-link :to="{ path: '/editVacancy/' + arrayItem._id }">Job Description</router-link>
           <router-link :to="{ path: '/NewApplicant/' + arrayItem._id }" >Application Form</router-link>

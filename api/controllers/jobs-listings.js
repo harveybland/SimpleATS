@@ -20,7 +20,7 @@ core.app.get('/api/jobs', async function (req, resp) {
     const jobs = await schemas.JobModel.find({ isDeleted: false });
     resp.status(200).json(jobs);
   }
-  catch {
+  catch { 
     resp.status('404').json('error')
   }
 });
@@ -57,7 +57,7 @@ core.app.get('/api/job/:uid', async function (req, resp) {
         }
       }
     ]);
-    if(!!jobwithApplicants){
+    if (!!jobwithApplicants) {
       resp.status(200).json(jobwithApplicants[0]);
     }
   }
@@ -87,13 +87,13 @@ core.app.put('/api/updateJob/:uid', async (req, resp) => {
     const id = req.params.uid;
     let j = await schemas.JobModel.findOne({ _id: id })
     j.vacancyTitle = req.body.vacancyTitle,
-    j.companyName = req.body.companyName,
-    j.salary = req.body.salary,
-    j.street = req.body.street,
-    j.town = req.body.town,
-    j.city = req.body.city,
-    j.postcode = req.body.postcode,
-    j.save();
+      j.companyName = req.body.companyName,
+      j.salary = req.body.salary,
+      j.street = req.body.street,
+      j.town = req.body.town,
+      j.city = req.body.city,
+      j.postcode = req.body.postcode,
+      j.save();
     resp.status(200).json('ok')
   }
   catch {
@@ -106,9 +106,8 @@ core.app.delete('/api/job/:uid', async function (req, resp) {
   try {
     const id = req.params.uid;
     let job = await schemas.JobModel.findOne({ _id: id })
-    job.isDeleted = true;
     job.save();
-    resp.status(200).json('ok')
+    resp.status(200).json('Job removed')
   }
   catch {
     resp.status('404').json('error');

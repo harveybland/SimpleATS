@@ -5,7 +5,11 @@ export class HttpService {
 
     constructor() { }
 
-    static async httpGet(url: string, skipAuthorisation = false) {
+    static async httpGet(partUrl: string, skipAuthorisation = false) {
+
+        const url = `${baseUrl}${partUrl}`;
+        partUrl;
+
         return await fetch(`${baseUrl}${url}`, {
             headers: this._getHeaders(skipAuthorisation)
         }).then(resp => {
@@ -77,7 +81,7 @@ export class HttpService {
         headers.append("Content-Type", "application/json");
         if (skipAuth === false) {
             const token = localStorage.getItem('token');
-            headers.append("Authorization", `bearer ${token}`); 
+            headers.append("Authorization", `bearer ${token}`);
         }
         return headers;
     }
